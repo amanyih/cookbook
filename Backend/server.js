@@ -1,19 +1,11 @@
-import express from "express";
-import morgan from "morgan";
-import cors from "cors";
-import * as sett from "./setting.js";
-import { Sequelize } from "sequelize";
+import app from "./src/app";
+import { sequelize } from "./db";
+import * as sett from "./setting";
 
-const app = express();
-
-// Middlewares
-app.use(morgan("dev"));
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-// Database
-const sequelize = new Sequelize(sett.CONNECTION_URL);
+// Routes
+app.listen(sett.PORT, () => {
+  console.log(`Server is running on port: ${sett.PORT}`);
+});
 
 sequelize
   .authenticate()
@@ -23,8 +15,3 @@ sequelize
   .catch((err) => {
     console.log("Unable to connect to database", err);
   });
-
-// Routes
-app.listen(sett.PORT, () => {
-  console.log(`Server is running on port: ${sett.PORT}`);
-});
