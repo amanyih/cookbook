@@ -1,10 +1,16 @@
 import { sequelize, DataTypes } from "../../db";
+import Recipe from "./recipe.js";
 
 //define user model
 
 const User = sequelize.define(
   "User",
   {
+    userID: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+    },
     username: {
       type: DataTypes.String,
       allowNull: false,
@@ -47,5 +53,8 @@ const User = sequelize.define(
     timestamps: true,
   }
 );
+
+User.hasMany(Recipe);
+User.hasMany(Comment);
 
 module.exports = User;
