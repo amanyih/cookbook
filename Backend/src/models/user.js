@@ -1,5 +1,7 @@
 import { sequelize, DataTypes } from "../../db";
 import Recipe from "./recipe.js";
+import Comment from "./comment.js";
+import Reputation from "./reputation.js";
 
 //define user model
 
@@ -56,5 +58,12 @@ const User = sequelize.define(
 
 User.hasMany(Recipe);
 User.hasMany(Comment);
+User.hasOne(Reputation);
+
+User.addHook("afterCreate", async (user) => {
+  await Reputation.create({
+    userID: user.userID,
+  });
+});
 
 module.exports = User;
