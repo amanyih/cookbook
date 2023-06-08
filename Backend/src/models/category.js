@@ -1,5 +1,6 @@
 import { DataTypes, Model } from "sequelize";
 import Recipe from "./recipe.js";
+import { sequelize } from "../../db";
 
 class Category extends Model {}
 
@@ -25,4 +26,7 @@ Category.init(
   }
 );
 
-module.exports = Category;
+Category.hasMany(Recipe);
+sequelize.sync({ force: true });
+
+export default Category;

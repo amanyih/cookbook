@@ -18,6 +18,8 @@ exports.createUser = async (req, res) => {
 };
 
 exports.getAllUsers = async (req, res) => {
+  console.log("get all users0");
+  console.log(req.headers);
   try {
     const users = await User.findAll();
 
@@ -30,6 +32,7 @@ exports.getAllUsers = async (req, res) => {
       },
     });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ status: "fail", error: error.message });
   }
 };

@@ -1,6 +1,7 @@
 import { Model, DataTypes } from "sequelize";
-import User from "./user.js";
-
+import User from "./user";
+import Recipe from "./recipe";
+import { sequelize } from "../../db";
 class Comment extends Model {}
 
 Comment.init(
@@ -9,20 +10,6 @@ Comment.init(
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
-    },
-    userID: {
-      type: DataTypes.UUID,
-      references: {
-        model: "User",
-        key: "userID",
-      },
-    },
-    recipeID: {
-      type: DataTypes.UUID,
-      references: {
-        model: "Recipe",
-        key: "recipeID",
-      },
     },
     comment: {
       type: DataTypes.STRING,
@@ -35,8 +22,6 @@ Comment.init(
     timestamps: true,
   }
 );
+sequelize.sync({ force: true });
 
-Comment.belongsTo(User);
-Comment.belongsTo(Recipe);
-
-module.exports = Comment;
+export default Comment;

@@ -3,4 +3,7 @@ dotenv.config({ path: "./config.env" });
 
 export const CONNECTION_URL = process.env.CONNECTION_URL;
 export const PORT = process.env.PORT || 5000;
-export const SECRET_KEY = process.env.SECRET_KEY;
+export const DB = process.env.DB;
+export const USER = process.env.USER;
+export const HOST = process.env.HOST;
+export const PASSWORD = process.env.PASSWORD;

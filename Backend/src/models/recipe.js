@@ -1,7 +1,8 @@
 import { Model, DataTypes } from "sequelize";
-import User from "./user.js";
-import Comment from "./comment.js";
-import Category from "./category.js";
+import User from "./user";
+import Comment from "./comment";
+import Category from "./category";
+import { sequelize } from "../../db";
 
 class Recipe extends Model {}
 
@@ -28,30 +29,10 @@ Recipe.init(
     images: {
       type: DataTypes.ARRAY(DataTypes.STRING),
     },
-    userID: {
-      type: DataTypes.UUID,
-      references: {
-        model: "User",
-        key: "userID",
-      },
-    },
-    categoryId: {
-      type: DataTypes.UUID,
-      references: {
-        model: "Category",
-        key: "categoryId",
-      },
-    },
     country: {
       type: DataTypes.STRING,
     },
-    likes: {
-      type: DataTypes.UUID,
-      references: {
-        model: "Like",
-        key: "likeID",
-      },
-    },
+
     views: {
       type: DataTypes.INTEGER,
       defaultValue: 0,
@@ -76,6 +57,7 @@ Recipe.init(
 
 Recipe.belongsTo(User);
 Recipe.hasMany(Comment);
-Recipe.belongsTo(Category);
+// Recipe.belongsTo(Category);
+sequelize.sync({ force: true });
 
 export default Recipe;

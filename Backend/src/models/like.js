@@ -1,4 +1,5 @@
 import { Model, DataTypes } from "sequelize";
+import { sequelize } from "../../db";
 
 class Like extends Model {}
 
@@ -16,13 +17,6 @@ Like.init(
         key: "userID",
       },
     },
-    recipeID: {
-      type: DataTypes.UUID,
-      references: {
-        model: "Recipe",
-        key: "recipeID",
-      },
-    },
   },
   {
     sequelize,
@@ -31,4 +25,7 @@ Like.init(
   }
 );
 
-Like.belongsTo(User);
+// Like.belongsTo(User);
+sequelize.sync({ force: true });
+
+export default Like;

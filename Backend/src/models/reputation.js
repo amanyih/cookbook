@@ -1,31 +1,33 @@
 import { Model, DataTypes } from "sequelize";
 import User from "./user.js";
+import { sequelize } from "../../db";
 
 class Reputation extends Model {}
 
-Reputation.init({
-  reputationID: {
-    type: DataTypes.UUID,
-    defaultValue: DataTypes.UUIDV4,
-    primaryKey: true,
-  },
-  userID: {
-    type: DataTypes.UUID,
-    references: {
-      model: "User",
-      key: "userID",
+Reputation.init(
+  {
+    reputationID: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+    },
+    points: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
+    level: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
     },
   },
-  points: {
-    type: DataTypes.INTEGER,
-    defaultValue: 0,
-  },
-  level: {
-    type: DataTypes.INTEGER,
-    defaultValue: 0,
-  },
-});
+  {
+    sequelize,
+    modelName: "Reputation",
+    timestamps: true,
+  }
+);
 
-Reputation.belongsTo(User);
+// Reputation.belongsTo(User);
+sequelize.sync({ force: true });
 
-module.exports = Reputation;
+export default Reputation;

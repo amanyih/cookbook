@@ -1,12 +1,15 @@
-import { sequelize, DataTypes } from "../../db";
+import { sequelize } from "../../db";
+
 import Recipe from "./recipe.js";
 import Comment from "./comment.js";
 import Reputation from "./reputation.js";
+import { Model, DataTypes } from "sequelize";
+import Like from "./like.js";
 
 //define user model
+class User extends Model {}
 
-const User = sequelize.define(
-  "User",
+User.init(
   {
     userID: {
       type: DataTypes.UUID,
@@ -14,16 +17,16 @@ const User = sequelize.define(
       primaryKey: true,
     },
     username: {
-      type: DataTypes.String,
+      type: DataTypes.STRING,
       allowNull: false,
       unique: true,
     },
     password: {
-      type: DataTypes.String,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     email: {
-      type: DataTypes.String,
+      type: DataTypes.STRING,
       allowNull: false,
       unique: true,
       validator: {
@@ -31,34 +34,36 @@ const User = sequelize.define(
       },
     },
     favorites: {
-      type: DataTypes.Array(DataTypes.String),
+      type: DataTypes.ARRAY(DataTypes.STRING),
     },
     following: {
-      type: DataTypes.Array(DataTypes.String),
+      type: DataTypes.ARRAY(DataTypes.STRING),
     },
     followers: {
-      type: DataTypes.Array(DataTypes.String),
+      type: DataTypes.ARRAY(DataTypes.STRING),
     },
     profilePicture: {
-      type: DataTypes.String,
+      type: DataTypes.STRING,
     },
     bio: {
-      type: DataTypes.String,
+      type: DataTypes.STRING,
     },
     isPremium: {
-      type: DataTypes.Boolean,
+      type: DataTypes.BOOLEAN,
     },
   },
   {
     sequelize,
     modelName: "User",
+    tableName: "users",
     timestamps: true,
   }
 );
 
-User.hasMany(Recipe);
-User.hasMany(Comment);
-User.hasOne(Reputation);
+// User.hasMany(Recipe);
+// User.hasMany(Comment);
+// User.hasOne(Reputation);
+// User.hasMany(Like);
 
 User.addHook("afterCreate", async (user) => {
   await Reputation.create({
@@ -66,4 +71,6 @@ User.addHook("afterCreate", async (user) => {
   });
 });
 
-module.exports = User;
+sequelize.sync({ force: true });
+
+export default User;
