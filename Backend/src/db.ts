@@ -3,7 +3,7 @@ import { config } from "./config/config";
 
 const sequelize: Sequelize = new Sequelize({
   dialect: "postgres",
-  host: "localhost",
+  host: config.db.host,
   port: 5432,
   username: "postgres",
   password: "postsqlgre",

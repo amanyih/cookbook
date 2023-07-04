@@ -11,3 +11,8 @@ export const createUser = async (req: any, res: any) => {
     console.log(err);
   }
 };
+
+export const getUser = async (req: any, res: any) => {};
+export const getAllUsers = async (req: any, res: any) => {};
+export const updateUser = async (req: any, res: any) => {};
+export const deleteUser = async (req: any, res: any) => {};
