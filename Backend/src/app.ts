@@ -1,14 +1,23 @@
 import express from "express";
 import dotenv from "dotenv";
 import { userRouter } from "./routes/index";
+import RateLimit from "express-rate-limit";
+import helmet from "helmet";
 
 dotenv.config({ path: "./.env" });
 
 const app = express();
+//rate limit
+const limitter = RateLimit({
+  windowMs: 60 * 60 * 1000,
+  max: 100,
+});
 
 //Middlewares
+// app.use(cors())
+app.use(helmet());
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(limitter);
 
 // Routes
 //route configs
