@@ -7,6 +7,12 @@ const User = sequelize.define("user", {
     autoIncrement: true,
     primaryKey: true,
   },
+  firstname: {
+    type: DataTypes.STRING,
+  },
+  lastname: {
+    type: DataTypes.STRING,
+  },
   email: {
     type: DataTypes.STRING,
   },
@@ -14,7 +20,5 @@ const User = sequelize.define("user", {
     type: DataTypes.STRING,
   },
 });
-
-// sequelize.sync({ force: true });
 
 export default User;
