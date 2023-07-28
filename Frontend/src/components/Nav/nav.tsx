@@ -1,12 +1,14 @@
 import NavItem from "./navitem";
+import SearchBar from "./searchbar";
+import Routes from "../../router/route";
 const NavList = () => {
   return (
-    <ul className="flex text-navigation font-medium">
-      <NavItem name="Home" to="" />
-      <NavItem name="About" to="about" />
-      <NavItem name="Something" to="something" />
-      <NavItem name="Anotherthing" to="anotherthing" />
-      <NavItem name="Boom" to="boom" />
+    <ul className="flex">
+      <NavItem name="Home" to={Routes.HOME} />
+      <NavItem name="Categories" to={Routes.CATEGORIES} />
+      <NavItem name="NewRecipe" to={Routes.NEW_RECIPE} />
+      <NavItem name="About" to={Routes.ABOUT} />
+      <NavItem name="Search" to={Routes.SEARCH} icon={<SearchBar />} />
     </ul>
   );
 };

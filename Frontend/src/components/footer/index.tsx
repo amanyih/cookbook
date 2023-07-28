@@ -1,7 +1,11 @@
+import FotterBottomSection from "./bottomSection";
+import FooterTopSection from "./topSection";
+
 const Footer = () => {
   return (
-    <div>
-      <h1>Footer</h1>
+    <div className=" flex flex-col w-full bg-whiteish -mx-40">
+      <FooterTopSection />
+      <FotterBottomSection />
     </div>
   );
 };

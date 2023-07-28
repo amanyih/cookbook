@@ -1,14 +1,21 @@
+import Image from "../image";
+import CardBody from "./cardBody";
 const RecipeCard = () => {
   return (
-    <div className=" w-96 bg-yellow-400 ml-20 flex-shrink-0 rounded-md overflow-hidden">
-      <img
-        src="https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-        className="w-full h-96 object-cover"
-        alt=""
-      />
-      <h1>Ratings *****</h1>
-
-      <h1>RecipeCard</h1>
+    <div className="w-96 ml-20 flex-shrink-0 rounded-xl overflow-hidden shadow-xl">
+      <Image src="https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" />
+      <div className="p-4 w-full">
+        <CardBody
+          id="1"
+          title="Premium Chicken Biryani"
+          description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum. "
+          author="John Doe"
+          rating={4}
+          comments={20}
+          date="2021-08-01"
+          authorImg="https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+        />
+      </div>
     </div>
   );
 };

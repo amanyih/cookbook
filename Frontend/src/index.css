@@ -5,10 +5,26 @@
 html {
   font-size: 16px;
 }
-/* scrollbar.css */
-/* Customize the scrollbar track */
-/* scrollbar.css */
-/* Customize the scrollbar track */
+
+@layer base {
+  :root {
+    --color-primary: 248 113 113;
+    --color-secondary: 113 247 159;
+    --color-background: 255 255 255;
+    --color-text: 0 0 0;
+    --color-text-secondary: 0 0 0;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-primary: 248 113 113;
+      --color-secondary: 113 247 159;
+      --color-background: 0 0 0;
+      --color-text: 255 255 255;
+      --color-text-secondary: 0 0 0;
+    }
+  }
+}
+
 ::-webkit-scrollbar {
   width: 10px; /* Adjust the width of the scrollbar */
 }
@@ -40,8 +56,9 @@ code {
 }
 
 .active {
-  padding: 0.5rem;
-  border-radius: 0.5rem;
-  background-color: #362da5;
-  color: #fff;
+  border-bottom: #362da5 2px solid;
+}
+
+.active:hover {
+  border-bottom: #716cf4 2px solid;
 }
