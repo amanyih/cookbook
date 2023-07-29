@@ -1,8 +1,13 @@
+import { UserInformation, UserActivity } from "./components";
+
 const ProfilePage = () => {
   return (
-    <div className="w-full flex-grow flex flex-col items-center bg-red-500">
-      page
-      <div></div>
+    <div>
+      <h1>Profile</h1>
+      <div className="w-full flex-grow flex justify-between">
+        <UserInformation />
+        <UserActivity />
+      </div>
     </div>
   );
 };

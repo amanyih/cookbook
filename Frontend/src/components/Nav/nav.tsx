@@ -8,7 +8,7 @@ const NavList = () => {
       <NavItem name="Categories" to={Routes.CATEGORIES} />
       <NavItem name="NewRecipe" to={Routes.NEW_RECIPE} />
       <NavItem name="About" to={Routes.ABOUT} />
-      <NavItem name="Search" to={Routes.SEARCH} icon={<SearchBar />} />
+      <NavItem name="Explore" to={Routes.SEARCH} icon={<SearchBar />} />
     </ul>
   );
 };

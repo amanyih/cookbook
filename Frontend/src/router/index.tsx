@@ -12,6 +12,9 @@ import {
   CategoriesPage,
   NewRecipePage,
   SearchPage,
+  CommentsSection,
+  RecipesSection,
+  LikesSection,
 } from "../pages";
 import Routes from "./route";
 
@@ -20,7 +23,11 @@ const routes = createBrowserRouter(
     <Route>
       <Route path={Routes.HOME} element={<RootLayout />}>
         <Route index element={<HomePage />} />
-        <Route path={Routes.PROFILE} element={<ProfilePage />} />
+        <Route path={Routes.PROFILE} element={<ProfilePage />}>
+          <Route index element={<RecipesSection />} />
+          <Route path={Routes.USER_COMMENT} element={<CommentsSection />} />
+          <Route path={Routes.USER_LIKES} element={<LikesSection />} />
+        </Route>
         <Route path={Routes.ABOUT} element={<AboutPage />} />
         <Route path={Routes.CATEGORIES} element={<CategoriesPage />} />
         <Route path={Routes.NEW_RECIPE} element={<NewRecipePage />} />

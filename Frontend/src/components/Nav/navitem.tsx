@@ -16,7 +16,7 @@ const NavItem: React.FC<NavItemProps> = (props) => {
     isActive: boolean;
     isPending: boolean;
   }): string | undefined => {
-    const style = "mx-4 hover:cursor-pointer relative text-xl w-fit block";
+    const style = "mx-4 hover:cursor-pointer relative text-2xl w-fit block";
     if (isActive) {
       return `${style} text-red-500 font-bold group`;
     } else {

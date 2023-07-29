@@ -12,6 +12,9 @@ class Routes {
   public static readonly ABOUT = "about";
   public static readonly PROFILE = "profile";
   public static readonly FAVORITE = "favorite";
+  public static readonly USER_RECIPE = "user-recipe";
+  public static readonly USER_COMMENT = "user-comment";
+  public static readonly USER_LIKES = "user-likes";
   public static readonly NOT_FOUND = "404";
 }
 
