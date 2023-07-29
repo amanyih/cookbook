@@ -4,6 +4,7 @@ import HorizontalScroll from "./HorizontalScroll";
 import NavBar from "./Nav";
 import SectionTitle from "./SectionTitle";
 import Cooking from "./cooking";
+import Grid from "./grid";
 
 export {
   Button,
@@ -13,4 +14,5 @@ export {
   NavBar,
   SectionTitle,
   Cooking,
+  Grid,
 };

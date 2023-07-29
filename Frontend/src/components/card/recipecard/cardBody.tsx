@@ -8,6 +8,7 @@ import {
   faStar as faStarRegular,
   faMessage as faMessageRegular,
   faHeart as faHeartRegular,
+  faClock,
 } from "@fortawesome/free-regular-svg-icons";
 
 interface Props {
@@ -24,17 +25,23 @@ interface Props {
 const CardBody: React.FC<Props> = (props) => {
   return (
     <div>
-      <div className="flex w-1/2">
-        <span className=" flex items-center text-red-400 text-xl mb-2">
-          {Array.from({ length: props.rating }, (_, i) => (
-            <FontAwesomeIcon icon={faStar} className="ml-1" key={i} />
-          ))}
-        </span>
-        <span className=" flex items-center text-red-400 text-xl mb-2">
-          {Array.from({ length: 5 - props.rating }, (_, i) => (
-            <FontAwesomeIcon icon={faStarRegular} className="ml-1" key={i} />
-          ))}
-        </span>
+      <div className="flex full justify-between">
+        <div className=" w-1/2 flex">
+          <span className=" flex items-center text-red-400 text-xl mb-2">
+            {Array.from({ length: props.rating }, (_, i) => (
+              <FontAwesomeIcon icon={faStar} className="ml-1" key={i} />
+            ))}
+          </span>
+          <span className=" flex items-center text-red-400 text-xl mb-2">
+            {Array.from({ length: 5 - props.rating }, (_, i) => (
+              <FontAwesomeIcon icon={faStarRegular} className="ml-1" key={i} />
+            ))}
+          </span>
+        </div>
+        <div>
+          <FontAwesomeIcon icon={faClock} className="mr-2"></FontAwesomeIcon>
+          30min
+        </div>
       </div>
 
       <h1 className=" text-xl font-semibold">{props.title}</h1>
