@@ -2,7 +2,7 @@ import { Grid, CategoryCard } from "../../../components";
 
 const CategoriesSections = () => {
   return (
-    <div className="w-ful">
+    <div className="w-full">
       <Grid
         title="Cuisines"
         description="Cuisines from all over the world."
@@ -27,6 +27,8 @@ const CategoriesSections = () => {
         title="Dish Types"
         description=" Experince the taste of different dish types."
         items={[
+          <CategoryCard />,
+          <CategoryCard />,
           <CategoryCard />,
           <CategoryCard />,
           <CategoryCard />,

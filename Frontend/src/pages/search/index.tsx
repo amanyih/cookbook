@@ -1,10 +1,13 @@
-import { Cooking } from "../../components";
-
+import { SearchBar, Filter, SearchResult } from "./components";
+import { Chip } from "../../components";
 const SearchPage = () => {
   return (
-    <div className=" flex flex-col justify-between items-center">
-      <h1 className=" text-5xl text-primary-400 mb-20">Search Page</h1>
-      <Cooking />
+    <div className="w-full flex-grow flex flex-col items-center">
+      <SearchBar />
+      <div className="flex justify-between w-full mt-20 bg-whiteish p-10">
+        <Filter />
+        <SearchResult />
+      </div>
     </div>
   );
 };

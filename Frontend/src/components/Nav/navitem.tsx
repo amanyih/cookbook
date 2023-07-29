@@ -22,8 +22,6 @@ const NavItem: React.FC<NavItemProps> = (props) => {
     } else {
       return `${style} after:content-[''] after:absolute after:h-[3px] after:bg-red-500 after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-left`;
     }
-
-    return style;
   };
 
   return (

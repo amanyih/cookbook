@@ -1,9 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faStar,
-  faCalendarAlt,
-  faHeart,
-} from "@fortawesome/free-solid-svg-icons";
+import { faStar, faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 import {
   faStar as faStarRegular,
   faMessage as faMessageRegular,

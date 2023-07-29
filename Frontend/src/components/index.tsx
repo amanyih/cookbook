@@ -5,6 +5,7 @@ import NavBar from "./Nav";
 import SectionTitle from "./SectionTitle";
 import Cooking from "./cooking";
 import Grid from "./grid";
+import Chip from "./chip";
 
 export {
   Button,
@@ -15,4 +16,5 @@ export {
   SectionTitle,
   Cooking,
   Grid,
+  Chip,
 };
