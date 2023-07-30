@@ -1,0 +1,40 @@
+export default {
+  API_URL: "http://localhost:5000",
+
+  //RECIPE TAGS
+  TAGS: [
+    "#RecipeIdeas",
+    "#EasyRecipes",
+    "#DeliciousDishes",
+    "#HomeCooking",
+    "#HealthyEats",
+    "#InstaRecipe",
+    "#CookingTips",
+    "#RecipeShare",
+    "#TastyTreats",
+    "#FamilyFavorites",
+    "#DinnerInspiration",
+    "#QuickMeals",
+    "#FoodPhotography",
+    "#BakingAdventures",
+    "#OnePotWonders",
+    "#MealPrepIdeas",
+    "#VeggieDelights",
+    "#GlutenFreeEats",
+    "#DessertHeaven",
+    "#BrunchRecipes",
+    "#BudgetFriendly",
+    "#FlavorfulDishes",
+    "#CookbookInspiration",
+    "#InternationalCuisine",
+    "#ComfortFood",
+    "#AppetizerLove",
+    "#NutritiousNoms",
+    "#FoodieFinds",
+    "#WeeknightWinners",
+    "#SlowCookerMagic",
+  ],
+
+  //RECIPE CATEGORIES
+  CATEGORIES: {},
+};

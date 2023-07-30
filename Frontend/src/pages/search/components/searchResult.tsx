@@ -7,9 +7,9 @@ const SearchResult = () => {
     <div className=" w-4/5">
       <span className="text-3xl font-semibold">{450} recipes</span>
       <span className="flex flex-wrap">
-        <Chip name="Chicken" onDelete={onDelete} />
-        <Chip name="Ethiopian" onDelete={onDelete} />
-        <Chip name="Spicy" onDelete={onDelete} />
+        <Chip name="Chicken" onDelete={onDelete} dissmisable={true} />
+        <Chip name="Ethiopian" onDelete={onDelete} dissmisable={true} />
+        <Chip name="Spicy" onDelete={onDelete} dissmisable={true} />
       </span>
       <div>
         <CategoriesSections></CategoriesSections>

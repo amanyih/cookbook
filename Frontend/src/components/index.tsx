@@ -6,6 +6,10 @@ import SectionTitle from "./SectionTitle";
 import Cooking from "./cooking";
 import Grid from "./grid";
 import Chip from "./chip";
+import Input from "./input";
+import DropDownSelect from "./dropSelect";
+import TextArea from "./textarea";
+import VariableInputs from "./variableInputs";
 
 export {
   Button,
@@ -17,4 +21,8 @@ export {
   Cooking,
   Grid,
   Chip,
+  Input,
+  DropDownSelect,
+  TextArea,
+  VariableInputs,
 };
