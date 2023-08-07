@@ -4,11 +4,14 @@ import AboutPage from "./about";
 import CategoriesPage from "./categories";
 import NewRecipePage from "./new_recipe";
 import SearchPage from "./search";
+import RecipePage from "./recipe";
 import {
   LikesSection,
   CommentsSection,
   RecipesSection,
 } from "./profile/sections";
+
+import RecipeDetail from "./recipe_detail";
 
 export {
   HomePage,
@@ -20,4 +23,6 @@ export {
   LikesSection,
   CommentsSection,
   RecipesSection,
+  RecipeDetail,
+  RecipePage,
 };

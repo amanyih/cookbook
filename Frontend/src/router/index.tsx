@@ -15,6 +15,8 @@ import {
   CommentsSection,
   RecipesSection,
   LikesSection,
+  RecipeDetail,
+  RecipePage,
 } from "../pages";
 import Routes from "./route";
 
@@ -28,9 +30,13 @@ const routes = createBrowserRouter(
           <Route path={Routes.USER_COMMENT} element={<CommentsSection />} />
           <Route path={Routes.USER_LIKES} element={<LikesSection />} />
         </Route>
+        <Route path={Routes.RECIPEPAGE} element={<RecipePage />}>
+          <Route path="new" element={<NewRecipePage />} />
+          <Route path=":id" element={<RecipeDetail />} />
+        </Route>
+
         <Route path={Routes.ABOUT} element={<AboutPage />} />
         <Route path={Routes.CATEGORIES} element={<CategoriesPage />} />
-        <Route path={Routes.NEW_RECIPE} element={<NewRecipePage />} />
         <Route path={Routes.SEARCH} element={<SearchPage />} />
       </Route>
     </Route>

@@ -4,8 +4,7 @@ class Routes {
   public static readonly REGISTER = "register";
   public static readonly CATEGORIES = "categories";
   public static readonly CATEGORY = "category/:id";
-  public static readonly NEW_RECIPE = "recipe";
-  public static readonly RECIPE = "recipe/:id";
+  public static readonly RECIPEPAGE = "recipe";
   public static readonly SEARCH = "search";
   public static readonly SEARCH_RESULT = "search/:query";
   public static readonly USER = "user/:id";
@@ -16,6 +15,7 @@ class Routes {
   public static readonly USER_COMMENT = "user-comment";
   public static readonly USER_LIKES = "user-likes";
   public static readonly NOT_FOUND = "404";
+  public static readonly ERROR = "error";
 }
 
 export default Routes;

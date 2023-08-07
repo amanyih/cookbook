@@ -37,7 +37,9 @@ const VariableInputs: React.FC<VariableInputsProps> = (props) => {
                 setInputValues(newInputValues);
               }}
             />
-            {props.secondaryValue && <TextArea onChange={(value) => {}} />}
+            {props.secondaryValue && (
+              <TextArea className="w-1/2" onChange={(value) => {}} />
+            )}
           </div>
           <Button
             isOutlined={true}

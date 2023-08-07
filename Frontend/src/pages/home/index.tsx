@@ -2,6 +2,7 @@ import SectionTitle from "../../components/SectionTitle";
 import HorizontalScroll from "../../components/HorizontalScroll";
 
 import { NewsLetter, Hero } from "./components";
+import { CategoriesSections } from "../categories/components";
 
 const HomePage = () => {
   return (
@@ -11,7 +12,8 @@ const HomePage = () => {
         <SectionTitle any="Recent Posts" />
         <HorizontalScroll />
       </div>
-      <NewsLetter></NewsLetter>
+      <NewsLetter />
+      <CategoriesSections />
     </div>
   );
 };
