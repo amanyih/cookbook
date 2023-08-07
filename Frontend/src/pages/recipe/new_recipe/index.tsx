@@ -1,6 +1,10 @@
 import { useState } from "react";
-import { DropDownSelect } from "../../components";
-import { Input, TextArea, VariableInputs } from "../../components";
+import {
+  Input,
+  TextArea,
+  VariableInputs,
+  DropDownSelect,
+} from "../../../components";
 import {
   NewRecipeHeader,
   Steps,

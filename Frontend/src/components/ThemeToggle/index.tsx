@@ -3,24 +3,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon, faSun } from "@fortawesome/free-regular-svg-icons";
 
 function ThemeToggle() {
-  const [theme, setTheme] = useState<String>("light");
+  const [dark, setDark] = useState<boolean>();
 
   const toggleTheme = () => {
-    localStorage.setItem("theme", theme === "light" ? "dark" : "light");
-    if (theme === "light") {
-      setTheme("dark");
-      document.documentElement.classList.add("dark");
-    } else {
-      setTheme("light");
-      document.documentElement.classList.remove("dark");
-    }
+    setDark((prev) => {
+      return !prev;
+    });
   };
 
   return (
-    <button onClick={toggleTheme}>
+    <button onClick={toggleTheme} className="px-2 w-20">
       <FontAwesomeIcon
-        icon={theme === "light" ? faMoon : faSun}
-        className={`text-2xl text-${theme === "light" ? "black" : "white"}`}
+        icon={!dark ? faMoon : faSun}
+        className={`text-2xl text-black`}
       ></FontAwesomeIcon>
     </button>
   );

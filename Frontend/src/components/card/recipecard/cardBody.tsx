@@ -1,11 +1,16 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar, faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faStar,
+  faCalendarAlt,
+  faHeart,
+} from "@fortawesome/free-solid-svg-icons";
 import {
   faStar as faStarRegular,
   faMessage as faMessageRegular,
   faHeart as faHeartRegular,
   faClock,
 } from "@fortawesome/free-regular-svg-icons";
+import { useState } from "react";
 
 interface Props {
   id: String;
@@ -19,6 +24,17 @@ interface Props {
 }
 
 const CardBody: React.FC<Props> = (props) => {
+  const [liked, setLiked] = useState<boolean>(false);
+
+  const handleLike = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    event.preventDefault();
+    console.log("liked");
+    setLiked((prev) => {
+      return !prev;
+    });
+  };
+
   return (
     <div>
       <div className="flex full justify-between">
@@ -69,8 +85,9 @@ const CardBody: React.FC<Props> = (props) => {
         </div>
         <div className=" flex items-center">
           <FontAwesomeIcon
-            icon={faHeartRegular}
+            icon={liked ? faHeart : faHeartRegular}
             className="text-red-400 text-3xl mr-1 cursor-pointer"
+            onClick={handleLike}
           />
         </div>
       </div>

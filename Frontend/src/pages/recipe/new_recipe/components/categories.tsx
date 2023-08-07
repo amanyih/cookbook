@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { DropDownSelect } from "../../../components";
+import { DropDownSelect } from "../../../../components";
 
 const Categories = () => {
   const [origin, setOrigin] = useState<string>("");

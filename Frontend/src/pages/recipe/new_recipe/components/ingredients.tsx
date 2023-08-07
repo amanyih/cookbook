@@ -1,6 +1,5 @@
 import { Fragment, useState } from "react";
-import { VariableInputs } from "../../../components";
-import { Grid } from "../../../components";
+import { VariableInputs } from "../../../../components";
 
 const Ingredients = () => {
   const [ingredients, setIngredients] = useState<string[]>([]);

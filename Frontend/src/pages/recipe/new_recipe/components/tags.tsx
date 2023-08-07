@@ -1,5 +1,5 @@
-import { Grid, Chip } from "../../../components";
-import constants from "../../../constants";
+import { Grid, Chip } from "../../../../components";
+import constants from "../../../../constants";
 
 const Tags = () => {
   return (

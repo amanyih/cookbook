@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Input } from "../../../components";
+import { Input } from "../../../../components";
 
 const Numbers = () => {
   const [cookingTime, setCookingTime] = useState<number>(0);
