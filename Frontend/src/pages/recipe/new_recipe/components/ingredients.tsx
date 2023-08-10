@@ -1,6 +1,8 @@
 import { Fragment, useState } from "react";
 import { VariableInputs } from "../../../../components";
 
+interface props {}
+
 const Ingredients = () => {
   const [ingredients, setIngredients] = useState<string[]>([]);
 

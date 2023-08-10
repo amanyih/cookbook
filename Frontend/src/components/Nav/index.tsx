@@ -5,7 +5,7 @@ import ThemeToggle from "../ThemeToggle";
 
 const NavBar = () => {
   return (
-    <div className="flex justify-between w-full items-center mb-20 border-b-red-400">
+    <div className="flex justify-between w-full items-center mb-20 mt-3 border-b-red-400">
       <Logo />
       <NavList />
       <div className="flex">

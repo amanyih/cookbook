@@ -1,17 +1,23 @@
-import { configureStore, createSlice } from "@reduxjs/toolkit";
-
-const counterSlice = createSlice({
-  name: "counter",
-  initialState: {
-    value: 0,
-  },
-  reducers: {},
-});
+import { configureStore } from "@reduxjs/toolkit";
+import filterSlice from "./filter";
+import categorySlice from "./category";
+import recipeSlice from "./recipe";
+import userSlice from "./user";
 
 const store = configureStore({
   reducer: {
-    counter: counterSlice.reducer,
+    filter: filterSlice.reducer,
+    category: categorySlice.reducer,
+    recipe: recipeSlice.reducer,
+    user: userSlice.reducer,
   },
 });
+
+export interface StateInterface {
+  filter: {
+    chips: string[];
+  };
+  recipe: {};
+}
 
 export default store;

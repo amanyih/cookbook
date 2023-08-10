@@ -1,14 +1,14 @@
 import { TextArea } from "../../../../components";
 
-const Description = () => {
+interface DescriptionInterface {
+  value: string;
+  onChange: () => void;
+}
+
+const Description: React.FC<DescriptionInterface> = (props) => {
   return (
     <div className="w-5/6">
-      <TextArea
-        className=""
-        onChange={(value) => {
-          console.log(value);
-        }}
-      />
+      <TextArea className="" value={props.value} onChange={props.onChange} />
     </div>
   );
 };

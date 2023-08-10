@@ -1,12 +1,17 @@
 import { SearchBar, Filter, SearchResult } from "./components";
-import { Chip } from "../../components";
+import { useSelector } from "react-redux";
+import { StateInterface } from "../../store";
 const SearchPage = () => {
+  const chips = useSelector<StateInterface>(
+    (state) => state.filter.chips
+  ) as string[];
+
   return (
     <div className="w-full flex-grow flex flex-col items-center">
       <SearchBar />
       <div className="flex justify-between w-full mt-20 bg-whiteish p-10">
         <Filter />
-        <SearchResult />
+        <SearchResult chips={chips} />
       </div>
     </div>
   );

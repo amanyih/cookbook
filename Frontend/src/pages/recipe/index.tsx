@@ -1,10 +1,17 @@
-import { Outlet } from "react-router";
+import { HorizontalScroll } from "../../components";
 
 const RecipePage = () => {
   return (
     <div>
-      <div>Recipe</div>
-      <Outlet />
+      <HorizontalScroll></HorizontalScroll>
+      <HorizontalScroll></HorizontalScroll>
+      <HorizontalScroll></HorizontalScroll>
+      <HorizontalScroll></HorizontalScroll>
+      <HorizontalScroll></HorizontalScroll>
+      <HorizontalScroll></HorizontalScroll>
+      <HorizontalScroll></HorizontalScroll>
+      <HorizontalScroll></HorizontalScroll>
+      <HorizontalScroll></HorizontalScroll>
     </div>
   );
 };

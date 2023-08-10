@@ -5,6 +5,7 @@ interface TextAreaProps {
   label?: string;
   error?: string;
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  value: string;
 }
 
 const TextArea: React.FC<TextAreaProps> = (props) => {
@@ -24,6 +25,7 @@ const TextArea: React.FC<TextAreaProps> = (props) => {
           cols={30}
           rows={20}
           wrap="hard"
+          value={props.value}
           onChange={props.onChange}
           className={`block p-2.5 w-full text-2xl text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500  resize-none ${props.className}`}
           placeholder="

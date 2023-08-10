@@ -1,10 +1,5 @@
-import { useState } from "react";
-import {
-  Input,
-  TextArea,
-  VariableInputs,
-  DropDownSelect,
-} from "../../../components";
+import { FormEvent, useState } from "react";
+import { Input } from "../../../components";
 import {
   NewRecipeHeader,
   Steps,
@@ -14,6 +9,11 @@ import {
   Ingredients,
   Tags,
 } from "./components";
+
+import { recipeActions } from "../../../store/recipe";
+import { useDispatch } from "react-redux";
+import RecipeDto from "../../../types/dtos/recipe.dto";
+import useHttp from "../../../hooks/useHttp";
 
 const NewRecipePage = () => {
   const [title, setTitle] = useState<string>("");
@@ -36,9 +36,38 @@ const NewRecipePage = () => {
     carbs: 0,
   });
 
+  const dispatch = useDispatch();
+  const { sendRequest: createRecipe } = useHttp();
+
+  const submitHandler = (event: FormEvent) => {
+    event.preventDefault();
+    const newRecipe = new RecipeDto(
+      "title",
+      "description",
+      ["ing1", "ing2"],
+      {
+        orgin: "Eth",
+        "dish-type": "break",
+        "meal-course": "dinner",
+        diet: "vegan",
+      },
+      30,
+      5,
+      ["good", "tasty"],
+      [{ title: "step1", description: "description" }]
+    );
+    const res = createRecipe({
+      url: "/recipe",
+      body: newRecipe,
+      method: "POST",
+    });
+
+    dispatch(recipeActions.createRecipe(newRecipe));
+  };
+
   return (
     <div className=" flex flex-col w-full">
-      <NewRecipeHeader></NewRecipeHeader>
+      <NewRecipeHeader />
 
       <div className="w-full flex">
         <div className="w-1/2 mr-5">
@@ -52,17 +81,17 @@ const NewRecipePage = () => {
               setTitle(value.target.value);
             }}
           />
-          <Description />
+          <Description value={description} onChange={() => {}} />
         </div>
         <div className="w-1/2">
           <Ingredients />
-
-          <Categories></Categories>
+          <Categories />
           <Numbers />
           <Tags />
         </div>
       </div>
       <Steps />
+      <input type="sumbit" onClick={submitHandler} value={"Submit"} />
     </div>
   );
 };

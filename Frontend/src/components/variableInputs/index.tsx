@@ -38,7 +38,7 @@ const VariableInputs: React.FC<VariableInputsProps> = (props) => {
               }}
             />
             {props.secondaryValue && (
-              <TextArea className="w-1/2" onChange={(value) => {}} />
+              <TextArea value="" className="w-1/2" onChange={(value) => {}} />
             )}
           </div>
           <Button
