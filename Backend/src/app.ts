@@ -7,6 +7,7 @@ import {
   reputationRouter,
   userRouter,
   authRouter,
+  imageRouter,
 } from "./routes/index";
 import RateLimit from "express-rate-limit";
 import helmet from "helmet";
@@ -45,6 +46,7 @@ app.use(`${prefix}${version}/category`, categoryRouter);
 app.use(`${prefix}${version}/comment`, commentRouter);
 app.use(`${prefix}${version}/reputation`, reputationRouter);
 app.use(`${prefix}${version}/recipe`, recipeRouter);
+app.use(`${prefix}${version}/image`, imageRouter);
 
 app.use("*", (req, res) => {
   res.status(404).json({

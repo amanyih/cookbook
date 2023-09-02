@@ -1,12 +1,13 @@
 import { Router } from "express";
 import { categoryController } from "../controllers/index";
+import { protect } from "../middlewares";
 
 const router = Router();
 
 //origin
 router
   .route("/origin")
-  .post(categoryController.createOrigin)
+  .post(protect, categoryController.createOrigin)
   .get(categoryController.getAllOrigins);
 router
   .route("/origin/:id")

@@ -10,9 +10,6 @@ const Image = sequelize.define("image", {
   url: {
     type: DataTypes.STRING,
   },
-  recipeId: {
-    type: DataTypes.INTEGER,
-  },
 });
 
 export default Image;
