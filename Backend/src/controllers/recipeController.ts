@@ -1,8 +1,54 @@
-import { Recipe } from "../models/index";
+import { Recipe, Origin, Diet, DishType, MealCourse } from "../models/index";
 export const createRecipe = async (req: any, res: any) => {
-  console.log(req.body);
   try {
-    const recipe = await Recipe.create(req.body);
+    const {
+      title,
+      description,
+      ingredients,
+      cookingTime,
+      serving,
+      tags,
+      image,
+      steps,
+      userId,
+      origin,
+      mealcourse,
+      diet,
+      dishtype,
+    } = req.body;
+
+    const recipe: any = await Recipe.create({
+      title,
+      description,
+      ingredients,
+      cookingTime,
+      serving,
+      tags,
+      image,
+      steps,
+      userId,
+    });
+    const originObj = await Origin.findOrCreate({
+      where: { name: origin },
+    });
+
+    const mealcourseObj = await MealCourse.findOrCreate({
+      where: { name: mealcourse },
+    });
+
+    const dietObj = await Diet.findOrCreate({
+      where: { name: diet },
+    });
+
+    const dishtypeObj = await DishType.findOrCreate({
+      where: { name: dishtype },
+    });
+
+    await recipe.setOrigin(originObj[0]);
+    await recipe.setDiet(dietObj[0]);
+    await recipe.setDishtype(dishtypeObj[0]);
+    await recipe.setMealcourse(mealcourseObj[0]);
+
     res.status(201).json({
       status: "success",
       data: {

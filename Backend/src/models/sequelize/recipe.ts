@@ -1,5 +1,6 @@
 import sequelize from "../../db";
-import { DATE, DataTypes } from "sequelize";
+import { Diet, DishType, MealCourse, Origin } from "./categories";
+import { DataTypes } from "sequelize";
 
 const Recipe = sequelize.define("recipe", {
   id: {
@@ -32,10 +33,14 @@ const Recipe = sequelize.define("recipe", {
   steps: {
     type: DataTypes.ARRAY(DataTypes.STRING),
   },
-
   userId: {
     type: DataTypes.INTEGER,
   },
 });
+
+Recipe.belongsTo(Origin, { foreignKey: "originId" });
+Recipe.belongsTo(DishType, { foreignKey: "dishTypeId" });
+Recipe.belongsTo(MealCourse, { foreignKey: "mealcourseId" });
+Recipe.belongsTo(Diet, { foreignKey: "dietId" });
 
 export default Recipe;

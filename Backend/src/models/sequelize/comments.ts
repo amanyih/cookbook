@@ -18,6 +18,4 @@ const Comment = sequelize.define("comment", {
   },
 });
 
-// sequelize.sync({ force: true });
-
 export default Comment;
