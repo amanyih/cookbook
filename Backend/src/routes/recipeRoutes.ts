@@ -13,4 +13,6 @@ router
   .patch(recipeController.updateRecipe)
   .delete(recipeController.deleteRecipe);
 
+router.route("/:id/like").post(recipeController.likeRecipe);
+
 export { router as recipeRouter };

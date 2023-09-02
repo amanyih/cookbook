@@ -1,5 +1,7 @@
 import sequelize from "../../db";
 import { DataTypes } from "sequelize";
+import User from "./user";
+import Recipe from "./recipe";
 
 const Comment = sequelize.define("comment", {
   id: {
@@ -7,15 +9,14 @@ const Comment = sequelize.define("comment", {
     autoIncrement: true,
     primaryKey: true,
   },
-  comment: {
+  content: {
     type: DataTypes.STRING,
   },
-  recipeId: {
-    type: DataTypes.INTEGER,
-  },
-  userId: {
-    type: DataTypes.INTEGER,
-  },
 });
+
+Comment.belongsTo(User, { foreignKey: "userId" });
+Comment.belongsTo(Recipe, { foreignKey: "recipeId" });
+
+Recipe.hasMany(Comment);
 
 export default Comment;

@@ -13,4 +13,6 @@ router
   .patch(commentController.updateComment)
   .delete(commentController.deleteComment);
 
+router.route("/:id/like").post(commentController.likeComment);
+
 export { router as commentRouter };

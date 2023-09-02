@@ -1,5 +1,7 @@
 import sequelize from "../../db";
 import { DataTypes } from "sequelize";
+import Comment from "./comments";
+import Recipe from "./recipe";
 
 const User = sequelize.define("user", {
   id: {
@@ -17,5 +19,7 @@ const User = sequelize.define("user", {
     type: DataTypes.STRING,
   },
 });
+
+User.hasMany(Recipe);
 
 export default User;

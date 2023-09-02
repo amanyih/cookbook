@@ -1,5 +1,8 @@
 import sequelize from "../../db";
 import { DataTypes } from "sequelize";
+import User from "./user";
+import Recipe from "./recipe";
+import Comment from "./comments";
 
 const Like = sequelize.define("like", {
   id: {
@@ -13,8 +16,15 @@ const Like = sequelize.define("like", {
   recipeId: {
     type: DataTypes.INTEGER,
   },
+  commentId: {
+    type: DataTypes.INTEGER,
+  },
 });
 
-// sequelize.sync({ force: true });
+User.belongsToMany(Recipe, { through: Like, foreignKey: "userId" });
+User.belongsToMany(Comment, { through: Like, foreignKey: "userId" });
+
+Recipe.belongsToMany(User, { through: Like, foreignKey: "recipeId" });
+Comment.belongsToMany(User, { through: Like, foreignKey: "commentId" });
 
 export default Like;

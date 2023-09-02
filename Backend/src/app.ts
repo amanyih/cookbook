@@ -4,7 +4,6 @@ import dotenv from "dotenv";
 import {
   categoryRouter,
   commentRouter,
-  likeRouter,
   reputationRouter,
   userRouter,
   authRouter,
@@ -44,7 +43,6 @@ app.use(`${prefix}${version}/auth`, authRouter);
 app.use(`${prefix}${version}/users`, userRouter);
 app.use(`${prefix}${version}/category`, categoryRouter);
 app.use(`${prefix}${version}/comment`, commentRouter);
-app.use(`${prefix}${version}/like`, likeRouter);
 app.use(`${prefix}${version}/reputation`, reputationRouter);
 app.use(`${prefix}${version}/recipe`, recipeRouter);
 

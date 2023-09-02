@@ -1,4 +1,12 @@
-import { Recipe, Origin, Diet, DishType, MealCourse } from "../models/index";
+import {
+  Recipe,
+  Origin,
+  Diet,
+  DishType,
+  MealCourse,
+  User,
+  Like,
+} from "../models/index";
 export const createRecipe = async (req: any, res: any) => {
   try {
     const {
@@ -134,6 +142,59 @@ export const deleteRecipe = async (req: any, res: any) => {
       });
     }
     await recipe.destroy();
+    res.status(204).json({
+      status: "success",
+      data: null,
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
+
+export const likeRecipe = async (req: any, res: any) => {
+  try {
+    const { id: recipeId } = req.params;
+    const { userId } = req.body;
+
+    const recipe: any = await Recipe.findByPk(recipeId);
+    if (!recipe) {
+      return res.status(404).json({
+        status: "fail",
+        message: "Recipe not found",
+      });
+    }
+
+    const user = await User.findByPk(userId);
+    if (!user) {
+      return res.status(404).json({
+        status: "fail",
+        message: "User not found",
+      });
+    }
+
+    const like = await Like.findOne({
+      where: {
+        userId,
+        recipeId,
+      },
+    });
+
+    if (like) {
+      await like.destroy();
+      return res.status(204).json({
+        status: "success",
+        data: null,
+      });
+    }
+
+    await Like.create({
+      userId,
+      recipeId,
+    });
+
     res.status(204).json({
       status: "success",
       data: null,

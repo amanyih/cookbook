@@ -1,5 +1,6 @@
 import sequelize from "../../db";
 import { Diet, DishType, MealCourse, Origin } from "./categories";
+import Comment from "./comments";
 import { DataTypes } from "sequelize";
 
 const Recipe = sequelize.define("recipe", {
