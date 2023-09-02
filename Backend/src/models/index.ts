@@ -1,7 +1,7 @@
 import User from "./sequelize/user";
 import Comment from "./sequelize/comments";
 import Recipe from "./sequelize/recipe";
-import Category from "./sequelize/category";
+import { Origin, Diet, DishType, MealCourse } from "./sequelize/categories";
 import Reputation from "./sequelize/reputation";
 import Like from "./sequelize/like";
 import Favorite from "./sequelize/favorite";
@@ -12,7 +12,10 @@ export {
   User,
   Comment,
   Recipe,
-  Category,
+  Origin,
+  Diet,
+  DishType,
+  MealCourse,
   Reputation,
   Like,
   Favorite,

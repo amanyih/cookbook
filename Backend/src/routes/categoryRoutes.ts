@@ -3,14 +3,48 @@ import { categoryController } from "../controllers/index";
 
 const router = Router();
 
+//origin
 router
-  .route("/")
-  .post(categoryController.createCategory)
-  .get(categoryController.getAllCategory);
+  .route("/origin")
+  .post(categoryController.createOrigin)
+  .get(categoryController.getAllOrigins);
 router
-  .route("/:id")
-  .get(categoryController.getCategory)
-  .patch(categoryController.updateCategory)
-  .delete(categoryController.deleteCategory);
+  .route("/origin/:id")
+  .get(categoryController.getOrigin)
+  .patch(categoryController.updateOrigin)
+  .delete(categoryController.deleteOrigin);
+
+//diet
+router
+  .route("/diet")
+  .post(categoryController.createDiet)
+  .get(categoryController.getAllDiets);
+router
+  .route("/diet/:id")
+  .get(categoryController.getDiet)
+  .patch(categoryController.updateDiet)
+  .delete(categoryController.deleteDiet);
+
+//mealcourse
+router
+  .route("/mealcourse")
+  .post(categoryController.createMealCourse)
+  .get(categoryController.getAllMealCourses);
+router
+  .route("/mealcourse/:id")
+  .get(categoryController.getMealCourse)
+  .patch(categoryController.updateMealCourse)
+  .delete(categoryController.deleteMealCourse);
+
+//dishtype
+router
+  .route("/dishtype")
+  .post(categoryController.createDishType)
+  .get(categoryController.getAllDishTypes);
+router
+  .route("/dishtype/:id")
+  .get(categoryController.getDishType)
+  .patch(categoryController.updateDishType)
+  .delete(categoryController.deleteDishType);
 
 export { router as categoryRouter };

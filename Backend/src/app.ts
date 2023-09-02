@@ -49,9 +49,6 @@ app.use(`${prefix}${version}/reputation`, reputationRouter);
 app.use(`${prefix}${version}/recipe`, recipeRouter);
 
 app.use("*", (req, res) => {
-  console.log(req.url);
-  console.log(req.method);
-  console.log(req.originalUrl);
   res.status(404).json({
     status: "fail",
     message: "Invalid route",

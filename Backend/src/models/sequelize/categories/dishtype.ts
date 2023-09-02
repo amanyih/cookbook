@@ -1,7 +1,7 @@
-import sequelize from "../../db";
+import sequelize from "../../../db";
 import { DataTypes } from "sequelize";
 
-const Category = sequelize.define("category", {
+const DishType = sequelize.define("dishtype", {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -9,10 +9,11 @@ const Category = sequelize.define("category", {
   },
   name: {
     type: DataTypes.STRING,
+    allowNull: false,
   },
   description: {
     type: DataTypes.STRING,
   },
 });
 
-export default Category;
+export default DishType;
