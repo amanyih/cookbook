@@ -11,16 +11,15 @@ const NavItem: React.FC<NavItemProps> = (props) => {
 
   const navLinkStyle = ({
     isActive,
-    isPending,
   }: {
     isActive: boolean;
     isPending: boolean;
   }): string | undefined => {
-    const style = "mx-4 hover:cursor-pointer relative text-2xl w-fit block";
+    const style = "mx-4 font-semibold hover:cursor-pointer relative text-xl";
     if (isActive) {
-      return `${style} text-red-500 font-bold group`;
+      return `${style} after:content-[''] after:absolute after:h-1 after:bg-red-500 after:w-full group`;
     } else {
-      return `${style} after:content-[''] after:absolute after:h-[3px] after:bg-red-500 after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-left`;
+      return `${style} after:content-[''] after:absolute after:h-1 after:bg-red-500 after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-left`;
     }
   };
 

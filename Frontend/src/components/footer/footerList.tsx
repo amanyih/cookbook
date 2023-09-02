@@ -14,7 +14,7 @@ const FooterList: React.FC<Props> = (props) => {
   return (
     <div>
       <h1 className="font-bold mb-1">{props.title}</h1>
-      <ul className="text-gray-600 ">
+      <ul className="text-gray-600 dark:text-whiteish ">
         {props.list.map((item) => (
           <li className="hover:text-primary-400">
             <a href={item.link}> {item.name}</a>

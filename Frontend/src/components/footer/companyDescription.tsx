@@ -4,7 +4,7 @@ const CompanyDescription = () => {
     <div className="w-1/3">
       <Logo />
 
-      <p className=" text-sm text-gray-600">
+      <p className=" text-sm text-gray-600 dark:text-whiteish">
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus,
         quibusdam. Quisquam, voluptatum. Quisquam, voluptatum. Quisquam,
         voluptatum. Quisquam, voluptatum. Quisquam, voluptatum. Quisquam,

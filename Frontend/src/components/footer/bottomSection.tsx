@@ -4,7 +4,7 @@ import {} from "@fortawesome/free-regular-svg-icons";
 const FotterBottomSection = () => {
   return (
     <div className="flex  justify-between my-5 pt-5 border-t-2 ">
-      <div className="text-md text-gray-600">
+      <div className="text-md text-gray-600 dark:text-whiteish">
         © 2023 CookBook - All rights reserved
       </div>
       <ul className="flex last:mr-0">

@@ -7,12 +7,12 @@ interface Props {
 
 const Ingredients: React.FC<Props> = (props) => {
   return (
-    <div>
-      <h1 className="text-2xl font-semibold">Ingredients</h1>
-      <ul>
+    <div className="mb-10">
+      <h1 className="mb-5 text-3xl font-bold">Ingredients</h1>
+      <ul className="ml-5">
         {props.ingredients.map((ingredient, index) => (
-          <li key={index}>
-            <span className="mr-2">
+          <li className="mb-3 text-2xl" key={index}>
+            <span className="mr-3">
               <FontAwesomeIcon icon={faCircle} />
             </span>
             {ingredient}

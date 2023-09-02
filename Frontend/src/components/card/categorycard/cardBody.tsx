@@ -8,7 +8,7 @@ interface CardBodyProps {
 
 const CardBody: React.FC<CardBodyProps> = (props) => {
   return (
-    <div className="p-4 w-full bg-white">
+    <div className="p-4 w-full">
       <div className="flex justify-between items-center">
         <div className="flex items-center">
           <div className="flex flex-col">

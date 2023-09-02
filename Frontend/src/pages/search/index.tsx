@@ -9,7 +9,7 @@ const SearchPage = () => {
   return (
     <div className="w-full flex-grow flex flex-col items-center">
       <SearchBar />
-      <div className="flex justify-between w-full mt-20 bg-whiteish p-10">
+      <div className="flex justify-between w-full mt-14 bg-whiteish dark:bg-slate-700 p-10">
         <Filter />
         <SearchResult chips={chips} />
       </div>

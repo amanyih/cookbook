@@ -3,7 +3,7 @@ import FooterTopSection from "./topSection";
 
 const Footer = () => {
   return (
-    <div className=" flex flex-col w-full bg-whiteish mt-40">
+    <div className=" flex flex-col bg-whiteish dark:bg-slate-600 mt-40 -mx-10 px-10">
       <FooterTopSection />
       <FotterBottomSection />
     </div>

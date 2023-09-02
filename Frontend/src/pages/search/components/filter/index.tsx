@@ -5,7 +5,7 @@ const Filter = () => {
   const categories = constants.CATEGORIES;
 
   return (
-    <div className=" w-1/4 pt-20">
+    <div className=" w-1/4 pt-10">
       <FilterSection title="Cuisine" list={categories.Cuisines} />
       <FilterSection
         title="Dietary Preferences"

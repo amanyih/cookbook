@@ -5,20 +5,18 @@ const RecipeLayout = () => {
   const location = useLocation();
   const path = location.pathname.split("/").at(-1);
 
-  console.log(path === "new");
-
   return (
     <div>
       {path === "recipe" && (
         <Link to="new">
           <Button
-            className="mr-auto mb-5"
+            className="mr-auto mb-5 dark:bg-slate-500"
             isLarge={true}
             isOutlined={true}
             isRounded={true}
             onClick={() => {}}
           >
-            Create
+            Create New
           </Button>
         </Link>
       )}

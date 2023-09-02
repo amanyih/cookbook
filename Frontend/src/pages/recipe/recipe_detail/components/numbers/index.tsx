@@ -1,26 +1,25 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClock } from "@fortawesome/free-regular-svg-icons";
+import { FaRegClock, FaTable } from "react-icons/fa";
 
 const RecipeDetailNumbers = () => {
   return (
-    <div className="flex">
+    <div className="mb-10 flex text-2xl font-semibold">
       <span
         className="
-      border-r-2 border-gray-300
+      border-r-4 border-gray-300
       pr-5
       mr-5
       flex flex-col items-center
       "
       >
-        <span>
-          <FontAwesomeIcon icon={faClock} className="mr-2" />
+        <span className="flex">
+          <FaRegClock className="mr-2" />
           <span>Prep Time</span>
         </span>
         <p> 20 mins</p>
       </span>
       <span className="flex flex-col items-center">
-        <span>
-          <FontAwesomeIcon icon={faClock} className="mr-2" />
+        <span className="flex">
+          <FaTable className="mr-2" />
           <span>Serving</span>
         </span>
         <p>4</p>

@@ -15,7 +15,7 @@ const Chip: React.FC<Props> = (props) => {
   return (
     <span
       onClick={onDeleteHandler}
-      className="bg-gray-200 px-6 py-2 text-xl rounded-full hover:cursor-pointer hover:bg-gray-300 group mx-1 my-2"
+      className="bg-gray-200 dark:bg-slate-500 px-6 py-2 text-md rounded-full hover:cursor-pointer hover:bg-gray-300 group mx-1 my-2"
     >
       {props.name}
       <span className={`${props.dissmisable ? "" : "hidden"}`}>

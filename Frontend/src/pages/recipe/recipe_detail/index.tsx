@@ -9,11 +9,11 @@ import {
 
 const RecipeDetail = () => {
   return (
-    <div>
+    <div className="flex flex-col justify-center items-center">
       <RecipeDetailHeader />
-      <div className="flex">
+      <RecipeDetailNumbers />
+      <div className="flex justify-between w-full">
         <div>
-          <RecipeDetailNumbers />
           <Ingredients
             ingredients={[
               "1 loaf French bread, cut into 1-inch cubes",
@@ -24,20 +24,6 @@ const RecipeDetail = () => {
               "1/3 cup maple syrup",
               "1 teaspoon vanilla extract",
               "1/2 teaspoon ground cinnamon",
-            ]}
-          />
-          <Steps
-            steps={[
-              {
-                title: "melt butter",
-                description:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum.",
-              },
-              {
-                title: " add bread",
-                description:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum.",
-              },
             ]}
           />
         </div>
@@ -64,6 +50,50 @@ const RecipeDetail = () => {
           />
         </div>
       </div>
+      <Steps
+        steps={[
+          {
+            title: "Melt butter",
+            description:
+              "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum. Lorem Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum. Lorem Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum. Lorem Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum. Lorem Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum. Lorem Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum. Lorem Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum. Lorem ",
+          },
+          {
+            title: "Add bread",
+            description:
+              "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum.",
+          },
+          {
+            title: "Melt butter",
+            description:
+              "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum. Lorem Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum. Lorem Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum. Lorem Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum. Lorem Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum. Lorem Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum. Lorem Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum. Lorem ",
+          },
+          {
+            title: "Add bread",
+            description:
+              "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum.",
+          },
+          {
+            title: "Melt butter",
+            description:
+              "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum. Lorem Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum. Lorem Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum. Lorem Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum. Lorem Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum. Lorem Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum. Lorem Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum. Lorem ",
+          },
+          {
+            title: "Add bread",
+            description:
+              "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum.",
+          },
+          {
+            title: "Melt butter",
+            description:
+              "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum. Lorem Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum. Lorem Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum. Lorem Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum. Lorem Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum. Lorem Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum. Lorem Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum. Lorem ",
+          },
+          {
+            title: "Add bread",
+            description:
+              "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum.",
+          },
+        ]}
+      />
       <Comments />
     </div>
   );

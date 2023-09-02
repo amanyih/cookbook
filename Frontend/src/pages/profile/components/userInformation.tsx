@@ -19,7 +19,7 @@ const UserInformation = () => {
           onClick={editProfile}
           isExtraLarge={true}
           isOutlined={true}
-          className="w-full mt-10"
+          className="w-full mt-10 dark:bg-slate-500"
         >
           Edit Profile
         </Button>

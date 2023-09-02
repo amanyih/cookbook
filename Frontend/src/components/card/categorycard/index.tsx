@@ -1,13 +1,10 @@
 import Image from "../image";
 import CardBody from "./cardBody";
-
+import img from "../../../assets/svg/street_food.svg";
 const CategoryCard = () => {
   return (
-    <div className="w-96 mr-10 mb-10 last:mr-0 flex-shrink-0 rounded-3xl overflow-hidden shadow-xl">
-      <Image
-        customClass="h-60"
-        src="https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-      ></Image>
+    <div className="w-96 mr-10 mb-10 last:mr-0 flex-shrink-0 rounded-3xl overflow-hidden shadow-xl dark:bg-slate-600">
+      <Image customClass="h-60" src={img}></Image>
       <CardBody
         title="Italian"
         description="Explore the best of Italian cuisine with our 50+ recipes. Learn how to

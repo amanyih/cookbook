@@ -14,8 +14,10 @@ const FilterSection: React.FC<FilterSectionProps> = (props) => {
 
   return (
     <div>
-      <h1 className=" text-3xl font-bold text-gray-500">{props.title}</h1>
-      <div className=" pl-20 flex flex-col">
+      <h1 className=" text-2xl font-bold text-gray-500 dark:text-whiteish">
+        {props.title}
+      </h1>
+      <div className=" pl-10 flex flex-col">
         {props.list.map((item) => (
           <FilterItem name={item} checked={chips.includes(item)}></FilterItem>
         ))}
