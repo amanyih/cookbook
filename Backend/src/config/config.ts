@@ -14,7 +14,7 @@ export const config = {
     password: process.env.DB_PASSWORD,
   },
   jwt: {
-    secret: process.env.JWT_SECRET,
+    secret: process.env.JWT_SECRET_KEY,
     expiresIn: process.env.JWT_EXPIRES_IN,
   },
   mail: {

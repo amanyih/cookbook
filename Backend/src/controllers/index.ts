@@ -4,6 +4,7 @@ import * as likeController from "./likeController";
 import * as recipeController from "./recipeController";
 import * as reputationController from "./reputationController";
 import * as categoryController from "./categoryController";
+import * as authController from "./authController";
 
 export {
   userController,
@@ -12,4 +13,5 @@ export {
   recipeController,
   reputationController,
   categoryController,
+  authController,
 };

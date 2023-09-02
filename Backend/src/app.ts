@@ -7,12 +7,12 @@ import {
   likeRouter,
   reputationRouter,
   userRouter,
+  authRouter,
 } from "./routes/index";
 import RateLimit from "express-rate-limit";
 import helmet from "helmet";
 import { recipeRouter } from "./routes/recipeRoutes";
-
-const cors = require("cors");
+import cors from "cors";
 
 dotenv.config({ path: "./.env" });
 
@@ -40,6 +40,7 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(`${prefix}${version}/auth`, authRouter);
 app.use(`${prefix}${version}/users`, userRouter);
 app.use(`${prefix}${version}/category`, categoryRouter);
 app.use(`${prefix}${version}/comment`, commentRouter);
