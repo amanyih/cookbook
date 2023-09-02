@@ -1,5 +1,6 @@
 import { Recipe } from "../models/index";
 export const createRecipe = async (req: any, res: any) => {
+  console.log(req.body);
   try {
     const recipe = await Recipe.create(req.body);
     res.status(201).json({

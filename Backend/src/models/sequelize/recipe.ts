@@ -1,5 +1,5 @@
 import sequelize from "../../db";
-import { DataTypes } from "sequelize";
+import { DATE, DataTypes } from "sequelize";
 
 const Recipe = sequelize.define("recipe", {
   id: {
@@ -17,12 +17,22 @@ const Recipe = sequelize.define("recipe", {
     //type: DataTypes.ARRAY(DataTypes.STRING),
     type: DataTypes.ARRAY(DataTypes.STRING),
   },
-  time: {
+  cookingTime: {
     type: DataTypes.INTEGER,
   },
-  difficulty: {
-    type: DataTypes.ENUM("easy", "medium", "hard"),
+  serving: {
+    type: DataTypes.INTEGER,
   },
+  tags: {
+    type: DataTypes.ARRAY(DataTypes.STRING),
+  },
+  image: {
+    type: DataTypes.STRING,
+  },
+  steps: {
+    type: DataTypes.ARRAY(DataTypes.STRING),
+  },
+
   userId: {
     type: DataTypes.INTEGER,
   },

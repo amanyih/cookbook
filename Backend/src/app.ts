@@ -1,4 +1,5 @@
 import express from "express";
+
 import dotenv from "dotenv";
 import {
   categoryRouter,
@@ -11,6 +12,8 @@ import RateLimit from "express-rate-limit";
 import helmet from "helmet";
 import { recipeRouter } from "./routes/recipeRoutes";
 
+const cors = require("cors");
+
 dotenv.config({ path: "./.env" });
 
 const app = express();
@@ -21,7 +24,7 @@ const limitter = RateLimit({
 });
 
 //Middlewares
-// app.use(cors())
+app.use(cors());
 app.use(helmet());
 app.use(express.json());
 app.use(limitter);
@@ -30,6 +33,12 @@ app.use(limitter);
 //route configs
 const prefix = "/api";
 const version = "/v1";
+
+app.use((req, res, next) => {
+  console.log(req.method, req.url);
+  // console.log(req);
+  next();
+});
 
 app.use(`${prefix}${version}/users`, userRouter);
 app.use(`${prefix}${version}/category`, categoryRouter);
