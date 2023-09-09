@@ -18,7 +18,7 @@ const useHttp = () => {
   const dispatch = useDispatch();
 
   const sendRequest = async (requestInfo: RequestInfo) => {
-    console.log(requestInfo.method, requestInfo.url);
+    // console.log(requestInfo.method, requestInfo.url);
     setLoading(true);
     setError(false);
 
@@ -26,7 +26,9 @@ const useHttp = () => {
 
     try {
       const response = await fetch(constants.API_URL + requestInfo.url, {
-        headers: { "content-type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         method: requestInfo.method ? requestInfo.method : "GET",
         body: requestInfo.body ? JSON.stringify(requestInfo.body) : null,
       });
@@ -34,6 +36,7 @@ const useHttp = () => {
       if (response.ok) {
         data = await response.json();
       } else {
+        console.log(response);
         throw Error("Unable to find data");
       }
     } catch (err) {

@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { VariableInputs } from "../../../../components";
-const Steps = () => {
-  const [steps, setSteps] = useState<string[]>([]);
+const Steps = ({
+  steps,
+  setSteps,
+}: {
+  steps: string[];
+  setSteps: (value: string[]) => void;
+}) => {
   const [stepDescription, setStepDescription] = useState<string[]>([]);
 
   const handleChangeSteps = (value: string[]) => {

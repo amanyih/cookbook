@@ -20,43 +20,46 @@ const NewRecipePage = () => {
   const [description, setDescription] = useState<string>("");
   const [cookingTime, setCookingTime] = useState<number>(0);
   const [serving, setServing] = useState<number>(0);
-  const [category, setCategory] = useState<string>("");
   const [steps, setSteps] = useState<string[]>([]);
   const [ingredients, setIngredients] = useState<string[]>([]);
   const [tags, setTags] = useState<string[]>([]);
-  const [nutrition, setNutrition] = useState<{
-    calories: number;
-    fat: number;
-    protein: number;
-    carbs: number;
-  }>({
-    calories: 0,
-    fat: 0,
-    protein: 0,
-    carbs: 0,
-  });
+  // const [nutrition, setNutrition] = useState<{
+  //   calories: number;
+  //   fat: number;
+  //   protein: number;
+  //   carbs: number;
+  // }>({
+  //   calories: 0,
+  //   fat: 0,
+  //   protein: 0,
+  //   carbs: 0,
+  // });
+  const [origin, setOrigin] = useState<string>("");
+  const [dishType, setDishType] = useState<string>("");
+  const [diet, setDiet] = useState<string>("");
+  const [mealType, setMealType] = useState<string>("");
 
   const dispatch = useDispatch();
   const { sendRequest: createRecipe } = useHttp();
 
-  const submitHandler = (event: FormEvent) => {
+  const submitHandler = async (event: FormEvent) => {
     event.preventDefault();
     const newRecipe = new RecipeDto(
-      "title",
-      "description",
-      ["ing1", "ing2"],
-      {
-        orgin: "Eth",
-        "dish-type": "break",
-        "meal-course": "dinner",
-        diet: "vegan",
-      },
-      30,
-      5,
-      ["good", "tasty"],
-      [{ title: "step1", description: "description" }]
+      title,
+      description,
+      ingredients,
+      origin,
+      dishType,
+      mealType,
+      diet,
+
+      cookingTime,
+      serving,
+      tags,
+      steps
     );
-    const res = createRecipe({
+
+    await createRecipe({
       url: "/recipe",
       body: newRecipe,
       method: "POST",
@@ -84,14 +87,44 @@ const NewRecipePage = () => {
           <Description value={description} onChange={() => {}} />
         </div>
         <div className="w-1/2">
-          <Ingredients />
-          <Categories />
-          <Numbers />
-          <Tags />
+          <Ingredients
+            ingredients={ingredients}
+            setIngredients={setIngredients}
+          />
+          <Categories
+            diet={diet}
+            dishType={dishType}
+            origin={origin}
+            mealType={mealType}
+            setDiet={setDiet}
+            setDishType={setDishType}
+            setMealType={setMealType}
+            setOrigin={setOrigin}
+          />
+          <Numbers
+            cookingTime={cookingTime}
+            serving={serving}
+            setCookingTime={setCookingTime}
+            setServing={setServing}
+          />
+          <Tags tags={tags} setTags={setTags} />
         </div>
       </div>
-      <Steps />
-      <input type="sumbit" onClick={submitHandler} value={"Submit"} />
+      <Steps steps={steps} setSteps={setSteps} />
+      <button
+        onClick={(event) => submitHandler(event)}
+        className="
+      bg-red-500
+      hover:bg-red-700
+     text-white
+      font-bold
+      py-2
+      px-4
+      rounded
+      "
+      >
+        Submit
+      </button>
     </div>
   );
 };

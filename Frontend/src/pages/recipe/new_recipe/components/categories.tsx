@@ -1,11 +1,25 @@
 import { useState } from "react";
 import { DropDownSelect } from "../../../../components";
 
-const Categories = () => {
-  const [origin, setOrigin] = useState<string>("");
-  const [dishType, setDishType] = useState<string>("");
-  const [diet, setDiet] = useState<string>("");
-  const [mealType, setMealType] = useState<string>("");
+const Categories = ({
+  origin,
+  dishType,
+  diet,
+  mealType,
+  setOrigin,
+  setDishType,
+  setDiet,
+  setMealType,
+}: {
+  origin: string;
+  dishType: string;
+  diet: string;
+  mealType: string;
+  setOrigin: (value: string) => void;
+  setDishType: (value: string) => void;
+  setDiet: (value: string) => void;
+  setMealType: (value: string) => void;
+}) => {
   const origin_categories = [
     "Ethiopian",
     "Italian",

@@ -3,9 +3,13 @@ import { VariableInputs } from "../../../../components";
 
 interface props {}
 
-const Ingredients = () => {
-  const [ingredients, setIngredients] = useState<string[]>([]);
-
+const Ingredients = ({
+  ingredients,
+  setIngredients,
+}: {
+  ingredients: string[];
+  setIngredients: (value: string[]) => void;
+}) => {
   const handleChangeIngredients = (value: string[]) => {
     setIngredients(value);
   };

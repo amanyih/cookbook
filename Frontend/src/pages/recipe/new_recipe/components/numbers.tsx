@@ -1,10 +1,17 @@
 import { useState } from "react";
 import { Input } from "../../../../components";
 
-const Numbers = () => {
-  const [cookingTime, setCookingTime] = useState<number>(0);
-  const [serving, setServing] = useState<number>(0);
-
+const Numbers = ({
+  cookingTime,
+  setCookingTime,
+  serving,
+  setServing,
+}: {
+  cookingTime: number;
+  setCookingTime: (value: number) => void;
+  serving: number;
+  setServing: (value: number) => void;
+}) => {
   return (
     <div className="mb-5">
       <h1 className=" text-3xl font-bold bg-gray-200 p-4 mb-5">Numbers</h1>
