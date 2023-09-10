@@ -20,6 +20,6 @@ const User = sequelize.define("user", {
   },
 });
 
-User.hasMany(Recipe);
-
+User.hasMany(Recipe, { as: "recipes", foreignKey: "userId" });
+Recipe.belongsTo(User, { as: "author", foreignKey: "id" });
 export default User;

@@ -2,6 +2,7 @@ import sequelize from "../../db";
 import { Diet, DishType, MealCourse, Origin } from "./categories";
 import Comment from "./comments";
 import { DataTypes } from "sequelize";
+import User from "./user";
 
 const Recipe = sequelize.define("recipe", {
   id: {
@@ -34,12 +35,10 @@ const Recipe = sequelize.define("recipe", {
   steps: {
     type: DataTypes.ARRAY(DataTypes.STRING),
   },
-  userId: {
-    type: DataTypes.INTEGER,
-  },
 });
 
-Recipe.belongsTo(Origin, { foreignKey: "originId" });
+Recipe.belongsTo(Origin);
+Origin.hasMany(Recipe, { as: "recipes", foreignKey: "originId" });
 Recipe.belongsTo(DishType, { foreignKey: "dishTypeId" });
 Recipe.belongsTo(MealCourse, { foreignKey: "mealcourseId" });
 Recipe.belongsTo(Diet, { foreignKey: "dietId" });

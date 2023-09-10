@@ -1,5 +1,5 @@
 import { Model, ModelCtor } from "sequelize";
-import { Origin, Diet, MealCourse, DishType } from "../models/index";
+import { Origin, Diet, MealCourse, DishType, Recipe } from "../models/index";
 import { Request, Response } from "express";
 
 export const createOrigin = async (req: Request, res: Response) => {
@@ -49,7 +49,14 @@ export const getOrigin = async (req: Request, res: Response) => {
 };
 export const getAllOrigins = async (req: Request, res: Response) => {
   try {
-    const origins = await Origin.findAll();
+    const origins = await Origin.findAll({
+      include: [
+        {
+          model: Recipe,
+          as: "recipes",
+        },
+      ],
+    });
 
     res.status(200).json({
       status: "success",

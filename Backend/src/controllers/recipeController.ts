@@ -6,6 +6,7 @@ import {
   MealCourse,
   User,
   Like,
+  Comment,
 } from "../models/index";
 export const createRecipe = async (req: any, res: any) => {
   try {
@@ -36,6 +37,15 @@ export const createRecipe = async (req: any, res: any) => {
       steps,
       userId,
     });
+
+    const user = await User.findByPk(userId);
+    if (!user) {
+      return res.status(404).json({
+        status: "fail",
+        message: "User not found",
+      });
+    }
+
     const originObj = await Origin.findOrCreate({
       where: { name: origin },
     });
@@ -52,6 +62,8 @@ export const createRecipe = async (req: any, res: any) => {
       where: { name: dishtype },
     });
 
+    await recipe.setAuthor(user);
+
     await recipe.setOrigin(originObj[0]);
     await recipe.setDiet(dietObj[0]);
     await recipe.setDishtype(dishtypeObj[0]);
@@ -64,6 +76,7 @@ export const createRecipe = async (req: any, res: any) => {
       },
     });
   } catch (err) {
+    console.log(err);
     res.status(400).json({
       status: "fail",
       message: err,
@@ -94,7 +107,18 @@ export const getRecipe = async (req: any, res: any) => {
 };
 export const getAllRecipe = async (req: any, res: any) => {
   try {
-    const recipe = await Recipe.findAll();
+    //only send recipe title,image,description,user,likes,comments length
+
+    const recipe = await Recipe.findAll({
+      include: [
+        {
+          model: User,
+          as: "author",
+          attributes: ["email", "createdAt"],
+        },
+        Origin,
+      ],
+    });
     res.status(200).json({
       status: "success",
       results: recipe.length,
@@ -103,6 +127,7 @@ export const getAllRecipe = async (req: any, res: any) => {
       },
     });
   } catch (err) {
+    console.log(err);
     res.status(400).json({
       status: "fail",
       message: err,

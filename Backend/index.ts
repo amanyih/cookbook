@@ -6,7 +6,7 @@ import sequelize from "./src/db";
   try {
     await sequelize.authenticate();
     console.log("Connection has been established successfully.");
-    await sequelize.sync({ force: true });
+    await sequelize.sync({ alter: true });
     console.log("All models were synchronized successfully.");
   } catch (err) {
     console.log(err);

@@ -20,11 +20,16 @@ const app = express();
 //rate limit
 const limitter = RateLimit({
   windowMs: 60 * 60 * 1000,
-  max: 100,
+  max: 100000,
 });
 
 //Middlewares
-app.use(cors());
+app.use(
+  cors({
+    origin: "*", // allow to server to accept request from different origin
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS", // allow methods
+  })
+);
 app.use(helmet());
 app.use(express.json());
 app.use(limitter);
@@ -36,10 +41,11 @@ const version = "/v1";
 
 app.use((req, res, next) => {
   console.log(req.method, req.url);
-  // console.log(req);
+  console.log(req.body);
   next();
 });
 
+//routes
 app.use(`${prefix}${version}/auth`, authRouter);
 app.use(`${prefix}${version}/users`, userRouter);
 app.use(`${prefix}${version}/category`, categoryRouter);
