@@ -18,44 +18,57 @@ interface VariableInputsProps {
 
 const VariableInputs: React.FC<VariableInputsProps> = (props) => {
   const [amountOfInputs, setAmountOfInputs] = useState<number>(1);
-  const [inputValues, setInputValues] = useState<string[]>([""]);
+  const inputValues = props.value;
 
   return (
     <div>
       {Array.from(Array(amountOfInputs).keys()).map((index) => (
-        <span>
+        <span className="mb-3">
           <div>
-            <Input
-              type="text"
-              placeholder={`Eg. ${props.title} ${index + 1}`}
-              value={`${inputValues[index]}`}
-              label={`${props.title} ${index + 1}`}
-              className="min-w-64 text-2xl"
-              onChange={(value) => {
-                const newInputValues = [...inputValues];
-                newInputValues[index] = value.target.value;
-                setInputValues(newInputValues);
-              }}
-            />
+            <div className="flex items-center">
+              <Input
+                type="text"
+                placeholder={`Eg. ${props.title} ${index + 1}`}
+                value={`${inputValues[index]}`}
+                label={`${props.title} ${index + 1}`}
+                className="min-w-64 text-2xl"
+                onChange={(event) => {
+                  const newInputValues = [...inputValues];
+                  newInputValues[index] = event.target.value;
+
+                  props.onChange(newInputValues);
+                }}
+              />
+              <Button
+                isOutlined={true}
+                isRounded={true}
+                className={`px-1 py-1 text-sm m-2 ${
+                  amountOfInputs === 1 ? "hidden" : ""
+                } }`}
+                onClick={() => {
+                  if (index === 1) return;
+                  const newInputValues = [...inputValues];
+                  newInputValues.splice(index, 1);
+                  props.onChange(newInputValues);
+                  setAmountOfInputs(amountOfInputs - 1);
+                }}
+              >
+                <FontAwesomeIcon icon={faRemove} className="mx-2" />
+              </Button>
+            </div>
+
             {props.secondaryValue && (
-              <TextArea value="" className="w-1/2" onChange={(value) => {}} />
+              <TextArea
+                value={props.secondaryValue[index]}
+                className="w-1/2"
+                onChange={(value) => {
+                  const newSecondaryValues = [...props.secondaryValue!];
+                  newSecondaryValues[index] = value.target.value;
+                  props.onSecondaryChange!(newSecondaryValues);
+                }}
+              />
             )}
           </div>
-          <Button
-            isOutlined={true}
-            isRounded={true}
-            className={`px-3 py-2 text-xl m-2 ${index === 0 ? "hidden" : ""} }`}
-            onClick={() => {
-              if (index === 0) return;
-              const newInputValues = [...inputValues];
-              newInputValues.splice(index, 1);
-              setInputValues(newInputValues);
-              setAmountOfInputs(amountOfInputs - 1);
-            }}
-          >
-            <FontAwesomeIcon icon={faRemove} className="mr-2" />
-            Remove
-          </Button>
         </span>
       ))}
       <Button
@@ -63,7 +76,7 @@ const VariableInputs: React.FC<VariableInputsProps> = (props) => {
         isRounded={true}
         isOutlined={true}
         onClick={() => {
-          setInputValues([...inputValues, ""]);
+          props.onChange([...inputValues, ""]);
           setAmountOfInputs(amountOfInputs + 1);
         }}
       >

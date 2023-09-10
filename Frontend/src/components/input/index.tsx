@@ -8,6 +8,7 @@ interface InputProps {
   id?: string;
   label?: string;
   error?: string;
+  ref?: React.RefObject<HTMLInputElement>;
 }
 
 const Input: React.FC<InputProps> = (props) => {
@@ -27,6 +28,7 @@ const Input: React.FC<InputProps> = (props) => {
         value={props.value}
         onChange={props.onChange}
         required={true}
+        ref={props.ref}
         name={props.name}
         id={props.id}
         className={`px-4 py-2 text-gray-700 dark:text-whiteish  bg-gray-200 dark:bg-slate-500 border border-gray-200 rounded focus:outline-none focus:bg-white focus:border-gray-500

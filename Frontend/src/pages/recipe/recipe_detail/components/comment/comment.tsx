@@ -5,7 +5,11 @@ import {
   FaThumbsUp,
   FaThumbsDown,
 } from "react-icons/fa";
-const Comment = () => {
+
+interface Props {
+  comment: any;
+}
+const Comment: React.FC<Props> = (props) => {
   const [liked, setLiked] = useState<boolean>();
   const [disliked, setDisliked] = useState<boolean>();
 
@@ -23,21 +27,20 @@ const Comment = () => {
     <li className="flex mb-5">
       <div className="mr-2">
         <img
-          src="https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          src={
+            props.comment.user.profilePicture ??
+            "https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          }
           className=" inline-block w-10 h-10 rounded-full"
           alt=""
         />
       </div>
       <div className="border-b-2 pb-4">
-        <h1 className="mb-1 text-xl font-semibold">John Doe</h1>
-        <h2 className="mb-2">August 1, 2021</h2>
-        <p className="mb-3">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
-          voluptatum. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Minima magni nulla, ab voluptas dolores commodi cumque qui repellendus
-          nostrum illum velit modi sint officiis consequatur perspiciatis
-          similique ducimus dolore? Perferendis!
-        </p>
+        <h1 className="mb-1 text-xl font-semibold">
+          {props.comment.user.name ?? "John Doe"}
+        </h1>
+        <h2 className="mb-2">{props.comment.createdAt}</h2>
+        <p className="mb-3">{props.comment.content}</p>
         <div className="flex text-x">
           <span className="mr-3 hover:cursor-pointer" onClick={likeComment}>
             {liked ? (

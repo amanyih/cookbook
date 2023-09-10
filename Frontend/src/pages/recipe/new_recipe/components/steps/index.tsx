@@ -1,16 +1,23 @@
 import { useState } from "react";
-import { VariableInputs } from "../../../../components";
+import { VariableInputs } from "../../../../../components";
 const Steps = ({
   steps,
   setSteps,
+  stepDescription,
+  setStepDescription,
 }: {
   steps: string[];
+  stepDescription: string[];
+  setStepDescription: (value: string[]) => void;
   setSteps: (value: string[]) => void;
 }) => {
-  const [stepDescription, setStepDescription] = useState<string[]>([]);
+  // const [stepDescription, setStepDescription] = useState<string[]>([]);
 
   const handleChangeSteps = (value: string[]) => {
     setSteps(value);
+  };
+  const handleChangeStepDescription = (value: string[]) => {
+    setStepDescription(value);
   };
   return (
     <div className="w-full">
@@ -21,6 +28,7 @@ const Steps = ({
         placeholder="Eg: Chicken"
         value={steps}
         onChange={handleChangeSteps}
+        onSecondaryChange={handleChangeStepDescription}
       />
     </div>
   );

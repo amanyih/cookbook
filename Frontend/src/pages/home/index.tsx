@@ -7,7 +7,7 @@ import { CategoriesSections } from "../categories/components";
 const HomePage = () => {
   return (
     <div className="w-full">
-      <Hero></Hero>
+      <Hero />
       <div className="w-full">
         <SectionTitle any="Recent Posts" />
         <HorizontalScroll />

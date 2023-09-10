@@ -5,6 +5,7 @@ import Categories from "./categories";
 import Numbers from "./numbers";
 import Ingredients from "./ingredients";
 import Tags from "./tags";
+import SectionTitle from "./section_title";
 
 export {
   NewRecipeHeader,
@@ -14,4 +15,5 @@ export {
   Numbers,
   Ingredients,
   Tags,
+  SectionTitle,
 };

@@ -21,10 +21,13 @@ interface Props {
   comments: number;
   date: string;
   authorImg: string;
+  isLiked: boolean;
+  cookTime: number;
+  serving: number;
 }
 
 const CardBody: React.FC<Props> = (props) => {
-  const [liked, setLiked] = useState<boolean>(false);
+  const [liked, setLiked] = useState<boolean>(props.isLiked);
 
   const handleLike = (event: React.MouseEvent) => {
     event.stopPropagation();
@@ -52,7 +55,7 @@ const CardBody: React.FC<Props> = (props) => {
         </div>
         <div>
           <FontAwesomeIcon icon={faClock} className="mr-2"></FontAwesomeIcon>
-          30min
+          <span className=" text-base text-gray-500">{props.cookTime} min</span>
         </div>
       </div>
 
@@ -75,13 +78,13 @@ const CardBody: React.FC<Props> = (props) => {
         <img src={props.authorImg} className=" rounded-full w-8 h-8" alt="" />
         <span className="ml-2 text-sm font-semibold">{props.author}</span>
       </div>
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center mt-2">
         <div>
           <FontAwesomeIcon
             icon={faMessageRegular}
-            className="mr-1 text-gray-500 text-sm"
+            className=" text-gray-500 text-base mr-2"
           />
-          <span className=" text-sm text-gray-500">{props.comments}</span>
+          <span className=" text-base text-gray-500">{props.comments}</span>
         </div>
         <div className=" flex items-center">
           <FontAwesomeIcon

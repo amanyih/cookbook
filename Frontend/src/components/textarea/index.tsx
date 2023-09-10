@@ -6,6 +6,7 @@ interface TextAreaProps {
   error?: string;
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   value: string;
+  ref?: React.RefObject<HTMLTextAreaElement>;
 }
 
 const TextArea: React.FC<TextAreaProps> = (props) => {
@@ -21,7 +22,8 @@ const TextArea: React.FC<TextAreaProps> = (props) => {
         <textarea
           id="description"
           name="description"
-          maxLength={5}
+          ref={props.ref}
+          maxLength={1000}
           cols={30}
           rows={20}
           wrap="hard"

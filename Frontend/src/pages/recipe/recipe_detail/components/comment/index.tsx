@@ -1,14 +1,19 @@
 import Comment from "./comment";
 import { TextArea } from "../../../../../components";
-const Comments = () => {
+
+interface Props {
+  comments: any[];
+}
+
+const Comments: React.FC<Props> = (props) => {
   return (
-    <div className="mb-10">
+    <div className="mb-10 w-full">
       <h1 className="mb-5 text-3xl font-semibold pb-8 border-b-2">
-        Comments <span>(24)</span>{" "}
+        Comments <span>({props.comments.length})</span>{" "}
       </h1>
-      <Comment />
-      <Comment />
-      <Comment />
+      {props.comments.map((comment) => (
+        <Comment comment={comment} />
+      ))}
     </div>
   );
 };

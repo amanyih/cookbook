@@ -1,5 +1,7 @@
-import { useState } from "react";
-import { DropDownSelect } from "../../../../components";
+import { useState, useEffect } from "react";
+import { DropDownSelect } from "../../../../../components";
+
+let isMount = true;
 
 const Categories = ({
   origin,
@@ -68,6 +70,16 @@ const Categories = ({
     "Date Night",
     "Kids' Favorites",
   ];
+
+  useEffect(() => {
+    if (isMount) {
+      setOrigin(origin_categories[0]);
+      setDishType(dish_type_categories[0]);
+      setDiet(dietary_preferences[0]);
+      setMealType(meal_course_categories[0]);
+      isMount = false;
+    }
+  });
 
   return (
     <div>

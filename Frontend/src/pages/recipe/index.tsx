@@ -19,9 +19,11 @@ const RecipePage = () => {
 
   return (
     <div className="flex flex-wrap">
-      {recipes.map((recipe: Recipe) => {
-        return <RecipeCard recipe={recipe} />;
-      })}
+      {recipes &&
+        recipes.map((recipe: Recipe) => {
+          console.log(recipes);
+          return <RecipeCard recipe={recipe} />;
+        })}
     </div>
   );
 };

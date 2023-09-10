@@ -1,5 +1,5 @@
-import { FormEvent, useState } from "react";
-import { Input } from "../../../components";
+import { FormEvent, useState, useRef } from "react";
+import { Input, Button } from "../../../components";
 import {
   NewRecipeHeader,
   Steps,
@@ -8,123 +8,136 @@ import {
   Numbers,
   Ingredients,
   Tags,
+  SectionTitle,
 } from "./components";
 
 import { recipeActions } from "../../../store/recipe";
 import { useDispatch } from "react-redux";
 import RecipeDto from "../../../types/dtos/recipe.dto";
 import useHttp from "../../../hooks/useHttp";
+import useInput from "../../../hooks/useInput";
 
 const NewRecipePage = () => {
-  const [title, setTitle] = useState<string>("");
+  const {
+    value: title,
+    errorMessage,
+    onChange: titleOnChange,
+  } = useInput("", (value) => value !== "");
   const [description, setDescription] = useState<string>("");
+  const [ingredients, setIngredients] = useState<string[]>([""]);
+  const [diet, setDiet] = useState<string>("");
+  const [dishType, setDishType] = useState<string>("");
+  const [origin, setOrigin] = useState<string>("");
+  const [mealType, setMealType] = useState<string>("");
   const [cookingTime, setCookingTime] = useState<number>(0);
   const [serving, setServing] = useState<number>(0);
-  const [steps, setSteps] = useState<string[]>([]);
-  const [ingredients, setIngredients] = useState<string[]>([]);
   const [tags, setTags] = useState<string[]>([]);
-  // const [nutrition, setNutrition] = useState<{
-  //   calories: number;
-  //   fat: number;
-  //   protein: number;
-  //   carbs: number;
-  // }>({
-  //   calories: 0,
-  //   fat: 0,
-  //   protein: 0,
-  //   carbs: 0,
-  // });
-  const [origin, setOrigin] = useState<string>("");
-  const [dishType, setDishType] = useState<string>("");
-  const [diet, setDiet] = useState<string>("");
-  const [mealType, setMealType] = useState<string>("");
+  const [steps, setSteps] = useState<string[]>([]);
+  const [stepDescription, setStepDescription] = useState<string[]>([]);
 
-  const dispatch = useDispatch();
   const { sendRequest: createRecipe } = useHttp();
 
   const submitHandler = async (event: FormEvent) => {
     event.preventDefault();
-    const newRecipe = new RecipeDto(
+
+    const step: { title: string; description: string }[] = [];
+    for (let i = 0; i < steps.length; i++) {
+      step.push({
+        title: steps[i],
+        description: stepDescription[i],
+      });
+    }
+    const recipe: RecipeDto = new RecipeDto(
       title,
       description,
       ingredients,
       origin,
+      diet,
       dishType,
       mealType,
-      diet,
-
       cookingTime,
       serving,
       tags,
-      steps
+      step
     );
 
-    await createRecipe({
+    const response = await createRecipe({
       url: "/recipe",
-      body: newRecipe,
       method: "POST",
+      body: recipe,
     });
 
-    dispatch(recipeActions.createRecipe(newRecipe));
+    if (response.status === "success") {
+      //navigate to recipe page
+      window.location.href = `/recipe/`;
+    }
   };
 
   return (
     <div className=" flex flex-col w-full">
       <NewRecipeHeader />
+      <form action="" onSubmit={submitHandler}>
+        <div className="flex">
+          <div className="mr-5 w-1/2">
+            <SectionTitle title="Title" />
+            <Input
+              type="text"
+              placeholder="Eg: Chicken Curry"
+              value={title}
+              className="w-1/2 text-4xl"
+              onChange={titleOnChange}
+            />
+            <Description
+              value={description}
+              onChange={(event: any) => setDescription(event.target.value)}
+            />
+          </div>
+          <div className="w-1/2">
+            <Ingredients
+              ingredients={ingredients}
+              setIngredients={setIngredients}
+            />
+            <Categories
+              diet={diet}
+              dishType={dishType}
+              origin={origin}
+              mealType={mealType}
+              setDiet={setDiet}
+              setDishType={setDishType}
+              setMealType={setMealType}
+              setOrigin={setOrigin}
+            />
+            <Numbers
+              cookingTime={cookingTime}
+              serving={serving}
+              setCookingTime={setCookingTime}
+              setServing={setServing}
+            />
+            <Tags tags={tags} setTags={setTags} />
+          </div>
+        </div>
+        <Steps
+          steps={steps}
+          setSteps={setSteps}
+          stepDescription={stepDescription}
+          setStepDescription={setStepDescription}
+        />
 
-      <div className="w-full flex">
-        <div className="w-1/2 mr-5">
-          <h1 className=" text-3xl font-bold bg-gray-200 p-4 mb-5">Title</h1>
-          <Input
-            type="text"
-            placeholder="Eg: Chicken Curry"
-            value={title}
-            className="w-1/2 text-4xl"
-            onChange={(value) => {
-              setTitle(value.target.value);
-            }}
-          />
-          <Description value={description} onChange={() => {}} />
-        </div>
-        <div className="w-1/2">
-          <Ingredients
-            ingredients={ingredients}
-            setIngredients={setIngredients}
-          />
-          <Categories
-            diet={diet}
-            dishType={dishType}
-            origin={origin}
-            mealType={mealType}
-            setDiet={setDiet}
-            setDishType={setDishType}
-            setMealType={setMealType}
-            setOrigin={setOrigin}
-          />
-          <Numbers
-            cookingTime={cookingTime}
-            serving={serving}
-            setCookingTime={setCookingTime}
-            setServing={setServing}
-          />
-          <Tags tags={tags} setTags={setTags} />
-        </div>
-      </div>
-      <Steps steps={steps} setSteps={setSteps} />
-      <button
-        onClick={(event) => submitHandler(event)}
-        className="
-      bg-red-500
+        <input
+          className="bg-red-500
       hover:bg-red-700
      text-white
       font-bold
-      py-2
-      px-4
-      rounded
+      py-6
+      px-8
+      text-2xl
+      rounded-3xl
+      w-full
+      
       "
-      >
-        Submit
-      </button>
+          type="submit"
+        />
+      </form>
     </div>
   );
 };
