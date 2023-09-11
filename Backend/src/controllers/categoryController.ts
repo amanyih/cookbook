@@ -1,5 +1,15 @@
 import { Model, ModelCtor } from "sequelize";
-import { Origin, Diet, MealCourse, DishType, Recipe } from "../models/index";
+import {
+  Origin,
+  Diet,
+  MealCourse,
+  DishType,
+  Recipe,
+  Like,
+  Rating,
+  User,
+  Comment,
+} from "../models/index";
 import { Request, Response } from "express";
 
 export const createOrigin = async (req: Request, res: Response) => {
@@ -25,7 +35,51 @@ export const createOrigin = async (req: Request, res: Response) => {
 export const getOrigin = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const origin = await Origin.findOne({ where: { id } });
+    const origin: any = await Origin.findOne({
+      where: { id },
+      include: [
+        {
+          model: Recipe,
+          as: "recipes",
+
+          include: [
+            {
+              model: User,
+              as: "author",
+              attributes: ["id", "profilePicture", "email", "createdAt"],
+            },
+            {
+              model: Rating,
+              attributes: ["rating"],
+              as: "ratings",
+            },
+            {
+              model: Comment,
+              as: "comments",
+            },
+            {
+              model: Like,
+              as: "likes",
+            },
+          ],
+          attributes: {
+            exclude: [
+              "updatedAt",
+              "userId",
+              "originId",
+              "mealcourseId",
+              "dietId",
+              "dishTypeId",
+              "steps",
+              "ingredients",
+              "tags",
+              "authorId",
+              "nutrition",
+            ],
+          },
+        },
+      ],
+    });
 
     if (!origin) {
       return res.status(400).json({
@@ -33,6 +87,16 @@ export const getOrigin = async (req: Request, res: Response) => {
         message: "Origin not found",
       });
     }
+    origin!.recipes.forEach((recipe: any) => {
+      recipe.setDataValue("likes", recipe.likes.length);
+      recipe.setDataValue("comments", recipe.comments.length);
+      const rating = recipe.ratings.reduce(
+        (acc: any, cur: any) => acc + cur.rating,
+        0
+      );
+      recipe.dataValues.rating = rating / recipe.ratings.length;
+      delete recipe.dataValues.ratings;
+    });
 
     res.status(200).json({
       status: "success",
@@ -56,6 +120,10 @@ export const getAllOrigins = async (req: Request, res: Response) => {
           as: "recipes",
         },
       ],
+    });
+
+    origins.forEach((origin: any) => {
+      origin.setDataValue("recipes", origin.recipes.length);
     });
 
     res.status(200).json({
@@ -165,7 +233,51 @@ export const createDiet = async (req: Request, res: Response) => {
 export const getDiet = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const diet = await Diet.findOne({ where: { id } });
+    const diet: any = await Diet.findOne({
+      where: { id },
+      include: [
+        {
+          model: Recipe,
+          as: "recipes",
+
+          include: [
+            {
+              model: User,
+              as: "author",
+              attributes: ["id", "profilePicture", "email", "createdAt"],
+            },
+            {
+              model: Rating,
+              attributes: ["rating"],
+              as: "ratings",
+            },
+            {
+              model: Comment,
+              as: "comments",
+            },
+            {
+              model: Like,
+              as: "likes",
+            },
+          ],
+          attributes: {
+            exclude: [
+              "updatedAt",
+              "userId",
+              "originId",
+              "mealcourseId",
+              "dietId",
+              "dishTypeId",
+              "steps",
+              "ingredients",
+              "tags",
+              "authorId",
+              "nutrition",
+            ],
+          },
+        },
+      ],
+    });
 
     if (!diet) {
       return res.status(400).json({
@@ -173,6 +285,17 @@ export const getDiet = async (req: Request, res: Response) => {
         message: "Diet not found",
       });
     }
+
+    diet!.recipes.forEach((recipe: any) => {
+      recipe.setDataValue("likes", recipe.likes.length);
+      recipe.setDataValue("comments", recipe.comments.length);
+      const rating = recipe.ratings.reduce(
+        (acc: any, cur: any) => acc + cur.rating,
+        0
+      );
+      recipe.dataValues.rating = rating / recipe.ratings.length;
+      delete recipe.dataValues.ratings;
+    });
 
     res.status(200).json({
       status: "success",
@@ -190,7 +313,18 @@ export const getDiet = async (req: Request, res: Response) => {
 
 export const getAllDiets = async (req: Request, res: Response) => {
   try {
-    const diets = await Diet.findAll();
+    const diets = await Diet.findAll({
+      include: [
+        {
+          model: Recipe,
+          as: "recipes",
+        },
+      ],
+    });
+
+    diets.forEach((diet: any) => {
+      diet.setDataValue("recipes", diet.recipes.length);
+    });
 
     res.status(200).json({
       status: "success",
@@ -301,7 +435,51 @@ export const createMealCourse = async (req: Request, res: Response) => {
 export const getMealCourse = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const mealcourse = await MealCourse.findOne({ where: { id } });
+    const mealcourse: any = await MealCourse.findOne({
+      where: { id },
+      include: [
+        {
+          model: Recipe,
+          as: "recipes",
+
+          include: [
+            {
+              model: User,
+              as: "author",
+              attributes: ["id", "profilePicture", "email", "createdAt"],
+            },
+            {
+              model: Rating,
+              attributes: ["rating"],
+              as: "ratings",
+            },
+            {
+              model: Comment,
+              as: "comments",
+            },
+            {
+              model: Like,
+              as: "likes",
+            },
+          ],
+          attributes: {
+            exclude: [
+              "updatedAt",
+              "userId",
+              "originId",
+              "mealcourseId",
+              "dietId",
+              "dishTypeId",
+              "steps",
+              "ingredients",
+              "tags",
+              "authorId",
+              "nutrition",
+            ],
+          },
+        },
+      ],
+    });
 
     if (!mealcourse) {
       return res.status(400).json({
@@ -309,6 +487,17 @@ export const getMealCourse = async (req: Request, res: Response) => {
         message: "Meal Course not found",
       });
     }
+
+    mealcourse!.recipes.forEach((recipe: any) => {
+      recipe.setDataValue("likes", recipe.likes.length);
+      recipe.setDataValue("comments", recipe.comments.length);
+      const rating = recipe.ratings.reduce(
+        (acc: any, cur: any) => acc + cur.rating,
+        0
+      );
+      recipe.dataValues.rating = rating / recipe.ratings.length;
+      delete recipe.dataValues.ratings;
+    });
 
     res.status(200).json({
       status: "success",
@@ -326,7 +515,18 @@ export const getMealCourse = async (req: Request, res: Response) => {
 
 export const getAllMealCourses = async (req: Request, res: Response) => {
   try {
-    const mealcourses = await MealCourse.findAll();
+    const mealcourses = await MealCourse.findAll({
+      include: [
+        {
+          model: Recipe,
+          as: "recipes",
+        },
+      ],
+    });
+
+    mealcourses.forEach((mealcourse: any) => {
+      mealcourse.setDataValue("recipes", mealcourse.recipes.length);
+    });
 
     res.status(200).json({
       status: "success",
@@ -437,7 +637,51 @@ export const createDishType = async (req: Request, res: Response) => {
 export const getDishType = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const dishtype = await DishType.findOne({ where: { id } });
+    const dishtype: any = await DishType.findOne({
+      where: { id },
+      include: [
+        {
+          model: Recipe,
+          as: "recipes",
+
+          include: [
+            {
+              model: User,
+              as: "author",
+              attributes: ["id", "profilePicture", "email", "createdAt"],
+            },
+            {
+              model: Rating,
+              attributes: ["rating"],
+              as: "ratings",
+            },
+            {
+              model: Comment,
+              as: "comments",
+            },
+            {
+              model: Like,
+              as: "likes",
+            },
+          ],
+          attributes: {
+            exclude: [
+              "updatedAt",
+              "userId",
+              "originId",
+              "mealcourseId",
+              "dietId",
+              "dishTypeId",
+              "steps",
+              "ingredients",
+              "tags",
+              "authorId",
+              "nutrition",
+            ],
+          },
+        },
+      ],
+    });
 
     if (!dishtype) {
       return res.status(400).json({
@@ -445,6 +689,17 @@ export const getDishType = async (req: Request, res: Response) => {
         message: "Dish Type not found",
       });
     }
+
+    dishtype!.recipes.forEach((recipe: any) => {
+      recipe.setDataValue("likes", recipe.likes.length);
+      recipe.setDataValue("comments", recipe.comments.length);
+      const rating = recipe.ratings.reduce(
+        (acc: any, cur: any) => acc + cur.rating,
+        0
+      );
+      recipe.dataValues.rating = rating / recipe.ratings.length;
+      delete recipe.dataValues.ratings;
+    });
 
     res.status(200).json({
       status: "success",
@@ -462,7 +717,18 @@ export const getDishType = async (req: Request, res: Response) => {
 
 export const getAllDishTypes = async (req: Request, res: Response) => {
   try {
-    const dishtypes = await DishType.findAll();
+    const dishtypes = await DishType.findAll({
+      include: [
+        {
+          model: Recipe,
+          as: "recipes",
+        },
+      ],
+    });
+
+    dishtypes.forEach((dishtype: any) => {
+      dishtype.setDataValue("recipes", dishtype.recipes.length);
+    });
 
     res.status(200).json({
       status: "success",
@@ -472,6 +738,7 @@ export const getAllDishTypes = async (req: Request, res: Response) => {
       },
     });
   } catch (err) {
+    console.log(err);
     res.status(400).json({
       status: "fail",
       message: err,

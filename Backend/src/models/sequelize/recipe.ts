@@ -111,8 +111,11 @@ const Recipe = sequelize.define("recipe", {
   },
 });
 
-Recipe.belongsTo(Origin);
 Origin.hasMany(Recipe, { as: "recipes", foreignKey: "originId" });
+DishType.hasMany(Recipe, { as: "recipes", foreignKey: "dishTypeId" });
+MealCourse.hasMany(Recipe, { as: "recipes", foreignKey: "mealcourseId" });
+Diet.hasMany(Recipe, { as: "recipes", foreignKey: "dietId" });
+Recipe.belongsTo(Origin);
 Recipe.belongsTo(DishType, { foreignKey: "dishTypeId" });
 Recipe.belongsTo(MealCourse, { foreignKey: "mealcourseId" });
 Recipe.belongsTo(Diet, { foreignKey: "dietId" });
