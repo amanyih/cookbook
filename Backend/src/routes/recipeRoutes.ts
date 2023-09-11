@@ -14,5 +14,6 @@ router
   .delete(recipeController.deleteRecipe);
 
 router.route("/:id/like").post(recipeController.likeRecipe);
+router.route("/:id/rating").post(recipeController.rateRecipe);
 
 export { router as recipeRouter };

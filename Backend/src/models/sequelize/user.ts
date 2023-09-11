@@ -18,8 +18,12 @@ const User = sequelize.define("user", {
   password: {
     type: DataTypes.STRING,
   },
+  profilePicture: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
 });
 
 User.hasMany(Recipe, { as: "recipes", foreignKey: "userId" });
-Recipe.belongsTo(User, { as: "author", foreignKey: "id" });
+Recipe.belongsTo(User, { as: "author", foreignKey: "authorId" });
 export default User;

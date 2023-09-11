@@ -21,10 +21,13 @@ const Like = sequelize.define("like", {
   },
 });
 
-User.belongsToMany(Recipe, { through: Like, foreignKey: "userId" });
-User.belongsToMany(Comment, { through: Like, foreignKey: "userId" });
+Recipe.hasMany(Like, { as: "likes", foreignKey: "recipeId" });
+Like.belongsTo(Recipe, { as: "recipe", foreignKey: "recipeId" });
 
-Recipe.belongsToMany(User, { through: Like, foreignKey: "recipeId" });
-Comment.belongsToMany(User, { through: Like, foreignKey: "commentId" });
+User.hasMany(Like, { as: "likes", foreignKey: "userId" });
+Like.belongsTo(User, { as: "user", foreignKey: "userId" });
+
+Comment.hasMany(Like, { as: "likes", foreignKey: "commentId" });
+Like.belongsTo(Comment, { as: "comment", foreignKey: "commentId" });
 
 export default Like;
