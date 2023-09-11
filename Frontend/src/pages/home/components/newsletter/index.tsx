@@ -1,6 +1,6 @@
 const NewsLetter = () => {
   return (
-    <div className=" bg-tertiary-100 -mx-10  py-20  flex flex-col justify-center items-center">
+    <div className=" bg-tertiary-100 -mx-10  py-20  flex flex-col justify-center items-center mb-10">
       <h1 className=" text-7xl">
         Delicioussness <br />
         to your inbox

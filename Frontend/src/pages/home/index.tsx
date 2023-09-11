@@ -12,7 +12,6 @@ const HomePage = () => {
       <Hero />
       <FeaturedSection />
       <NewsLetter />
-      <CategoriesSections />
       <PopularCategories />
     </div>
   );
