@@ -5,6 +5,7 @@ import * as reputationController from "./reputationController";
 import * as categoryController from "./categoryController";
 import * as authController from "./authController";
 import * as imageController from "./imageController";
+import * as searchController from "./searchController";
 
 export {
   userController,
@@ -14,4 +15,5 @@ export {
   categoryController,
   authController,
   imageController,
+  searchController,
 };
