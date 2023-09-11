@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest -c ./jest.config.json",
     "build": "rimraf dist && npx tsc",
-    "prestart": "npm run build",
+    "prestart": "npm run build && npm install",
     "start": "node dist/index.js",
     "predev": "npm run build",
     "dev": "concurrently  \"npx tsc -w \"  \"nodemon dist/index.js\""
