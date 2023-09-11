@@ -1,3 +1,6 @@
 import Hero from "./hero";
 import NewsLetter from "./newsletter";
-export { Hero, NewsLetter };
+import FeaturedSection from "./featured";
+import PopularCategories from "./popular_categories";
+
+export { Hero, NewsLetter, FeaturedSection, PopularCategories };

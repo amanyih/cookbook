@@ -67,31 +67,33 @@ const CardBody: React.FC<Props> = (props) => {
         />
         <span className=" text-sm text-gray-500">{props.date}</span>
       </p>
-      <p>
-        {props.description.length > 100 ? (
-          <span>{props.description.substring(0, 100)}...</span>
-        ) : (
-          <span>{props.description}</span>
-        )}
-      </p>
-      <div className=" flex items-center">
-        <img src={props.authorImg} className=" rounded-full w-8 h-8" alt="" />
-        <span className="ml-2 text-sm font-semibold">{props.author}</span>
-      </div>
-      <div className="flex justify-between items-center mt-2">
-        <div>
-          <FontAwesomeIcon
-            icon={faMessageRegular}
-            className=" text-gray-500 text-base mr-2"
-          />
-          <span className=" text-base text-gray-500">{props.comments}</span>
-        </div>
+      <div className="flex flex-col justify-between h-36">
+        <p>
+          {props.description.length > 100 ? (
+            <span>{props.description.substring(0, 100)}...</span>
+          ) : (
+            <span>{props.description}</span>
+          )}
+        </p>
         <div className=" flex items-center">
-          <FontAwesomeIcon
-            icon={liked ? faHeart : faHeartRegular}
-            className="text-red-400 text-3xl mr-1 cursor-pointer"
-            onClick={handleLike}
-          />
+          <img src={props.authorImg} className=" rounded-full w-8 h-8" alt="" />
+          <span className="ml-2 text-sm font-semibold">{props.author}</span>
+        </div>
+        <div className="flex justify-between items-center mt-3">
+          <div>
+            <FontAwesomeIcon
+              icon={faMessageRegular}
+              className=" text-gray-500 text-base mr-2"
+            />
+            <span className=" text-base text-gray-500">{props.comments}</span>
+          </div>
+          <div className=" flex items-center">
+            <FontAwesomeIcon
+              icon={liked ? faHeart : faHeartRegular}
+              className="text-red-400 text-3xl mr-1 cursor-pointer"
+              onClick={handleLike}
+            />
+          </div>
         </div>
       </div>
     </div>

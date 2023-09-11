@@ -1,6 +1,11 @@
 import { FaRegClock, FaTable } from "react-icons/fa";
 
-const RecipeDetailNumbers = () => {
+interface Props {
+  cookTime: number;
+  serving: number;
+}
+
+const RecipeDetailNumbers: React.FC<Props> = ({ cookTime, serving }) => {
   return (
     <div className="mb-10 flex text-2xl font-semibold">
       <span
@@ -15,14 +20,14 @@ const RecipeDetailNumbers = () => {
           <FaRegClock className="mr-2" />
           <span>Prep Time</span>
         </span>
-        <p> 20 mins</p>
+        <p> {cookTime} mins</p>
       </span>
       <span className="flex flex-col items-center">
         <span className="flex">
           <FaTable className="mr-2" />
           <span>Serving</span>
         </span>
-        <p>4</p>
+        <p>{serving}</p>
       </span>
     </div>
   );

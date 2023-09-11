@@ -14,7 +14,7 @@ const CategoryCard = ({ category }: { category: any }) => {
               : ""
             : "Explore the best of Italian cuisine with our 50+ recipes. Learn how to make the perfect pasta or pizza and impress your friends and family."
         }
-        reipes={56}
+        reipes={category ? category.recipes : 0}
       />
     </div>
   );

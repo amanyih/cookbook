@@ -38,10 +38,13 @@ const RecipeDetail = () => {
             imgae={recipe.image}
             tags={recipe.tags}
             isLiked={recipe.isLiked}
-            rating={recipe.rating}
+            rating={recipe.rating ?? 0}
             title={recipe.title}
           />
-          <RecipeDetailNumbers />
+          <RecipeDetailNumbers
+            cookTime={recipe.cookingTime}
+            serving={recipe.serving}
+          />
           <div className="flex justify-between w-full">
             <div>
               <Ingredients ingredients={recipe.ingredients} />
