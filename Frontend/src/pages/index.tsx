@@ -12,6 +12,7 @@ import {
 } from "./profile/sections";
 
 import RecipeDetail from "./recipe/recipe_detail";
+import CategoryDetail from "./categories/category_detail";
 
 export {
   HomePage,
@@ -25,4 +26,5 @@ export {
   RecipesSection,
   RecipeDetail,
   RecipePage,
+  CategoryDetail,
 };

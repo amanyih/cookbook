@@ -2,7 +2,7 @@ class Routes {
   public static readonly HOME = "/";
   public static readonly LOGIN = "login";
   public static readonly REGISTER = "register";
-  public static readonly CATEGORIES = "categories";
+  public static readonly CATEGORIES = "category";
   public static readonly CATEGORY = "category/:id";
   public static readonly RECIPEPAGE = "recipe";
   public static readonly SEARCH = "search";
