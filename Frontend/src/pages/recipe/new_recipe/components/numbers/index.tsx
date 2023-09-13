@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Input } from "../../../../../components";
+import SectionTitle from "../section_title";
 
 const Numbers = ({
   cookingTime,
@@ -14,7 +15,7 @@ const Numbers = ({
 }) => {
   return (
     <div className="mb-5">
-      <h1 className=" text-3xl font-bold bg-gray-200 p-4 mb-5">Numbers</h1>
+      <SectionTitle title="Numbers" />
       <div className=" ">
         <Input
           type="number"

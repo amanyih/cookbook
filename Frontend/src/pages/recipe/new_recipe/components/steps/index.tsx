@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { VariableInputs } from "../../../../../components";
+import SectionTitle from "../section_title";
 const Steps = ({
   steps,
   setSteps,
@@ -21,7 +21,7 @@ const Steps = ({
   };
   return (
     <div className="w-full">
-      <h1 className=" text-3xl font-bold bg-gray-200 p-4">Steps</h1>
+      <SectionTitle title="Steps" />
       <VariableInputs
         secondaryValue={stepDescription}
         title="Step"

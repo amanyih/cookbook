@@ -11,6 +11,18 @@ interface SearchResultInterface {
 
 const SearchResult: React.FC<SearchResultInterface> = (props) => {
   const dispatch = useDispatch();
+  //filter recipes based on chips
+
+  // props.recipes = props.recipes.filter((recipe) => {
+  //   let flag = true;
+  //   props.chips.forEach((chip) => {
+  //     if (!recipe.tags.includes(chip)) {
+  //       flag = false;
+  //     }
+  //   });
+  //   return flag;
+  // });
+
   return (
     <div className=" w-4/5">
       <span className="text-3xl font-semibold">

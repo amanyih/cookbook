@@ -10,6 +10,8 @@ import Input from "./input";
 import DropDownSelect from "./dropSelect";
 import TextArea from "./textarea";
 import VariableInputs from "./variableInputs";
+import Logo from "./logo";
+import LoadingSpinner from "./loading_spinner";
 
 export {
   Button,
@@ -25,4 +27,6 @@ export {
   DropDownSelect,
   TextArea,
   VariableInputs,
+  Logo,
+  LoadingSpinner,
 };

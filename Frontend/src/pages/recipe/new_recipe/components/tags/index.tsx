@@ -1,6 +1,6 @@
 import { Grid, Chip } from "../../../../../components";
 import constants from "../../../../../constants";
-
+import SectionTitle from "../section_title";
 const Tags = ({
   tags,
   setTags,
@@ -10,7 +10,7 @@ const Tags = ({
 }) => {
   return (
     <div>
-      <h1 className=" text-3xl font-bold bg-gray-200 p-4 mb-5">Tags</h1>
+      <SectionTitle title="Tags" />
       <Grid
         items={[
           constants.TAGS.map((tag) => (

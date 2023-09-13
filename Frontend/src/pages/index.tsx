@@ -10,6 +10,7 @@ import {
   CommentsSection,
   RecipesSection,
 } from "./profile/sections";
+import RegisterPage from "./auth/register";
 
 import RecipeDetail from "./recipe/recipe_detail";
 import CategoryDetail from "./categories/category_detail";
@@ -27,4 +28,5 @@ export {
   RecipeDetail,
   RecipePage,
   CategoryDetail,
+  RegisterPage,
 };

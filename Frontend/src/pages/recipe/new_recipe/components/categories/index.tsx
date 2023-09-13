@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { DropDownSelect } from "../../../../../components";
+import SectionTitle from "../section_title";
 
 let isMount = true;
 
@@ -83,7 +84,7 @@ const Categories = ({
 
   return (
     <div>
-      <h1 className=" text-3xl font-bold bg-gray-200 p-4 mb-5">Categories</h1>
+      <SectionTitle title="Categories" />
       <div className="flex flex-wrap">
         <DropDownSelect
           options={origin_categories}

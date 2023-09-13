@@ -15,7 +15,9 @@ interface RequestInfo {
 const useHttp = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
+  const [data, setData] = useState<any>(null);
   const dispatch = useDispatch();
+  const token = localStorage.getItem("token");
 
   const sendRequest = async (requestInfo: RequestInfo) => {
     // console.log(requestInfo.method, requestInfo.url);
@@ -28,6 +30,7 @@ const useHttp = () => {
       const response = await fetch(constants.API_URL + requestInfo.url, {
         headers: {
           "Content-Type": "application/json",
+          Authorization: token ? `Bearer ${token}` : "",
         },
         method: requestInfo.method ? requestInfo.method : "GET",
         body: requestInfo.body ? JSON.stringify(requestInfo.body) : null,
@@ -35,9 +38,9 @@ const useHttp = () => {
 
       if (response.ok) {
         data = await response.json();
+        setData(data);
       } else {
-        console.log(response);
-        throw Error("Unable to find data");
+        throw new Error("Something went wrong");
       }
     } catch (err) {
       setError(true);
@@ -50,6 +53,7 @@ const useHttp = () => {
     loading,
     error,
     sendRequest,
+    data,
   };
 };
 

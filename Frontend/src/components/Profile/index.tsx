@@ -2,17 +2,20 @@ import { BiExit, BiUser, BiSave } from "react-icons/bi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import x from "../../assets/svg/chef.svg";
+import { useContext } from "react";
+import { AuthContext } from "../../store/context";
 
 interface MenuItemProps {
   to: string;
   title: string;
   icon?: React.ReactNode;
+  onClick?: () => void;
 }
 
 const MenuItem: React.FC<MenuItemProps> = (props) => {
   return (
-    <div className="mb-2">
-      <Link to={props.to}>
+    <div className="mb-2" onClick={props.onClick}>
+      <Link to={props.to!}>
         <div className="flex w-full justify-between items-center text-xl ">
           <span>{props.title}</span>
           <span className="text-2xl ">{props.icon}</span>
@@ -23,6 +26,14 @@ const MenuItem: React.FC<MenuItemProps> = (props) => {
 };
 
 const ProfileIcon = () => {
+  const { setAuth } = useContext(AuthContext);
+
+  const logout = () => {
+    console.log("logout");
+    localStorage.removeItem("token");
+    setAuth(false);
+  };
+
   return (
     <div className="relative group">
       <div className="peer cursor-pointer">
@@ -39,7 +50,7 @@ const ProfileIcon = () => {
             <MenuItem to="profile" title="View Profile" icon={<BiUser />} />
             <MenuItem to="profile" title="Drafts" icon={<BiSave />} />
           </div>
-          <MenuItem to="profile" title="Logout" icon={<BiExit />} />
+          <MenuItem onClick={logout} to="" title="Logout" icon={<BiExit />} />
         </div>
       </div>
     </div>

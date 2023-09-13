@@ -1,5 +1,6 @@
 import { Fragment, useState } from "react";
 import { VariableInputs } from "../../../../../components";
+import SectionTitle from "../section_title";
 
 interface props {}
 
@@ -15,7 +16,7 @@ const Ingredients = ({
   };
   return (
     <Fragment>
-      <h1 className=" text-3xl font-bold bg-gray-200 p-4">Ingredients</h1>
+      <SectionTitle title="Ingredients" />
       <div className="flex flex-wrap">
         <VariableInputs
           title="Ingredient"

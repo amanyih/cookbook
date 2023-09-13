@@ -18,6 +18,7 @@ import {
   RecipeDetail,
   RecipePage,
   CategoryDetail,
+  RegisterPage,
 } from "../pages";
 import RecipeLayout from "../pages/recipe/layout";
 import CategoryLayout from "../pages/categories/layout";
@@ -26,6 +27,9 @@ import Routes from "./route";
 const routes = createBrowserRouter(
   createRoutesFromElements(
     <Route>
+      <Route>
+        <Route path="register" element={<RegisterPage />} />
+      </Route>
       <Route path={Routes.HOME} element={<RootLayout />}>
         <Route index element={<HomePage />} />
         <Route path={Routes.PROFILE} element={<ProfilePage />}>
