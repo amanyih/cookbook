@@ -4,6 +4,7 @@ import NavList from "./nav";
 import ThemeToggle from "../ThemeToggle";
 import { useContext } from "react";
 import { AuthContext } from "../../store/context";
+import Button from "../button";
 
 const NavBar = () => {
   const { auth } = useContext(AuthContext);
@@ -16,8 +17,16 @@ const NavBar = () => {
         <ThemeToggle />
         {auth && <ProfileIcon />}
         {!auth && (
-          <a href="/register" className="text-primary-400">
-            Login
+          <a href="/register">
+            <Button
+              className="bg-primary-400 py-2 px-6   text-black"
+              onClick={() => console.log("hello")}
+              isRounded={true}
+              isMedium={true}
+              isOutlined={true}
+            >
+              Login / Signup
+            </Button>
           </a>
         )}
       </div>

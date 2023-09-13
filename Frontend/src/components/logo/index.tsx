@@ -6,7 +6,7 @@ interface LogoProps {
 }
 const Logo: React.FC<LogoProps> = ({ navigate = true }) => {
   return (
-    <Link to={navigate ? Routes.HOME : ""}>
+    <Link to={Routes.HOME}>
       <div className="mb-2">
         <h1 className="text-3xl font-bold text-primary-400">CookBook</h1>
       </div>

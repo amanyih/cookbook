@@ -14,17 +14,20 @@ const RegisterPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { data: user, error, sendRequest: registerUser, loading } = useHttp();
-  const { value: email, onChange: emailChange } = useInput(
-    "",
-    (value) =>
-      value.includes("@") &&
+  const { value: email, onChange: emailChange } = useInput("", (value) => {
+    //validate regex
+    var emailRegex = /\S+@\S+\.\S+/;
+
+    return (
+      emailRegex.test(value) &&
       value.includes(".") &&
       value.length > 5 &&
       value.length < 50 &&
       value !== "" &&
       value !== null &&
       value !== undefined
-  );
+    );
+  });
 
   const { value: password, onChange: passwordChange } = useInput(
     "",
@@ -35,6 +38,19 @@ const RegisterPage = () => {
       value !== null &&
       value !== undefined
   );
+
+  const { value: name, onChange: nameChange } = useInput("", (value) => {
+    var letters = /^[A-Za-z]+$/;
+    //validate regex
+    return (
+      value.length > 5 &&
+      value.length < 50 &&
+      value !== "" &&
+      value !== null &&
+      value !== undefined &&
+      letters.test(value)
+    );
+  });
 
   const handleRegister = async () => {
     await registerUser({
@@ -73,10 +89,22 @@ const RegisterPage = () => {
         <div className="flex justify-between">
           <Logo navigate={false} />
           <h1 className="text-3xl mb-5 text-center font-semibold">
-            {isSignUp ? "Sign up" : "Login"}
+            {isSignUp ? "Sign Up" : "Login"}
           </h1>
         </div>
+
         <div className="flex flex-col gap-5">
+          {isSignUp && (
+            <span>
+              <input
+                type="text"
+                value={name}
+                onChange={nameChange}
+                placeholder="Full Name"
+                className="text-xl px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-primary-400 w-full"
+              />
+            </span>
+          )}
           <span>
             <input
               type="text"
