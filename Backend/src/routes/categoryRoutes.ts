@@ -48,4 +48,6 @@ router
   .patch(categoryController.updateDishType)
   .delete(categoryController.deleteDishType);
 
+router.get("/name/:name", categoryController.getCategoryByName);
+
 export { router as categoryRouter };

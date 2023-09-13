@@ -813,3 +813,224 @@ export const deleteDishType = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const getCategoryByName = async (req: Request, res: Response) => {
+  const { name } = req.params;
+
+  try {
+    let category: any;
+    const origin = await Origin.findOne({
+      where: { name },
+      include: [
+        {
+          model: Recipe,
+          as: "recipes",
+
+          include: [
+            {
+              model: User,
+              as: "author",
+              attributes: ["id", "profilePicture", "email", "createdAt"],
+            },
+            {
+              model: Rating,
+              attributes: ["rating"],
+              as: "ratings",
+            },
+            {
+              model: Comment,
+              as: "comments",
+            },
+            {
+              model: Like,
+              as: "likes",
+            },
+          ],
+          attributes: {
+            exclude: [
+              "updatedAt",
+              "userId",
+              "originId",
+              "mealcourseId",
+              "dietId",
+              "dishTypeId",
+              "steps",
+              "ingredients",
+              "tags",
+              "authorId",
+              "nutrition",
+            ],
+          },
+        },
+      ],
+    });
+    if (origin) {
+      category = origin;
+    }
+    const diet = await Diet.findOne({
+      where: { name },
+      include: [
+        {
+          model: Recipe,
+          as: "recipes",
+
+          include: [
+            {
+              model: User,
+              as: "author",
+              attributes: ["id", "profilePicture", "email", "createdAt"],
+            },
+            {
+              model: Rating,
+              attributes: ["rating"],
+              as: "ratings",
+            },
+            {
+              model: Comment,
+              as: "comments",
+            },
+            {
+              model: Like,
+              as: "likes",
+            },
+          ],
+          attributes: {
+            exclude: [
+              "updatedAt",
+              "userId",
+              "originId",
+              "mealcourseId",
+              "dietId",
+              "dishTypeId",
+              "steps",
+              "ingredients",
+              "tags",
+              "authorId",
+              "nutrition",
+            ],
+          },
+        },
+      ],
+    });
+    if (diet) {
+      category = diet;
+    }
+    const mealcourse = await MealCourse.findOne({
+      where: { name },
+      include: [
+        {
+          model: Recipe,
+          as: "recipes",
+
+          include: [
+            {
+              model: User,
+              as: "author",
+              attributes: ["id", "profilePicture", "email", "createdAt"],
+            },
+            {
+              model: Rating,
+              attributes: ["rating"],
+              as: "ratings",
+            },
+            {
+              model: Comment,
+              as: "comments",
+            },
+            {
+              model: Like,
+              as: "likes",
+            },
+          ],
+          attributes: {
+            exclude: [
+              "updatedAt",
+              "userId",
+              "originId",
+              "mealcourseId",
+              "dietId",
+              "dishTypeId",
+              "steps",
+              "ingredients",
+              "tags",
+              "authorId",
+              "nutrition",
+            ],
+          },
+        },
+      ],
+    });
+    if (mealcourse) {
+      category = mealcourse;
+    }
+    const dishtype = await DishType.findOne({
+      where: { name },
+      include: [
+        {
+          model: Recipe,
+          as: "recipes",
+
+          include: [
+            {
+              model: User,
+              as: "author",
+              attributes: ["id", "profilePicture", "email", "createdAt"],
+            },
+            {
+              model: Rating,
+              attributes: ["rating"],
+              as: "ratings",
+            },
+            {
+              model: Comment,
+              as: "comments",
+            },
+            {
+              model: Like,
+              as: "likes",
+            },
+          ],
+          attributes: {
+            exclude: [
+              "updatedAt",
+              "userId",
+              "originId",
+              "mealcourseId",
+              "dietId",
+              "dishTypeId",
+              "steps",
+              "ingredients",
+              "tags",
+              "authorId",
+              "nutrition",
+            ],
+          },
+        },
+      ],
+    });
+    if (dishtype) {
+      category = dishtype;
+    }
+    category!.recipes.forEach((recipe: any) => {
+      recipe.setDataValue("likes", recipe.likes.length);
+      recipe.setDataValue("comments", recipe.comments.length);
+      const rating = recipe.ratings.reduce(
+        (acc: any, cur: any) => acc + cur.rating,
+        0
+      );
+      recipe.dataValues.rating = rating / recipe.ratings.length;
+      delete recipe.dataValues.ratings;
+    });
+    res.status(200).json({
+      status: "success",
+      data: {
+        category,
+      },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};

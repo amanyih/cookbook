@@ -43,6 +43,7 @@ const version = "/v1";
 app.use((req, res, next) => {
   console.log(req.method, req.url);
   console.log(req.body);
+  console.log("auth", req.headers.authorization);
   next();
 });
 
