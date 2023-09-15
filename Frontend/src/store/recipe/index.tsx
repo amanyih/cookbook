@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import RecipeDto from "../../types/dtos/recipe.dto";
+import RecipeDto from "../../types/dtos/recipe/recipe.dto";
 
 const recipeSlice = createSlice({
   name: "recipe",

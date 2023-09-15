@@ -8,6 +8,7 @@ import {
   User,
   Rating,
   Comment,
+  UserProfile,
 } from "../models";
 import sequelize from "sequelize";
 
@@ -22,7 +23,14 @@ export const searchRecipe = async (req: any, res: any) => {
         {
           model: User,
           as: "author",
-          attributes: ["id", "profilePicture", "email", "createdAt"],
+          attributes: ["id", "email", "createdAt"],
+          include: [
+            {
+              model: UserProfile,
+              as: "profile",
+              attributes: ["name", "profilePicture"],
+            },
+          ],
         },
         {
           model: Rating,

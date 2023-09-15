@@ -14,6 +14,9 @@ const DishType = sequelize.define("dishtype", {
   description: {
     type: DataTypes.STRING,
   },
+  image: {
+    type: DataTypes.STRING,
+  },
 });
 
 export default DishType;

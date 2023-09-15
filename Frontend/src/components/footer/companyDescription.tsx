@@ -5,10 +5,9 @@ const CompanyDescription = () => {
       <Logo />
 
       <p className=" text-sm text-gray-600 dark:text-whiteish">
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus,
-        quibusdam. Quisquam, voluptatum. Quisquam, voluptatum. Quisquam,
-        voluptatum. Quisquam, voluptatum. Quisquam, voluptatum. Quisquam,
-        voluptatum. Quisquam, voluptatum. Quisquam, voluptatum."
+        "Discover, share, and savor culinary delights on Cookbook, the ultimate
+        platform for recipe enthusiasts. Explore interactive videos, connect
+        with fellow foodies, and elevate your cooking skills to new heights."
       </p>
     </div>
   );

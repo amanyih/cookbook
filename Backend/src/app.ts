@@ -9,6 +9,7 @@ import {
   authRouter,
   imageRouter,
   searchRouter,
+  profileRouter,
 } from "./routes/index";
 import RateLimit from "express-rate-limit";
 import helmet from "helmet";
@@ -56,6 +57,7 @@ app.use(`${prefix}${version}/reputation`, reputationRouter);
 app.use(`${prefix}${version}/recipe`, recipeRouter);
 app.use(`${prefix}${version}/image`, imageRouter);
 app.use(`${prefix}${version}/search`, searchRouter);
+app.use(`${prefix}${version}/profile`, profileRouter);
 
 app.use("*", (req, res) => {
   res.status(404).json({

@@ -9,6 +9,7 @@ import {
   Rating,
   User,
   Comment,
+  UserProfile,
 } from "../models/index";
 import { Request, Response } from "express";
 
@@ -46,7 +47,14 @@ export const getOrigin = async (req: Request, res: Response) => {
             {
               model: User,
               as: "author",
-              attributes: ["id", "profilePicture", "email", "createdAt"],
+              attributes: ["id", "email", "createdAt"],
+              include: [
+                {
+                  model: UserProfile,
+                  as: "profile",
+                  attributes: ["name", "profilePicture"],
+                },
+              ],
             },
             {
               model: Rating,
@@ -244,7 +252,14 @@ export const getDiet = async (req: Request, res: Response) => {
             {
               model: User,
               as: "author",
-              attributes: ["id", "profilePicture", "email", "createdAt"],
+              attributes: ["id", "email", "createdAt"],
+              include: [
+                {
+                  model: UserProfile,
+                  as: "profile",
+                  attributes: ["name", "profilePicture"],
+                },
+              ],
             },
             {
               model: Rating,
@@ -446,7 +461,14 @@ export const getMealCourse = async (req: Request, res: Response) => {
             {
               model: User,
               as: "author",
-              attributes: ["id", "profilePicture", "email", "createdAt"],
+              attributes: ["id", "email", "createdAt"],
+              include: [
+                {
+                  model: UserProfile,
+                  as: "profile",
+                  attributes: ["name", "profilePicture"],
+                },
+              ],
             },
             {
               model: Rating,
@@ -648,7 +670,14 @@ export const getDishType = async (req: Request, res: Response) => {
             {
               model: User,
               as: "author",
-              attributes: ["id", "profilePicture", "email", "createdAt"],
+              attributes: ["id", "email", "createdAt"],
+              include: [
+                {
+                  model: UserProfile,
+                  as: "profile",
+                  attributes: ["name", "profilePicture"],
+                },
+              ],
             },
             {
               model: Rating,
@@ -830,7 +859,14 @@ export const getCategoryByName = async (req: Request, res: Response) => {
             {
               model: User,
               as: "author",
-              attributes: ["id", "profilePicture", "email", "createdAt"],
+              attributes: ["id", "email", "createdAt"],
+              include: [
+                {
+                  model: UserProfile,
+                  as: "profile",
+                  attributes: ["name", "profilePicture"],
+                },
+              ],
             },
             {
               model: Rating,
@@ -878,7 +914,14 @@ export const getCategoryByName = async (req: Request, res: Response) => {
             {
               model: User,
               as: "author",
-              attributes: ["id", "profilePicture", "email", "createdAt"],
+              attributes: ["id", "email", "createdAt"],
+              include: [
+                {
+                  model: UserProfile,
+                  as: "profile",
+                  attributes: ["name", "profilePicture"],
+                },
+              ],
             },
             {
               model: Rating,
@@ -926,7 +969,14 @@ export const getCategoryByName = async (req: Request, res: Response) => {
             {
               model: User,
               as: "author",
-              attributes: ["id", "profilePicture", "email", "createdAt"],
+              attributes: ["id", "email", "createdAt"],
+              include: [
+                {
+                  model: UserProfile,
+                  as: "profile",
+                  attributes: ["name", "profilePicture"],
+                },
+              ],
             },
             {
               model: Rating,
@@ -974,7 +1024,14 @@ export const getCategoryByName = async (req: Request, res: Response) => {
             {
               model: User,
               as: "author",
-              attributes: ["id", "profilePicture", "email", "createdAt"],
+              attributes: ["id", "email", "createdAt"],
+              include: [
+                {
+                  model: UserProfile,
+                  as: "profile",
+                  attributes: ["name", "profilePicture"],
+                },
+              ],
             },
             {
               model: Rating,

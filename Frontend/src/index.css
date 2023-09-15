@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 html {
-  font-size: 16px;
+  font-size: 14px;
   box-sizing: border-box;
 }
 
@@ -27,23 +27,24 @@ html {
 }
 
 ::-webkit-scrollbar {
-  width: 10px; /* Adjust the width of the scrollbar */
+  width: 5px; /* Adjust the width of the scrollbar */
+  height: 5px; /* Adjust the height of the scrollbar */
 }
 
 /* Customize the scrollbar thumb (the draggable handle) */
 ::-webkit-scrollbar-thumb {
-  background-color: #4f46e5; /* Set the color of the scrollbar thumb */
+  background-color: #f87171; /* Set the color of the scrollbar thumb */
   border-radius: 5px; /* Add rounded corners to the thumb */
 }
 
 /* Customize the scrollbar thumb when being hovered */
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #716cf4; /* Change the color when hovered */
+  background-color: #f8717182; /* Change the color when hovered */
 }
 
 /* Customize the scrollbar thumb when being dragged */
 ::-webkit-scrollbar-thumb:active {
-  background-color: #362da5; /* Change the color when being dragged */
+  background-color: #f95a5a; /* Change the color when being dragged */
 }
 
 body {

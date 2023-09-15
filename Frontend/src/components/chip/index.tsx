@@ -17,7 +17,7 @@ const Chip: React.FC<Props> = (props) => {
     <span
       onClick={onDeleteHandler}
       className={` dark:bg-slate-500 px-6 py-2 text-md rounded-full hover:cursor-pointer hover:bg-gray-300 group mx-1 my-2 ${
-        props.isHighlighted ? "bg-primary-400" : "bg-gray-200"
+        props.isHighlighted ? "bg-red-200" : "bg-gray-200"
       }`}
     >
       {props.name}

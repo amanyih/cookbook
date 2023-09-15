@@ -43,3 +43,29 @@ export const protect = async (req: any, res: Response, next: NextFunction) => {
     });
   }
 };
+
+export const addUser = async (req: any, res: Response, next: NextFunction) => {
+  try {
+    //get token from header bearer token
+    const token = req.header("Authorization")?.split(" ")[1];
+
+    if (!token) {
+      return next();
+    }
+
+    //verify token
+    const decoded: any = jwt.verify(token, config.jwt.secret!);
+    if (!decoded) {
+      return next();
+    }
+    //check if user exists
+    const user = await User.findByPk(decoded.id);
+    if (!user) {
+      return next();
+    }
+    req.user = user;
+    next();
+  } catch (err) {
+    next();
+  }
+};

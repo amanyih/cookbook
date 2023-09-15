@@ -1,17 +1,17 @@
 import { Router } from "express";
 import { imageController } from "../controllers";
-import { uploadImage } from "../middlewares";
+import { addUser, protect, uploadImage } from "../middlewares";
 
 const router = Router();
 
 router
   .route("/")
-  .post(uploadImage, imageController.createImage)
-  .get(imageController.getAllImage);
+  .post(protect, uploadImage, imageController.createImage)
+  .get(addUser, imageController.getAllImage);
 router
   .route("/:id")
-  .get(imageController.getImage)
-  .patch(imageController.updateImage)
-  .delete(imageController.deleteImage);
+  .get(addUser, imageController.getImage)
+  .patch(protect, imageController.updateImage)
+  .delete(protect, imageController.deleteImage);
 
 export { router as imageRouter };

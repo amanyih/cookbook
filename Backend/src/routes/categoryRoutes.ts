@@ -12,41 +12,41 @@ router
 router
   .route("/origin/:id")
   .get(categoryController.getOrigin)
-  .patch(categoryController.updateOrigin)
-  .delete(categoryController.deleteOrigin);
+  .patch(protect, categoryController.updateOrigin)
+  .delete(protect, categoryController.deleteOrigin);
 
 //diet
 router
   .route("/diet")
-  .post(categoryController.createDiet)
+  .post(protect, categoryController.createDiet)
   .get(categoryController.getAllDiets);
 router
   .route("/diet/:id")
   .get(categoryController.getDiet)
-  .patch(categoryController.updateDiet)
-  .delete(categoryController.deleteDiet);
+  .patch(protect, categoryController.updateDiet)
+  .delete(protect, categoryController.deleteDiet);
 
 //mealcourse
 router
   .route("/mealcourse")
-  .post(categoryController.createMealCourse)
+  .post(protect, categoryController.createMealCourse)
   .get(categoryController.getAllMealCourses);
 router
   .route("/mealcourse/:id")
   .get(categoryController.getMealCourse)
-  .patch(categoryController.updateMealCourse)
-  .delete(categoryController.deleteMealCourse);
+  .patch(protect, categoryController.updateMealCourse)
+  .delete(protect, categoryController.deleteMealCourse);
 
 //dishtype
 router
   .route("/dishtype")
-  .post(categoryController.createDishType)
+  .post(protect, categoryController.createDishType)
   .get(categoryController.getAllDishTypes);
 router
   .route("/dishtype/:id")
   .get(categoryController.getDishType)
-  .patch(categoryController.updateDishType)
-  .delete(categoryController.deleteDishType);
+  .patch(protect, categoryController.updateDishType)
+  .delete(protect, categoryController.deleteDishType);
 
 router.get("/name/:name", categoryController.getCategoryByName);
 

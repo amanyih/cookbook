@@ -5,11 +5,14 @@ import {
   FaThumbsUp,
   FaThumbsDown,
 } from "react-icons/fa";
+import CommentListDto from "../../../../../types/dtos/comment/comment.list.dto";
+import constants from "../../../../../constants";
+import { DateFormat } from "../../../../../util";
 
 interface Props {
-  comment: any;
+  comment: CommentListDto;
 }
-const Comment: React.FC<Props> = (props) => {
+const Comment: React.FC<Props> = ({ comment }) => {
   const [liked, setLiked] = useState<boolean>();
   const [disliked, setDisliked] = useState<boolean>();
 
@@ -24,25 +27,31 @@ const Comment: React.FC<Props> = (props) => {
   };
 
   return (
-    <li className="flex mb-5">
-      <div className="mr-2">
+    <li className=" flex flex-row w-full mb-5 border-b-2 border-gray-300 dark:border-gray-600">
+      <div className=" flex-shrink-0 mr ">
         <img
           src={
-            props.comment.user.profilePicture ??
-            "https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+            comment.user.profile.profilePicture ?? constants.profilePlaceholder
           }
-          className=" inline-block w-10 h-10 rounded-full"
+          className=" w-10 h-10 rounded-full object-cover"
           alt=""
         />
       </div>
-      <div className="border-b-2 pb-4">
-        <h1 className="mb-1 text-xl font-semibold">
-          {props.comment.user.name ?? "John Doe"}
+      <div className=" flex flex-col w-full justify-between py-2 text-sm text-gray-800 dark:text-gray-100 ">
+        <h1 className=" font-bold text-base dark:text-gray-100 mb-1 ">
+          {comment.user.profile.name ?? "John Doe"}
         </h1>
-        <h2 className="mb-2">{props.comment.createdAt}</h2>
-        <p className="mb-3">{props.comment.content}</p>
-        <div className="flex text-x">
-          <span className="mr-3 hover:cursor-pointer" onClick={likeComment}>
+        <h2 className=" text-xs text-gray-600 dark:text-gray-400 mb-1 ">
+          {DateFormat(new Date(comment.createdAt))}
+        </h2>
+        <p className=" text-sm text-gray-800 dark:text-gray-100 mb-2 ">
+          {comment.content}
+        </p>
+        <div className=" flex flex-row items-center gap-5 w-full mb-2 text-base ">
+          <span
+            className="  hover:cursor-pointer  text-gray-600 dark:text-gray-400"
+            onClick={likeComment}
+          >
             {liked ? (
               <FaThumbsUp className="text-primary-400" />
             ) : (

@@ -3,8 +3,7 @@ import { UserInformation, UserActivity } from "./components";
 const ProfilePage = () => {
   return (
     <div>
-      <h1>Profile</h1>
-      <div className="w-full flex-grow flex justify-between">
+      <div className="w-full flex-grow flex flex-col justify-between items-center">
         <UserInformation />
         <UserActivity />
       </div>

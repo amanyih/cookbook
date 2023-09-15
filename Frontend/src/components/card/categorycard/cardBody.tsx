@@ -15,10 +15,9 @@ const CardBody: React.FC<CardBodyProps> = (props) => {
             <div className="text-xl font-bold">{props.title}</div>
           </div>
         </div>
-        <div className="flex items-center">
-          <div className="flex flex-col">
-            <div className="text-sm">{props.reipes} recipes</div>
-          </div>
+
+        <div className=" text-gray-500 dark:text-gray-50 text-sm font-bold">
+          {props.reipes} {props.reipes > 1 ? "recipes" : "recipe"}
         </div>
       </div>
       <div className="text-sm mt-2">

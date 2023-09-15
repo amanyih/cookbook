@@ -1,19 +1,20 @@
 import { Router } from "express";
 import { recipeController } from "../controllers/index";
+import { protect, addUser } from "../middlewares";
 
 const router = Router();
 
 router
   .route("/")
-  .post(recipeController.createRecipe)
-  .get(recipeController.getAllRecipe);
+  .post(protect, recipeController.createRecipe)
+  .get(addUser, recipeController.getAllRecipe);
 router
   .route("/:id")
-  .get(recipeController.getRecipe)
-  .patch(recipeController.updateRecipe)
-  .delete(recipeController.deleteRecipe);
+  .get(addUser, recipeController.getRecipe)
+  .patch(protect, recipeController.updateRecipe)
+  .delete(protect, recipeController.deleteRecipe);
 
-router.route("/:id/like").post(recipeController.likeRecipe);
-router.route("/:id/rating").post(recipeController.rateRecipe);
+router.route("/:id/like").post(protect, recipeController.likeRecipe);
+router.route("/:id/rating").post(protect, recipeController.rateRecipe);
 
 export { router as recipeRouter };

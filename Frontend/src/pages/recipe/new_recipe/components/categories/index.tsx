@@ -84,7 +84,6 @@ const Categories = ({
 
   return (
     <div>
-      <SectionTitle title="Categories" />
       <div className="flex flex-wrap">
         <DropDownSelect
           options={origin_categories}

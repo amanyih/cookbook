@@ -8,6 +8,7 @@ import Favorite from "./sequelize/favorite";
 import Ingredient from "./sequelize/ingredients";
 import Image from "./sequelize/image";
 import Rating from "./sequelize/rating";
+import UserProfile from "./sequelize/userProfile";
 
 export {
   User,
@@ -23,4 +24,5 @@ export {
   Ingredient,
   Image,
   Rating,
+  UserProfile,
 };

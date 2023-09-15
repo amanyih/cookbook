@@ -3,6 +3,7 @@
 interface item {
   name: string;
   link: string;
+  id?: string;
 }
 
 interface Props {
@@ -16,7 +17,7 @@ const FooterList: React.FC<Props> = (props) => {
       <h1 className="font-bold mb-1">{props.title}</h1>
       <ul className="text-gray-600 dark:text-whiteish ">
         {props.list.map((item) => (
-          <li className="hover:text-primary-400">
+          <li className="hover:text-primary-400" onClick={(event) => {}}>
             <a href={item.link}> {item.name}</a>
           </li>
         ))}

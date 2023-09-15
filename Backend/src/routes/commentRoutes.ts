@@ -1,18 +1,19 @@
 import { Router } from "express";
 import { commentController } from "../controllers/index";
+import { addUser, protect } from "../middlewares";
 
 const router = Router();
 
 router
   .route("/")
-  .post(commentController.createComment)
-  .get(commentController.getAllComment);
+  .post(protect, commentController.createComment)
+  .get(addUser, commentController.getAllComment);
 router
   .route("/:id")
-  .get(commentController.getComment)
-  .patch(commentController.updateComment)
-  .delete(commentController.deleteComment);
+  .get(addUser, commentController.getComment)
+  .patch(protect, commentController.updateComment)
+  .delete(protect, commentController.deleteComment);
 
-router.route("/:id/like").post(commentController.likeComment);
+router.route("/:id/like").post(protect, commentController.likeComment);
 
 export { router as commentRouter };

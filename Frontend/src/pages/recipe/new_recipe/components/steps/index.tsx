@@ -21,7 +21,6 @@ const Steps = ({
   };
   return (
     <div className="w-full">
-      <SectionTitle title="Steps" />
       <VariableInputs
         secondaryValue={stepDescription}
         title="Step"
@@ -29,6 +28,7 @@ const Steps = ({
         value={steps}
         onChange={handleChangeSteps}
         onSecondaryChange={handleChangeStepDescription}
+        secondaryPlaceholder="Enter Step Description"
       />
     </div>
   );

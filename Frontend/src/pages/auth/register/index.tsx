@@ -6,6 +6,7 @@ import useHttp from "../../../hooks/useHttp";
 import useInput from "../../../hooks/useInput";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../../../store/context";
+import img from "../../../assets/svg/breakfast.svg";
 
 const RegisterPage = () => {
   const { setAuth } = useContext(AuthContext);
@@ -59,27 +60,22 @@ const RegisterPage = () => {
       body: {
         email: email,
         password: password,
+        ...(isSignUp && { name: name }),
       },
     });
     if (!error && user) {
+      console.log(user);
+      console.log(user);
       setAuth(true);
       localStorage.setItem("token", user!.data.token);
-      // localStorage.setItem("user", JSON.stringify(user!.user));
+      localStorage.setItem("user", JSON.stringify(user!.data.user));
       navigate(location.state ? location.state.from : "/", { replace: true });
     }
   };
 
   return (
     <div
-      className="
-        flex
-        items-center
-        justify-center
-        h-screen
-        bg-cover
-        bg-center
-        backdrop-blur-sm
-    "
+      className=" flex items-center justify-center h-screen bg-cover bg-center backdrop-blur-sm"
       style={{
         backgroundImage:
           "url(https://t4.ftcdn.net/jpg/03/07/35/21/360_F_307352129_dvr99c36HQ8fOUDwhn4awr710K0JqBSJ.jpg)",
@@ -92,7 +88,6 @@ const RegisterPage = () => {
             {isSignUp ? "Sign Up" : "Login"}
           </h1>
         </div>
-
         <div className="flex flex-col gap-5">
           {isSignUp && (
             <span>
@@ -122,7 +117,6 @@ const RegisterPage = () => {
               placeholder="Password"
               className="text-xl px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-primary-400 w-full"
             />
-
             <span
               className="text-xl font-bold text-primary-400 absolute top-3 right-3 cursor-pointer"
               onClick={() => setIsVisible(!isVisible)}
@@ -143,16 +137,7 @@ const RegisterPage = () => {
             {loading ? <LoadingSpinner /> : isSignUp ? "Sign up" : "Login"}
           </button>
           <div className="mx-auto w-full text-center">
-            <span
-              className="
-                border-b-2
-                border-gray-100
-                block
-                mx-auto
-                mb-5
-                pb-3
-            "
-            >
+            <span className="border-b-2border-gray-100blockmx-automb-5pb-3">
               {isSignUp ? "or sign up with" : "or login with"}
             </span>
           </div>

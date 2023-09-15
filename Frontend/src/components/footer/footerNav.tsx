@@ -7,7 +7,7 @@ const FooterNav = () => {
         title="CookBook"
         list={[
           { name: "About Us", link: "/about" },
-          { name: "Contact", link: "/contact" },
+          { name: "Contact", link: "/about", id: "contact-us" },
           { name: "Feedback", link: "/feedback" },
         ]}
       />{" "}
@@ -15,7 +15,7 @@ const FooterNav = () => {
         title="Legal"
         list={[
           { name: "Terms and Conditions", link: "/about" },
-          { name: "Cookies", link: "/contact" },
+          { name: "Cookies", link: "" },
           { name: "Copyright", link: "/feedback" },
         ]}
       />

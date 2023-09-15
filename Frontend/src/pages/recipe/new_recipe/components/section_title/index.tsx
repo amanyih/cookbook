@@ -4,7 +4,7 @@ interface SectionTitleProps {
 
 const SectionTitle: React.FC<SectionTitleProps> = ({ title }) => {
   return (
-    <h2 className=" text-3xl font-bold bg-gray-200 dark:bg-slate-600  dark:bg p-4 mb-5">
+    <h2 className=" text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4 bg-gray-100 dark:bg-gray-800 px-5 py-2">
       {title}
     </h2>
   );

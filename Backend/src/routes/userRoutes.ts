@@ -1,16 +1,17 @@
 import { userController } from "../controllers/index";
 import { Router } from "express";
+import { protect } from "../middlewares";
 
 const router = Router();
 
 router
   .route("/")
   .post(userController.createUser)
-  .get(userController.getAllUsers);
+  .get(protect, userController.getAllUsers);
 router
   .route("/:id")
-  .get(userController.getUser)
-  .patch(userController.updateUser)
-  .delete(userController.deleteUser);
+  .get(protect, userController.getUser)
+  .patch(protect, userController.updateUser)
+  .delete(protect, userController.deleteUser);
 
 export { router as userRouter };

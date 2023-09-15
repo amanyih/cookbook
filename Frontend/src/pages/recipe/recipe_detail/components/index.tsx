@@ -4,6 +4,7 @@ import Ingredients from "./ingredients";
 import Steps from "./steps";
 import Nutritions from "./nutritions";
 import Comments from "./comment";
+import RateRecipe from "./rate_recipe";
 
 export {
   RecipeDetailHeader,
@@ -12,4 +13,5 @@ export {
   Steps,
   Nutritions,
   Comments,
+  RateRecipe,
 };

@@ -19,18 +19,19 @@ const navLinkStyle = ({
   isPending: boolean;
 }): string | undefined => {
   const style =
-    "mx-4 hover:cursor-pointer relative text-2xl w-fit block py-4 px-8 transition-all duration-500 ease-in-out";
+    "px-5 py-3 mb-5 rounded-lg transition duration-300 ease-in-out text-xl font-semibold";
 
   if (isActive) {
-    return `${style} " border-b-8 border-primary-300 "`;
+    return `${style} " 
+    border-b-2 border-primary-400 text-primary-400 dark:text-primary-400 dark:border-primary-400"`;
   } else {
-    return `${style} hover:bg-gray-200 `;
+    return `${style} text-gray-400 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-800" `;
   }
 };
 
 const Tabs: React.FC<TabsProps> = (props) => {
   return (
-    <div className="w-full justify-center flex group hover:cursor-pointer ">
+    <div className=" flex justify-center items-center w-full bg-gray-50 dark:bg-gray-900 px-10 py-10 mb-10 rounded-md shadow-md">
       {props.tabs.map((tab, index) => {
         return (
           <NavLink

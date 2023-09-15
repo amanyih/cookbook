@@ -1,11 +1,13 @@
-import { Comment, User, Recipe, Like } from "../models/index";
+import { Comment, User, Recipe, Like, UserProfile } from "../models/index";
 
 export const createComment = async (req: any, res: any) => {
   try {
-    const { userId, recipeId, content } = req.body;
+    const { recipeId, content } = req.body;
+
+    const reqUser = req.user;
 
     //check if user exists
-    const user = await User.findByPk(userId);
+    const user = await User.findByPk(reqUser.id);
     if (!user) {
       return res.status(404).json({
         status: "fail",
@@ -24,14 +26,36 @@ export const createComment = async (req: any, res: any) => {
     const comment: any = await Comment.create({
       content,
     });
-    console.log();
+
     await comment.setUser(user);
     await comment.setRecipe(recipe);
+
+    const newComment = await Comment.findByPk(comment.id, {
+      include: [
+        {
+          model: User,
+          as: "user",
+          attributes: ["id", "email", "createdAt"],
+          include: [
+            {
+              model: UserProfile,
+              as: "profile",
+              attributes: ["name", "profilePicture"],
+            },
+          ],
+        },
+        {
+          model: Like,
+          as: "likes",
+          attributes: ["userId"],
+        },
+      ],
+    });
 
     res.status(201).json({
       status: "success",
       data: {
-        comment,
+        comment: newComment,
       },
     });
   } catch (err) {

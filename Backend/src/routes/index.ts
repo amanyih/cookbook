@@ -5,6 +5,7 @@ import { reputationRouter } from "./reputationRoutes";
 import { authRouter } from "./authRoutes";
 import { imageRouter } from "./imageRoutes";
 import { searchRouter } from "./serachRoutes";
+import profileRouter from "./profileRoutes";
 
 export {
   userRouter,
@@ -14,4 +15,5 @@ export {
   authRouter,
   imageRouter,
   searchRouter,
+  profileRouter,
 };

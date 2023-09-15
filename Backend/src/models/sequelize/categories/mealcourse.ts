@@ -14,6 +14,9 @@ const MealCourse = sequelize.define("mealcourse", {
   description: {
     type: DataTypes.STRING,
   },
+  image: {
+    type: DataTypes.STRING,
+  },
 });
 
 export default MealCourse;

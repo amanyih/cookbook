@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { Chip, RecipeCard } from "../../../components";
+import { Chip, RecipeCard, Grid } from "../../../components";
 // import { CategoriesSections } from "../../categories/components";
 import { filterActions } from "../../../store/filter";
 
@@ -11,17 +11,6 @@ interface SearchResultInterface {
 
 const SearchResult: React.FC<SearchResultInterface> = (props) => {
   const dispatch = useDispatch();
-  //filter recipes based on chips
-
-  // props.recipes = props.recipes.filter((recipe) => {
-  //   let flag = true;
-  //   props.chips.forEach((chip) => {
-  //     if (!recipe.tags.includes(chip)) {
-  //       flag = false;
-  //     }
-  //   });
-  //   return flag;
-  // });
 
   return (
     <div className=" w-4/5">
@@ -40,22 +29,15 @@ const SearchResult: React.FC<SearchResultInterface> = (props) => {
           />
         ))}
       </span>
-      <div
-        className="flex flex-wrap 
-      justify-center
-      items-center
-      gap-10
-      w-full
-      mb-10
-      
-      "
-      >
-        {props.recipes && props.recipes.length > 0 ? (
-          props.recipes.map((recipe) => <RecipeCard recipe={recipe} />)
-        ) : (
-          <h1>No recipes found</h1>
-        )}
-      </div>
+      <Grid
+        showFour={false}
+        items={
+          props.recipes &&
+          props.recipes.map((recipe) => {
+            return <RecipeCard recipe={recipe} />;
+          })
+        }
+      />
     </div>
   );
 };

@@ -8,8 +8,8 @@ import {
   Like,
   Comment,
   Rating,
+  UserProfile,
 } from "../models/index";
-import sequelize from "sequelize";
 export const createRecipe = async (req: any, res: any) => {
   try {
     const {
@@ -21,13 +21,21 @@ export const createRecipe = async (req: any, res: any) => {
       tags,
       image,
       steps,
-      userId,
       origin,
       mealcourse,
       diet,
       dishtype,
       nutrition,
     } = req.body;
+
+    const reqUser = req.user;
+    const user: any = await User.findByPk(reqUser.id);
+    if (!user) {
+      return res.status(404).json({
+        status: "fail",
+        message: "User not found",
+      });
+    }
 
     const recipe: any = await Recipe.create({
       title,
@@ -38,17 +46,8 @@ export const createRecipe = async (req: any, res: any) => {
       tags,
       image,
       steps,
-      userId,
       nutrition,
     });
-
-    const user = await User.findByPk(userId);
-    if (!user) {
-      return res.status(404).json({
-        status: "fail",
-        message: "User not found",
-      });
-    }
 
     const originObj = await Origin.findOrCreate({
       where: { name: origin },
@@ -88,12 +87,19 @@ export const createRecipe = async (req: any, res: any) => {
 };
 export const getRecipe = async (req: any, res: any) => {
   try {
-    const recipe = await Recipe.findByPk(req.params.id, {
+    const recipe: any = await Recipe.findByPk(req.params.id, {
       include: [
         {
           model: User,
           as: "author",
-          attributes: ["profilePicture", "email", "createdAt"],
+          attributes: ["id", "email", "createdAt"],
+          include: [
+            {
+              model: UserProfile,
+              as: "profile",
+              attributes: ["name", "profilePicture"],
+            },
+          ],
         },
         Origin,
         Diet,
@@ -112,7 +118,14 @@ export const getRecipe = async (req: any, res: any) => {
             {
               model: User,
               as: "user",
-              attributes: ["profilePicture", "email", "createdAt"],
+              attributes: ["id", "email", "createdAt"],
+              include: [
+                {
+                  model: UserProfile,
+                  as: "profile",
+                  attributes: ["name", "profilePicture"],
+                },
+              ],
             },
             {
               model: Like,
@@ -134,6 +147,17 @@ export const getRecipe = async (req: any, res: any) => {
         message: "Recipe not found",
       });
     }
+
+    const reqUser = req.user;
+
+    if (reqUser) {
+      recipe.dataValues.isLiked = recipe.likes.some(
+        (like: any) => like.userId === reqUser.id
+      );
+    } else {
+      recipe.dataValues.isLiked = false;
+    }
+
     res.status(200).json({
       status: "success",
       data: {
@@ -155,7 +179,14 @@ export const getAllRecipe = async (req: any, res: any) => {
         {
           model: User,
           as: "author",
-          attributes: ["id", "profilePicture", "email", "createdAt"],
+          attributes: ["id", "email", "createdAt"],
+          include: [
+            {
+              model: UserProfile,
+              as: "profile",
+              attributes: ["name", "profilePicture"],
+            },
+          ],
         },
         {
           model: Rating,
@@ -221,13 +252,30 @@ export const getAllRecipe = async (req: any, res: any) => {
 };
 export const updateRecipe = async (req: any, res: any) => {
   try {
-    const recipe = await Recipe.findByPk(req.params.id);
+    const user = req.user;
+
+    const recipe: any = await Recipe.findByPk(req.params.id, {
+      include: [
+        {
+          model: User,
+          as: "author",
+        },
+      ],
+    });
     if (!recipe) {
       return res.status(404).json({
         status: "fail",
         message: "Recipe not found",
       });
     }
+
+    if (recipe.author.id !== user.id) {
+      return res.status(401).json({
+        status: "fail",
+        message: "You are not authorized to update this recipe",
+      });
+    }
+
     await recipe.update(req.body);
     res.status(200).json({
       status: "success",
@@ -244,11 +292,26 @@ export const updateRecipe = async (req: any, res: any) => {
 };
 export const deleteRecipe = async (req: any, res: any) => {
   try {
-    const recipe = await Recipe.findByPk(req.params.id);
+    const user = req.user;
+    const recipe: any = await Recipe.findByPk(req.params.id, {
+      include: [
+        {
+          model: User,
+          as: "author",
+        },
+      ],
+    });
     if (!recipe) {
       return res.status(404).json({
         status: "fail",
         message: "Recipe not found",
+      });
+    }
+
+    if (recipe.author.id !== user.id) {
+      return res.status(401).json({
+        status: "fail",
+        message: "You are not authorized to update this recipe",
       });
     }
     await recipe.destroy();
@@ -267,7 +330,7 @@ export const deleteRecipe = async (req: any, res: any) => {
 export const likeRecipe = async (req: any, res: any) => {
   try {
     const { id: recipeId } = req.params;
-    const { userId } = req.body;
+    const reqUser = req.user;
 
     const recipe: any = await Recipe.findByPk(recipeId);
     if (!recipe) {
@@ -277,7 +340,7 @@ export const likeRecipe = async (req: any, res: any) => {
       });
     }
 
-    const user = await User.findByPk(userId);
+    const user = await User.findByPk(reqUser.id);
     if (!user) {
       return res.status(404).json({
         status: "fail",
@@ -287,7 +350,7 @@ export const likeRecipe = async (req: any, res: any) => {
 
     const like = await Like.findOne({
       where: {
-        userId,
+        userId: reqUser.id,
         recipeId,
       },
     });
@@ -301,7 +364,7 @@ export const likeRecipe = async (req: any, res: any) => {
     }
 
     await Like.create({
-      userId,
+      userId: reqUser.id,
       recipeId,
     });
 
@@ -320,7 +383,8 @@ export const likeRecipe = async (req: any, res: any) => {
 export const rateRecipe = async (req: any, res: any) => {
   try {
     const { id: recipeId } = req.params;
-    const { userId, rating } = req.body;
+    const { rating } = req.body;
+    const reqUser = req.user;
 
     const recipe: any = await Recipe.findByPk(recipeId);
     if (!recipe) {
@@ -330,7 +394,7 @@ export const rateRecipe = async (req: any, res: any) => {
       });
     }
 
-    const user = await User.findByPk(userId);
+    const user = await User.findByPk(reqUser.id);
     if (!user) {
       return res.status(404).json({
         status: "fail",
@@ -340,7 +404,7 @@ export const rateRecipe = async (req: any, res: any) => {
 
     const rate = await Rating.findOne({
       where: {
-        userId,
+        userId: reqUser.id,
         recipeId,
       },
     });
@@ -354,7 +418,7 @@ export const rateRecipe = async (req: any, res: any) => {
     }
 
     await Rating.create({
-      userId,
+      userId: reqUser.id,
       recipeId,
       rating,
     });

@@ -4,14 +4,12 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { faStar as faStarRegular } from "@fortawesome/free-regular-svg-icons";
 import { useState } from "react";
 import { Chip } from "../../../../../components";
+import { AuthorDto } from "../../../../../types";
+import { Rating } from "../../../../../components";
 
 interface Props {
   isLiked: boolean;
-  author: {
-    name: string;
-    profilePicture: string;
-    id: string;
-  };
+  author: AuthorDto;
   title: string;
   description: string;
   rating: number;
@@ -44,12 +42,12 @@ const RecipeDetailHeader: React.FC<Props> = (props) => {
       </div>
       <h1 className="font-semibold text-5xl">{props.title}</h1>
 
-      <div className="mb-5 border-b-2 border-gray-300 py-4 ">
+      <div className="mb-5 border-b-2 border-gray-300 py-4 flex ">
         <span>
           <span>
             <img
               src={
-                props.author.profilePicture ??
+                props.author.profile.profilePicture ??
                 "https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
               }
               className=" inline-block w-10 h-10 rounded-full bg-slate-100"
@@ -57,7 +55,7 @@ const RecipeDetailHeader: React.FC<Props> = (props) => {
             />
           </span>
           <span className="ml-2 text-lg">
-            {props.author.name ?? "John Doe"}
+            {props.author.profile.name ?? "John Doe"}
           </span>
         </span>
         <span>
@@ -69,19 +67,7 @@ const RecipeDetailHeader: React.FC<Props> = (props) => {
           <span className="ml-2 text-lg">|</span>
           <span className="ml-2 text-lg">{props.comments} Comments</span>
         </span>
-        <span>
-          <span className="ml-2 text-lg">|</span>
-          <span className=" flex items-center text-red-400 text-xl mb-2">
-            {Array.from({ length: props.rating }, (_, i) => (
-              <FontAwesomeIcon icon={faStar} className="ml-1" key={i} />
-            ))}
-          </span>
-          <span className=" flex items-center text-red-400 text-xl mb-2">
-            {Array.from({ length: 5 - props.rating }, (_, i) => (
-              <FontAwesomeIcon icon={faStarRegular} className="ml-1" key={i} />
-            ))}
-          </span>
-        </span>
+        <Rating rating={props.rating} half={false} />
       </div>
       <div className="mb-10 flex flex-col items-center">
         <p className="mb-5 text-lg">{props.description}</p>

@@ -14,6 +14,9 @@ const Diet = sequelize.define("diet", {
   description: {
     type: DataTypes.STRING,
   },
+  image: {
+    type: DataTypes.STRING,
+  },
 });
 
 export default Diet;

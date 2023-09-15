@@ -1,29 +1,38 @@
-import { RecipeCard } from "../../components";
+import { RecipeCard, Grid, RecipeCardSkeleton } from "../../components";
 import useHttp from "../../hooks/useHttp";
 import { useEffect, useState } from "react";
-import Recipe from "../../types/models/recipe";
+import { RecipeListDto } from "../../types";
 
 const RecipePage = () => {
-  const { sendRequest: getRecipes } = useHttp();
-  const [recipes, setRecipes] = useState<any[]>([]);
+  const { sendRequest: getRecipes, data, loading, error } = useHttp();
+  const [recipes, setRecipes] = useState<RecipeListDto[]>([]);
 
   useEffect(() => {
     const fetchRecipes = async () => {
       const recipes = await getRecipes({
         url: "/recipe",
       });
+      //TODO:handle error
       setRecipes(recipes["data"]["recipe"]);
     };
     fetchRecipes();
   }, []);
 
   return (
-    <div className="flex flex-wrap">
-      {recipes &&
-        recipes.map((recipe: Recipe) => {
-          console.log(recipes);
-          return <RecipeCard recipe={recipe} />;
-        })}
+    <div className="">
+      {!loading && data && (
+        <Grid
+          items={
+            recipes &&
+            recipes.map((recipe: RecipeListDto) => {
+              return <RecipeCard recipe={recipe} />;
+            })
+          }
+        />
+      )}
+      {(loading || !recipes) && (
+        <Grid items={Array(4).fill(<RecipeCardSkeleton />)} />
+      )}
     </div>
   );
 };

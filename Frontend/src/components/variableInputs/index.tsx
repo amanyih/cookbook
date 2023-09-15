@@ -23,66 +23,73 @@ const VariableInputs: React.FC<VariableInputsProps> = (props) => {
   return (
     <div>
       {Array.from(Array(amountOfInputs).keys()).map((index) => (
-        <span className="mb-3">
+        <span className="flex flex-col w-full mb-10 dark:bg-gray-900 dark:text-gray-100">
           <div>
-            <div className="flex items-center">
-              <Input
+            <div className="flex items-center justify-between w-full mb-3">
+              <input
+                required
                 type="text"
                 placeholder={`Eg. ${props.title} ${index + 1}`}
-                value={`${inputValues[index]}`}
-                label={`${props.title} ${index + 1}`}
-                className="min-w-64 text-2xl"
+                value={inputValues[index]}
                 onChange={(event) => {
                   const newInputValues = [...inputValues];
                   newInputValues[index] = event.target.value;
 
                   props.onChange(newInputValues);
                 }}
+                className=" w-full h-14 px-5 py-3 mb-3 border-2 border-gray-300 rounded-lg dark:border-gray-600 focus:outline-none focus:border-primary-400 dark:bg-gray-900 dark:text-gray-100
+                "
               />
-              <Button
-                isOutlined={true}
-                isRounded={true}
-                className={`px-1 py-1 text-sm m-2 ${
-                  amountOfInputs === 1 ? "hidden" : ""
-                } }`}
-                onClick={() => {
-                  if (index === 1) return;
-                  const newInputValues = [...inputValues];
-                  newInputValues.splice(index, 1);
-                  props.onChange(newInputValues);
-                  setAmountOfInputs(amountOfInputs - 1);
-                }}
-              >
-                <FontAwesomeIcon icon={faRemove} className="mx-2" />
-              </Button>
+              {amountOfInputs > 1 && (
+                <button
+                  type="button"
+                  className=" flex items-center justify-center w-14 h-14 px-5 py-3 mb-3 border-2 border-gray-300 rounded-full dark:border-gray-600 focus:outline-none focus:border-primary-400 dark:bg-gray-900 dark:text-gray-100 ml-3
+                "
+                  onClick={() => {
+                    const newInputValues = [...inputValues];
+                    newInputValues.splice(index, 1);
+                    props.onChange(newInputValues);
+                    setAmountOfInputs(amountOfInputs - 1);
+                  }}
+                >
+                  <FontAwesomeIcon icon={faRemove} className="text-red-500" />
+                </button>
+              )}
             </div>
 
             {props.secondaryValue && (
-              <TextArea
+              <textarea
+                required
+                className="w-full h-48 px-5 py-3 mb-3 border-2 border-gray-300 rounded-lg dark:border-gray-600 focus:outline-none focus:border-primary-400 dark:bg-gray-900 dark:text-gray-100 resize-none"
                 value={props.secondaryValue[index]}
-                className="w-1/2"
                 onChange={(value) => {
                   const newSecondaryValues = [...props.secondaryValue!];
                   newSecondaryValues[index] = value.target.value;
                   props.onSecondaryChange!(newSecondaryValues);
                 }}
+                placeholder={props.secondaryPlaceholder}
+                name=""
+                id=""
+                cols={30}
+                rows={10}
               />
             )}
           </div>
         </span>
       ))}
-      <Button
-        className="m-2 px-3 py-2 text-xl"
-        isRounded={true}
-        isOutlined={true}
+      <button
+        type="button"
         onClick={() => {
-          props.onChange([...inputValues, ""]);
           setAmountOfInputs(amountOfInputs + 1);
+          const newInputValues = [...inputValues];
+          newInputValues.push("");
+          props.onChange(newInputValues);
         }}
+        className="flex items-center justify-center w-full h-12 px-5 py-3 mb-3 border-2 border-gray-300 rounded-lg dark:border-gray-600 focus:outline-none focus:border-primary-400 dark:bg-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 transition duration-300 ease-in-out
+        "
       >
         <FontAwesomeIcon icon={faPlus} className="mr-2" />
-        Add
-      </Button>
+      </button>
     </div>
   );
 };

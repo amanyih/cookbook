@@ -5,16 +5,20 @@ import {
   Steps,
   Nutritions,
   Comments,
+  RateRecipe,
 } from "./components";
+import { LoadingSpinner } from "../../../components";
 
 import { useParams } from "react-router";
 import { useEffect, useState } from "react";
 import useHttp from "../../../hooks/useHttp";
+import { RecipeDto } from "../../../types";
+import { DateFormat } from "../../../util";
 
 const RecipeDetail = () => {
   const { id } = useParams<{ id: string }>();
   const { sendRequest: getRecipe } = useHttp();
-  const [recipe, setRecipe] = useState<any>();
+  const [recipe, setRecipe] = useState<RecipeDto>();
 
   useEffect(() => {
     const fetchRecipe = async () => {
@@ -33,12 +37,12 @@ const RecipeDetail = () => {
           <RecipeDetailHeader
             author={recipe.author}
             comments={recipe.comments.length}
-            date={recipe.createdAt}
+            date={DateFormat(new Date(recipe.createdAt))}
             description={recipe.description}
             imgae={recipe.image}
             tags={recipe.tags}
             isLiked={recipe.isLiked}
-            rating={recipe.rating ?? 0}
+            rating={recipe.ratings.length}
             title={recipe.title}
           />
           <RecipeDetailNumbers
@@ -73,17 +77,11 @@ const RecipeDetail = () => {
             </div>
           </div>
           <Steps steps={recipe.steps} />
-          <Comments comments={recipe.comments} />
+          <RateRecipe id={recipe.id} />
+          <Comments comments={recipe.comments} recipeId={recipe.id} />
         </div>
       )}
-      {!recipe && (
-        <div
-          className="
-      flex justify-center items-center h-screen"
-        >
-          Loading...
-        </div>
-      )}
+      {!recipe && <LoadingSpinner />}
     </div>
   );
 };

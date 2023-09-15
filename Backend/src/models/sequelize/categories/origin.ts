@@ -14,6 +14,9 @@ const Origin = sequelize.define("origin", {
   description: {
     type: DataTypes.STRING,
   },
+  image: {
+    type: DataTypes.STRING,
+  },
 });
 
 export default Origin;

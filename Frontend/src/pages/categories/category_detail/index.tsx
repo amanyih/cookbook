@@ -1,12 +1,13 @@
-import { SectionTitle, RecipeCard } from "../../../components";
+import { SectionTitle, RecipeCard, Grid } from "../../../components";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useHttp from "../../../hooks/useHttp";
+import { CategoryDetialDto } from "../../../types";
 
 const CategoryDetail = () => {
   const { name } = useParams<{ name: string }>();
   console.log(name);
-  const [category, setCategory] = useState<any>();
+  const [category, setCategory] = useState<CategoryDetialDto>();
   const { sendRequest: getCategory } = useHttp();
   useEffect(() => {
     const get = async () => {
@@ -38,11 +39,12 @@ const CategoryDetail = () => {
           >
             {category.recipes.length} recipes
           </div>
-          <div className="flex flex-wrap items-center justify-start">
-            {category.recipes.map((recipe: any) => (
+
+          <Grid
+            items={category.recipes.map((recipe: any) => (
               <RecipeCard recipe={recipe} />
             ))}
-          </div>
+          />
         </div>
       )}
     </div>
