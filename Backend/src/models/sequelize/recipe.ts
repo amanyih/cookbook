@@ -67,7 +67,6 @@ const Recipe = sequelize.define("recipe", {
     },
     validate: {
       validateNutrition(value: any) {
-        console.log("value-------", value);
         if (typeof value !== "object") {
           throw new Error("Nutrition must be an object.");
         }

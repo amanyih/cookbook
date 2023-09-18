@@ -15,7 +15,7 @@ import sequelize from "sequelize";
 export const searchRecipe = async (req: any, res: any) => {
   try {
     const { title, origin, mealcourse, diet, dishtype } = req.query;
-    console.log(title, origin, mealcourse, diet, dishtype);
+
     //filter recipes by title (ignore case)
 
     const recipe = await Recipe.findAll({
@@ -23,7 +23,7 @@ export const searchRecipe = async (req: any, res: any) => {
         {
           model: User,
           as: "author",
-          attributes: ["id", "email", "createdAt"],
+          attributes: ["id", "email", "createdAt", "username"],
           include: [
             {
               model: UserProfile,
@@ -45,6 +45,22 @@ export const searchRecipe = async (req: any, res: any) => {
           model: Like,
           as: "likes",
         },
+        {
+          model: Origin,
+          attributes: ["name"],
+        },
+        {
+          model: Diet,
+          attributes: ["name"],
+        },
+        {
+          model: DishType,
+          attributes: ["name"],
+        },
+        {
+          model: MealCourse,
+          attributes: ["name"],
+        },
       ],
       attributes: {
         exclude: [
@@ -62,7 +78,6 @@ export const searchRecipe = async (req: any, res: any) => {
         ],
       },
       where: {
-        //filter by title (ignore case)
         title: sequelize.where(
           sequelize.fn("LOWER", sequelize.col("title")),
           "LIKE",
@@ -85,6 +100,17 @@ export const searchRecipe = async (req: any, res: any) => {
       recipe.dataValues.isLiked = recipe.likes.some((like: any) =>
         req.user ? like.userId === req.user.id : false
       );
+      const categories = [];
+      categories.push(recipe.origin.name);
+      categories.push(recipe.diet.name);
+      categories.push(recipe.dishtype.name);
+      categories.push(recipe.mealcourse.name);
+
+      recipe.dataValues.categories = categories;
+      delete recipe.dataValues.origin;
+      delete recipe.dataValues.diet;
+      delete recipe.dataValues.dishtype;
+      delete recipe.dataValues.mealcourse;
     });
 
     res.status(200).json({

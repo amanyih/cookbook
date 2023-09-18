@@ -13,7 +13,10 @@ const upload = async (req: Request, res: Response, next: Function) => {
       }
     }
   } catch (err) {
-    console.log(err);
+    return res.status(400).json({
+      status: "fail",
+      message: err,
+    });
   }
   next();
 };
@@ -34,7 +37,10 @@ const uploads = async (req: Request, res: Response, next: Function) => {
       req.body.images = urls;
     }
   } catch (err) {
-    console.log(err);
+    return res.status(400).json({
+      status: "fail",
+      message: err,
+    });
   }
   next();
 };

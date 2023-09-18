@@ -4,6 +4,10 @@ import { protect, addUser } from "../middlewares";
 
 const router = Router();
 
+router.route("/featured").get(addUser, recipeController.getFeaturedRecipe);
+router.route("/top").get(addUser, recipeController.getTopRecipe);
+router.route("/recent").get(addUser, recipeController.getLatestRecipe);
+
 router
   .route("/")
   .post(protect, recipeController.createRecipe)

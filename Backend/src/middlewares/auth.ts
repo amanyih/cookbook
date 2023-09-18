@@ -10,7 +10,7 @@ export const protect = async (req: any, res: Response, next: NextFunction) => {
   try {
     //get token from header bearer token
     const token = req.header("Authorization")?.split(" ")[1];
-    console.log(token);
+
     if (!token) {
       return res.status(401).json({
         status: "fail",
@@ -52,7 +52,6 @@ export const addUser = async (req: any, res: Response, next: NextFunction) => {
     if (!token) {
       return next();
     }
-
     //verify token
     const decoded: any = jwt.verify(token, config.jwt.secret!);
     if (!decoded) {

@@ -6,8 +6,6 @@ import { Request } from "express";
 const parser = new DatauriParser();
 
 const dataUri = (req: Request) => {
-  console.log("req.file", req.file);
-
   if (req.file === undefined) return null;
   return parser.format(
     path.extname(req.file.originalname).toString(),

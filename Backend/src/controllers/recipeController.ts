@@ -1,3 +1,4 @@
+import { Op } from "sequelize";
 import {
   Recipe,
   Origin,
@@ -10,6 +11,7 @@ import {
   Rating,
   UserProfile,
 } from "../models/index";
+import { RecipeDetail, RecipeList } from "../constants/recipe";
 export const createRecipe = async (req: any, res: any) => {
   try {
     const {
@@ -78,7 +80,6 @@ export const createRecipe = async (req: any, res: any) => {
       },
     });
   } catch (err) {
-    console.log(err);
     res.status(400).json({
       status: "fail",
       message: err,
@@ -88,58 +89,7 @@ export const createRecipe = async (req: any, res: any) => {
 export const getRecipe = async (req: any, res: any) => {
   try {
     const recipe: any = await Recipe.findByPk(req.params.id, {
-      include: [
-        {
-          model: User,
-          as: "author",
-          attributes: ["id", "email", "createdAt"],
-          include: [
-            {
-              model: UserProfile,
-              as: "profile",
-              attributes: ["name", "profilePicture"],
-            },
-          ],
-        },
-        Origin,
-        Diet,
-        DishType,
-        MealCourse,
-
-        {
-          model: Rating,
-          attributes: ["rating", "userId", "recipeId"],
-          as: "ratings",
-        },
-        {
-          model: Comment,
-          as: "comments",
-          include: [
-            {
-              model: User,
-              as: "user",
-              attributes: ["id", "email", "createdAt"],
-              include: [
-                {
-                  model: UserProfile,
-                  as: "profile",
-                  attributes: ["name", "profilePicture"],
-                },
-              ],
-            },
-            {
-              model: Like,
-              as: "likes",
-              attributes: ["userId"],
-            },
-          ],
-        },
-        {
-          model: Like,
-          as: "likes",
-          attributes: ["userId"],
-        },
-      ],
+      include: RecipeDetail,
     });
     if (!recipe) {
       return res.status(404).json({
@@ -154,6 +104,11 @@ export const getRecipe = async (req: any, res: any) => {
       recipe.dataValues.isLiked = recipe.likes.some(
         (like: any) => like.userId === reqUser.id
       );
+      recipe.dataValues.comments.map((comment: any) => {
+        comment.dataValues.isLiked = comment.likes.some(
+          (like: any) => like.userId === reqUser.id
+        );
+      });
     } else {
       recipe.dataValues.isLiked = false;
     }
@@ -165,7 +120,6 @@ export const getRecipe = async (req: any, res: any) => {
       },
     });
   } catch (err) {
-    console.log(err);
     res.status(400).json({
       status: "fail",
       message: err,
@@ -175,33 +129,7 @@ export const getRecipe = async (req: any, res: any) => {
 export const getAllRecipe = async (req: any, res: any) => {
   try {
     const recipe = await Recipe.findAll({
-      include: [
-        {
-          model: User,
-          as: "author",
-          attributes: ["id", "email", "createdAt"],
-          include: [
-            {
-              model: UserProfile,
-              as: "profile",
-              attributes: ["name", "profilePicture"],
-            },
-          ],
-        },
-        {
-          model: Rating,
-          attributes: ["rating"],
-          as: "ratings",
-        },
-        {
-          model: Comment,
-          as: "comments",
-        },
-        {
-          model: Like,
-          as: "likes",
-        },
-      ],
+      include: RecipeList,
       attributes: {
         exclude: [
           "updatedAt",
@@ -243,7 +171,6 @@ export const getAllRecipe = async (req: any, res: any) => {
       },
     });
   } catch (err) {
-    console.log(err);
     res.status(400).json({
       status: "fail",
       message: err,
@@ -435,10 +362,169 @@ export const rateRecipe = async (req: any, res: any) => {
   }
 };
 
-export const getRecipeByUserId = async (req: any, res: any) => {
-  res.send("getRecipeByUserId");
-};
+export const getFeaturedRecipe = async (req: any, res: any) => {
+  try {
+    const recipe = await Recipe.findAll({
+      where: {
+        id: [1, 2, 3, 4, 5],
+      },
+      include: RecipeList,
+      attributes: {
+        exclude: [
+          "updatedAt",
+          "userId",
+          "originId",
+          "mealcourseId",
+          "dietId",
+          "dishTypeId",
+          "steps",
+          "ingredients",
+          "tags",
+          "authorId",
+          "nutrition",
+        ],
+      },
+      order: [["createdAt", "DESC"]],
+      limit: 5,
+    });
 
-export const getRecipeByCategoryId = async (req: any, res: any) => {
-  res.send("getRecipeByCategoryId");
+    recipe.map((recipe: any) => {
+      const rating = recipe.ratings.reduce(
+        (acc: any, cur: any) => acc + cur.rating,
+        0
+      );
+      recipe.dataValues.rating = rating / recipe.ratings.length;
+      delete recipe.dataValues.ratings;
+
+      recipe.dataValues.comments = recipe.comments.length;
+
+      recipe.dataValues.likes = recipe.likes.length;
+      recipe.dataValues.isLiked = recipe.likes.some((like: any) =>
+        req.user ? like.userId === req.user.id : false
+      );
+    });
+
+    res.status(200).json({
+      status: "success",
+      results: recipe.length,
+      data: {
+        recipe,
+      },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
+export const getTopRecipe = async (req: any, res: any) => {
+  try {
+    let recipe = await Recipe.findAll({
+      include: RecipeList,
+      attributes: {
+        exclude: [
+          "updatedAt",
+          "userId",
+          "originId",
+          "mealcourseId",
+          "dietId",
+          "dishTypeId",
+          "steps",
+          "ingredients",
+          "tags",
+          "authorId",
+          "nutrition",
+        ],
+      },
+      order: [["createdAt", "DESC"]],
+      limit: 10,
+    });
+
+    recipe.map((recipe: any) => {
+      const rating = recipe.ratings.reduce(
+        (acc: any, cur: any) => acc + cur.rating,
+        0
+      );
+      recipe.dataValues.rating = rating / recipe.ratings.length;
+      delete recipe.dataValues.ratings;
+
+      recipe.dataValues.comments = recipe.comments.length;
+
+      recipe.dataValues.likes = recipe.likes.length;
+      recipe.dataValues.isLiked = recipe.likes.some((like: any) =>
+        req.user ? like.userId === req.user.id : false
+      );
+    });
+
+    recipe = recipe.sort((a: any, b: any) => b.rating - a.rating);
+
+    recipe = recipe.slice(0, 10);
+
+    res.status(200).json({
+      status: "success",
+      results: recipe.length,
+      data: {
+        recipe,
+      },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
+export const getLatestRecipe = async (req: any, res: any) => {
+  try {
+    const recipe = await Recipe.findAll({
+      include: RecipeList,
+      attributes: {
+        exclude: [
+          "updatedAt",
+          "userId",
+          "originId",
+          "mealcourseId",
+          "dietId",
+          "dishTypeId",
+          "steps",
+          "ingredients",
+          "tags",
+          "authorId",
+          "nutrition",
+        ],
+      },
+      order: [["createdAt", "DESC"]],
+      limit: 10,
+    });
+
+    recipe.map((recipe: any) => {
+      const rating = recipe.ratings.reduce(
+        (acc: any, cur: any) => acc + cur.rating,
+        0
+      );
+      recipe.dataValues.rating = rating / recipe.ratings.length;
+      delete recipe.dataValues.ratings;
+
+      recipe.dataValues.comments = recipe.comments.length;
+
+      recipe.dataValues.likes = recipe.likes.length;
+      recipe.dataValues.isLiked = recipe.likes.some((like: any) =>
+        req.user ? like.userId === req.user.id : false
+      );
+    });
+
+    res.status(200).json({
+      status: "success",
+      results: recipe.length,
+      data: {
+        recipe,
+      },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "fail",
+      message: err,
+    });
+  }
 };

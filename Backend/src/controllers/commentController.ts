@@ -35,7 +35,7 @@ export const createComment = async (req: any, res: any) => {
         {
           model: User,
           as: "user",
-          attributes: ["id", "email", "createdAt"],
+          attributes: ["id", "email", "createdAt", "username"],
           include: [
             {
               model: UserProfile,
@@ -151,7 +151,7 @@ export const deleteComment = async (req: any, res: any) => {
 export const likeComment = async (req: any, res: any) => {
   try {
     const { id: commentId } = req.params;
-    const { userId } = req.body;
+    const userId = req.user.id;
 
     const user = await User.findByPk(userId);
     if (!user) {
@@ -177,7 +177,7 @@ export const likeComment = async (req: any, res: any) => {
 
     if (like) {
       await like.destroy();
-      return res.status(200).json({
+      return res.status(204).json({
         status: "success",
         message: "Like removed",
       });
@@ -188,7 +188,7 @@ export const likeComment = async (req: any, res: any) => {
       commentId,
     });
 
-    res.status(201).json({
+    res.status(204).json({
       status: "success",
       message: "Like added",
     });

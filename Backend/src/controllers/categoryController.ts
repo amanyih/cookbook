@@ -767,7 +767,6 @@ export const getAllDishTypes = async (req: Request, res: Response) => {
       },
     });
   } catch (err) {
-    console.log(err);
     res.status(400).json({
       status: "fail",
       message: err,
@@ -843,7 +842,7 @@ export const deleteDishType = async (req: Request, res: Response) => {
   }
 };
 
-export const getCategoryByName = async (req: Request, res: Response) => {
+export const getCategoryByName = async (req: any, res: Response) => {
   const { name } = req.params;
 
   try {
@@ -859,7 +858,7 @@ export const getCategoryByName = async (req: Request, res: Response) => {
             {
               model: User,
               as: "author",
-              attributes: ["id", "email", "createdAt"],
+              attributes: ["id", "email", "createdAt", "username"],
               include: [
                 {
                   model: UserProfile,
@@ -914,7 +913,7 @@ export const getCategoryByName = async (req: Request, res: Response) => {
             {
               model: User,
               as: "author",
-              attributes: ["id", "email", "createdAt"],
+              attributes: ["id", "email", "createdAt", "username"],
               include: [
                 {
                   model: UserProfile,
@@ -969,7 +968,7 @@ export const getCategoryByName = async (req: Request, res: Response) => {
             {
               model: User,
               as: "author",
-              attributes: ["id", "email", "createdAt"],
+              attributes: ["id", "email", "createdAt", "username"],
               include: [
                 {
                   model: UserProfile,
@@ -1024,7 +1023,7 @@ export const getCategoryByName = async (req: Request, res: Response) => {
             {
               model: User,
               as: "author",
-              attributes: ["id", "email", "createdAt"],
+              attributes: ["id", "email", "createdAt", "username"],
               include: [
                 {
                   model: UserProfile,
@@ -1068,6 +1067,7 @@ export const getCategoryByName = async (req: Request, res: Response) => {
     if (dishtype) {
       category = dishtype;
     }
+
     category!.recipes.forEach((recipe: any) => {
       recipe.setDataValue("likes", recipe.likes.length);
       recipe.setDataValue("comments", recipe.comments.length);
@@ -1077,6 +1077,9 @@ export const getCategoryByName = async (req: Request, res: Response) => {
       );
       recipe.dataValues.rating = rating / recipe.ratings.length;
       delete recipe.dataValues.ratings;
+      recipe.dataValues.isLiked = recipe.likes.some((like: any) =>
+        req.user ? like.userId === req.user.id : false
+      );
     });
     res.status(200).json({
       status: "success",
@@ -1086,6 +1089,55 @@ export const getCategoryByName = async (req: Request, res: Response) => {
     });
   } catch (err) {
     res.status(400).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
+
+export const getPopularCategories = async (req: any, res: Response) => {
+  try {
+    const x = [
+      {
+        model: Recipe,
+        as: "recipes",
+      },
+    ];
+
+    const origins = await Origin.findAll({
+      include: x,
+    });
+    const diets = await Diet.findAll({
+      include: x,
+    });
+    const mealcourses = await MealCourse.findAll({
+      include: x,
+    });
+    const dishtypes = await DishType.findAll({
+      include: x,
+    });
+
+    const categories = [...origins, ...diets, ...mealcourses, ...dishtypes];
+
+    categories.forEach((category: any) => {
+      category.setDataValue("recipes", category.recipes.length);
+    });
+
+    const sortedCategories = categories.sort(
+      (a: any, b: any) => b.recipes - a.recipes
+    );
+
+    const popularCategories = sortedCategories.slice(0, 5);
+
+    return res.status(200).json({
+      status: "success",
+      result: popularCategories.length,
+      data: {
+        categories: popularCategories,
+      },
+    });
+  } catch (err) {
+    return res.status(400).json({
       status: "fail",
       message: err,
     });

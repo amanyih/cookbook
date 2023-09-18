@@ -15,6 +15,10 @@ const User = sequelize.define("user", {
   password: {
     type: DataTypes.STRING,
   },
+  username: {
+    type: DataTypes.STRING, //make username unique
+    unique: true,
+  },
 });
 
 User.hasMany(Recipe, { as: "recipes", foreignKey: "userId" });
