@@ -1,34 +1,50 @@
 import { BiExit, BiUser, BiSave } from "react-icons/bi";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
-import x from "../../assets/svg/chef.svg";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../store/context";
 import LogoutConfirmation from "./logout_confirmation";
 import useCurrentUser from "../../hooks/useCurrentUser";
 import constants from "../../constants";
+import { useDispatch } from "react-redux";
+import { uiActions } from "../../store/ui";
 
 interface MenuItemProps {
-  to: string;
+  to?: string;
   title: string;
   icon?: React.ReactNode;
   onClick?: () => void;
 }
 
 const MenuItem: React.FC<MenuItemProps> = (props) => {
+  const dispatch = useDispatch();
+
   return (
     <div
       className=" cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 transition duration-300 ease-in-out px-5 py-3 mb-5 rounded-lg"
-      onClick={props.onClick}
+      onClick={() => {
+        props.onClick && props.onClick();
+        dispatch(uiActions.hideNav());
+      }}
     >
-      <Link to={props.to!}>
+      {props.to && (
+        <Link to={props.to!}>
+          <div className="flex w-full justify-between items-center text-xl ">
+            <span>{props.title}</span>
+            <span className=" text-gray-400 dark:text-gray-300 text-2xl font-semibold">
+              {props.icon}
+            </span>
+          </div>
+        </Link>
+      )}
+
+      {!props.to && (
         <div className="flex w-full justify-between items-center text-xl ">
           <span>{props.title}</span>
           <span className=" text-gray-400 dark:text-gray-300 text-2xl font-semibold">
             {props.icon}
           </span>
         </div>
-      </Link>
+      )}
     </div>
   );
 };
@@ -36,7 +52,6 @@ const MenuItem: React.FC<MenuItemProps> = (props) => {
 const ProfileIcon = () => {
   const { setAuth } = useContext(AuthContext);
   const [open, setOpen] = useState<boolean>(false);
-  const [confirmed, setConfirmed] = useState<boolean>(false);
   const user = useCurrentUser();
 
   const handleOpen = () => {
@@ -64,21 +79,20 @@ const ProfileIcon = () => {
       </button>
 
       <div
-        className="absolute -bottom-96 invisible peer-hover:visible hover:visible -left-40 drop-shadow-2xl rounded-md bg-white dark:bg-slate-600 p-4 w-56 h-96 z-10
+        className="absolute -bottom-96 invisible peer-hover:visible hover:visible right-0 md:-left-40 drop-shadow-2xl rounded-md bg-white dark:bg-slate-600 p-4 w-56 h-96 z-10
       peer-focus:visible focus:visible
       "
       >
         <div className="flex flex-col justify-between h-full">
           <div>
-            <MenuItem to="profile" title="View Profile" icon={<BiUser />} />
+            <MenuItem
+              to={`profile/${user && user.username}`}
+              title="View Profile"
+              icon={<BiUser />}
+            />
             <MenuItem to="profile" title="Drafts" icon={<BiSave />} />
           </div>
-          <MenuItem
-            onClick={handleOpen}
-            to=""
-            title="Logout"
-            icon={<BiExit />}
-          />
+          <MenuItem onClick={handleOpen} title="Logout" icon={<BiExit />} />
         </div>
       </div>
       {open && (

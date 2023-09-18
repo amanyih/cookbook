@@ -1,5 +1,6 @@
 import temp from "../../../../assets/svg/chef.svg";
-import { Rating } from "../../../../components";
+import { Link } from "react-router-dom";
+import { Button } from "../../../../components";
 
 //the hero text size should be responsive
 const Hero = () => {
@@ -14,17 +15,18 @@ const Hero = () => {
           recipes for every occasion. From breakfast to dinner, we have it all!
         </div>
 
-        <div className=" flex justify-center items-center gap-5">
-          <a href="/recipe">
-            <button className="w-52 h-16 bg-primary-400 text-white font-bold rounded-lg shadow-md hover:bg-red-300 transition duration-300 ease-in-out text-xl">
-              Get Started
-            </button>
-          </a>
-          <a href="/about">
-            <button className="w-52 h-16 bg-gray-800 text-white font-bold rounded-lg shadow-md hover:bg-gray-600 transition duration-300 ease-in-out text-xl">
+        <div className=" flex flex-col sm:flex-row justify-center items-center gap-5">
+          <Link to="/recipe">
+            <Button className="w-52 h-16 text-xl font-bold">Get Started</Button>
+          </Link>
+          <Link to="/about">
+            <Button
+              className="text-xl font-bold w-52 h-16 bg-gray-800 dark:bg-gray-600 dark:hover:bg-gray-500"
+              background="bg-gray-800 dark:bg-gray-50 hover:bg-gray-900 dark:hover:bg-gray-100"
+            >
               Learn More
-            </button>
-          </a>
+            </Button>
+          </Link>
         </div>
       </div>
       <div>

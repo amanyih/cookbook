@@ -1,70 +1,105 @@
-import { Grid, CategoryCard } from "../../../components";
+import {
+  Grid,
+  CategoryCard,
+  SectionTitle,
+  CategoryCardSkeleton,
+} from "../../../components";
 import { useState, useEffect } from "react";
 import useHttp from "../../../hooks/useHttp";
+import { useDispatch, useSelector } from "react-redux";
+import { StateInterface } from "../../../store";
+import {
+  getAllOriginsAction,
+  getAllDietTypesAction,
+  getAllDishtypesAction,
+  getAllMealCoursesAction,
+} from "../../../store/category/actions";
+import { AnyAction } from "redux";
+
+const CategoriesSkeleton = () => {
+  return (
+    <Grid
+      items={[1, 2, 3, 4].map((item) => {
+        return <CategoryCardSkeleton key={item} />;
+      })}
+    />
+  );
+};
 
 const CategoriesSections = () => {
   const { sendRequest: getCategories } = useHttp();
-  const [origin, setOrigin] = useState<any[]>([]);
-  const [dishType, setDishType] = useState<any[]>([]);
-  const [diet, setDiet] = useState<any[]>([]);
-  const [mealType, setMealType] = useState<any[]>([]);
+  const dispatch = useDispatch();
+  const {
+    diet,
+    dishTypes: dishType,
+    mealCourses: mealType,
+    origins: origin,
+  } = useSelector((state: StateInterface) => state.category);
 
   useEffect(() => {
-    const fetchCategories = async (
-      url: string,
-      setter: (value: any[]) => void,
-      category: string
-    ) => {
-      const categories = await getCategories({
-        url: "/category" + url,
-      });
-      setter(categories["data"][category]);
-    };
-    fetchCategories("/origin", setOrigin, "origins");
-    fetchCategories("/dishtype", setDishType, "dishtypes");
-    fetchCategories("/diet", setDiet, "diets");
-    fetchCategories("/mealcourse", setMealType, "mealcourses");
-  }, []);
+    dispatch(getAllOriginsAction(getCategories) as unknown as AnyAction);
+    dispatch(getAllDietTypesAction(getCategories) as unknown as AnyAction);
+    dispatch(getAllDishtypesAction(getCategories) as unknown as AnyAction);
+    dispatch(getAllMealCoursesAction(getCategories) as unknown as AnyAction);
+  }, [dispatch]);
 
   return (
     <div className="w-full">
-      {origin.length > 0 && (
-        <Grid
-          title="Origin"
-          description="Cuisines from all over the world. Enjoy the taste of different cultures."
-          items={origin.map((category) => {
-            return <CategoryCard key={category.id} category={category} />;
-          })}
-        />
+      {origin.loading && <CategoriesSkeleton />}
+      {!origin.loading && (
+        <div>
+          {(origin.list.length > 0 || origin.loading) && (
+            <SectionTitle title="Origin" />
+          )}
+          <Grid
+            description="Cuisines from all over the world. Enjoy the taste of different cultures."
+            items={origin.list.map((category) => {
+              return <CategoryCard key={category.id} category={category} />;
+            })}
+          />
+        </div>
       )}
-      {dishType.length > 0 && (
-        <Grid
-          title="Dish Type"
-          description="Find recipes based on the type of dish. From appetizers to desserts. We have it all."
-          items={dishType.map((category) => {
-            return <CategoryCard key={category.id} category={category} />;
-          })}
-        />
+      {dishType.loading && <CategoriesSkeleton />}
+      {!dishType.loading && (
+        <div>
+          {(dishType.list.length > 0 || dishType.loading) && (
+            <SectionTitle title="DishType" />
+          )}
+          <Grid
+            description="Find recipes based on the type of dish. From appetizers to desserts. We have it all."
+            items={dishType.list.map((category) => {
+              return <CategoryCard key={category.id} category={category} />;
+            })}
+          />
+        </div>
       )}
-
-      {diet.length > 0 && (
-        <Grid
-          title="Diet"
-          description="Find recipes that fit your diet. No matter what diet you follow, we have it all."
-          items={diet.map((category) => {
-            return <CategoryCard key={category.id} category={category} />;
-          })}
-        />
+      {diet.loading && <CategoriesSkeleton />}
+      {!diet.loading && (
+        <div>
+          {(diet.list.length > 0 || diet.loading) && (
+            <SectionTitle title="Diet" />
+          )}
+          <Grid
+            description="Find recipes that fit your diet. No matter what diet you follow, we have it all."
+            items={diet.list.map((category) => {
+              return <CategoryCard key={category.id} category={category} />;
+            })}
+          />
+        </div>
       )}
-
-      {mealType.length > 0 && (
-        <Grid
-          title="Meal Course"
-          description="Explore different meal courses. From breakfast to dinner. We have it all."
-          items={mealType.map((category) => {
-            return <CategoryCard key={category.id} category={category} />;
-          })}
-        />
+      {mealType.loading && <CategoriesSkeleton />}
+      {!mealType.loading && (
+        <div>
+          {(mealType.list.length > 0 || mealType.loading) && (
+            <SectionTitle title="MealCourse" />
+          )}
+          <Grid
+            description="Explore different meal courses. From breakfast to dinner. We have it all."
+            items={mealType.list.map((category) => {
+              return <CategoryCard key={category.id} category={category} />;
+            })}
+          />
+        </div>
       )}
     </div>
   );

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import useHttp from "../../../../hooks/useHttp";
 import {
   SectionTitle,
@@ -6,29 +6,29 @@ import {
   Grid,
   CategoryCardSkeleton,
 } from "../../../../components";
-import { CategoryListDto } from "../../../../types";
+import { useDispatch, useSelector } from "react-redux";
+import { StateInterface } from "../../../../store";
+import getPopularCategories from "../../../../store/category/popular/actions";
+import { AnyAction } from "redux";
 
 const PopularCategories = () => {
-  const { sendRequest: getCategories, data, error, loading } = useHttp();
-  const [categories, setCategories] = useState<CategoryListDto[]>([]);
+  const { sendRequest: getCategories } = useHttp();
+  const dispatch = useDispatch();
+  const { categories, loading, error } = useSelector(
+    (state: StateInterface) => state.poularCategories
+  );
 
   useEffect(() => {
-    const fetchCategories = async () => {
-      const categories = await getCategories({
-        url: "/category/origin",
-      });
-
-      if (data && !error) {
-        setCategories(categories["data"]["origins"]);
-      }
-    };
-    fetchCategories();
-  }, []);
+    if (categories.length === 0) {
+      dispatch(getPopularCategories(getCategories) as unknown as AnyAction);
+    }
+  }, [dispatch]);
 
   return (
     <div className="mb-10">
-      <SectionTitle title="Popular Categories" />
-
+      {(loading || categories.length >= 0) && (
+        <SectionTitle title="Popular Categories" />
+      )}
       {categories && !loading && (
         <div>
           <Grid
@@ -39,7 +39,13 @@ const PopularCategories = () => {
         </div>
       )}
       {!categories && !loading && (
-        <Grid items={Array(6).fill(<CategoryCardSkeleton />)} />
+        <Grid
+          items={Array(4)
+            .fill(4)
+            .map((num, index) => (
+              <CategoryCardSkeleton key={index} />
+            ))}
+        />
       )}
     </div>
   );

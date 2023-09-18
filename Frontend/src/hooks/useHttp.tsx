@@ -82,7 +82,6 @@ const useHttp = () => {
         method: method ? method : "GET",
         body: body,
       });
-      console.log("response", response);
 
       if (response.ok) {
         data = await response.json();

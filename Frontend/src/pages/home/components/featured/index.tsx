@@ -4,23 +4,20 @@ import {
   CategoryCardSkeleton,
 } from "../../../../components";
 import { RecipeCard } from "../../../../components";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import useHttp from "../../../../hooks/useHttp";
-import { RecipeListDto } from "../../../../types";
+import { useDispatch, useSelector } from "react-redux";
+import { StateInterface } from "../../../../store";
+import { getFeaturedRecipes } from "../../../../store/actions";
+import { AnyAction } from "redux";
 const FeaturedSection = () => {
-  const { loading, error, sendRequest: getRecipes, data } = useHttp();
-  const [recipes, setRecipes] = useState<RecipeListDto[]>([]);
+  const { sendRequest: getRecipes } = useHttp();
+  const dispatch = useDispatch();
+  const { recipes, error, loading } = useSelector(
+    (state: StateInterface) => state.featured
+  );
   useEffect(() => {
-    const fetchRecipes = async () => {
-      const recipes = await getRecipes({
-        url: "/recipe",
-      });
-      if (data && !error) {
-        console.log("Not error in featured section");
-        setRecipes(recipes["data"]["recipe"]);
-      }
-    };
-    fetchRecipes();
+    dispatch(getFeaturedRecipes(getRecipes) as unknown as AnyAction);
   }, []);
 
   return (
@@ -31,13 +28,21 @@ const FeaturedSection = () => {
           {recipes.length > 0 && (
             <Grid
               items={recipes.map((recipe) => (
-                <RecipeCard recipe={recipe} />
+                <RecipeCard key={recipe.id} recipe={recipe} />
               ))}
             />
           )}
         </div>
       )}
-      {loading && <Grid items={Array(4).fill(<CategoryCardSkeleton />)} />}
+      {loading && (
+        <Grid
+          items={Array(4)
+            .fill(4)
+            .map((num, index) => {
+              return <CategoryCardSkeleton key={index} />;
+            })}
+        />
+      )}
     </div>
   );
 };

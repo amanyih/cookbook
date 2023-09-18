@@ -1,18 +1,18 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle } from "@fortawesome/free-regular-svg-icons";
+import { SectionTitle } from "../../../../../components";
+import { useSelector } from "react-redux";
+import { StateInterface } from "../../../../../store";
 
-interface Props {
-  ingredients: string[];
-}
-
-const Ingredients: React.FC<Props> = (props) => {
+const Ingredients = () => {
+  const { recipe } = useSelector((state: StateInterface) => state.recipeDetail);
   return (
-    <div className="mb-10">
-      <h1 className="mb-5 text-3xl font-bold">Ingredients</h1>
-      <ul className="ml-5">
-        {props.ingredients.map((ingredient, index) => (
-          <li className="mb-3 text-2xl" key={index}>
-            <span className="mr-3">
+    <div className=" flex flex-col w-full max-w-screen-lg mx-auto px-4 py-8 space-y-8">
+      <SectionTitle title="Ingredients" />
+      <ul className=" flex flex-col w-full max-w-screen-lg mx-auto px-4 py-8 space-y-8 text-gray-800 dark:text-white">
+        {recipe?.ingredients.map((ingredient, index) => (
+          <li className=" flex items-center text-lg space-x-2" key={index}>
+            <span className=" text-2xl text-primary-400 dark:text-primary-400 mr-2">
               <FontAwesomeIcon icon={faCircle} />
             </span>
             {ingredient}

@@ -1,33 +1,24 @@
 import { FaRegClock, FaTable } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import { StateInterface } from "../../../../../store";
 
-interface Props {
-  cookTime: number;
-  serving: number;
-}
-
-const RecipeDetailNumbers: React.FC<Props> = ({ cookTime, serving }) => {
+const RecipeDetailNumbers = () => {
+  const { recipe } = useSelector((state: StateInterface) => state.recipeDetail);
   return (
-    <div className="mb-10 flex text-2xl font-semibold">
-      <span
-        className="
-      border-r-4 border-gray-300
-      pr-5
-      mr-5
-      flex flex-col items-center
-      "
-      >
-        <span className="flex">
+    <div className=" flex items-center space-y-4 md:space-y-0 md:space-x-8 w-full bg-gray-100 dark:bg-slate-600 p-4 justify-center">
+      <span className="flex flex-col items-center mr-4 ">
+        <span className="flex items-center mb-2">
           <FaRegClock className="mr-2" />
-          <span>Prep Time</span>
+          <span>Cook Time</span>
         </span>
-        <p> {cookTime} mins</p>
+        <p> {recipe?.cookingTime} mins</p>
       </span>
       <span className="flex flex-col items-center">
-        <span className="flex">
+        <span className="flex items-center mb-2">
           <FaTable className="mr-2" />
           <span>Serving</span>
         </span>
-        <p>{serving}</p>
+        <p>{recipe?.serving}</p>
       </span>
     </div>
   );

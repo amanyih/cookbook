@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { Modal } from "../../../../components";
+import { Button, Modal, Input, SectionTitle } from "../../../../components";
+import useHttp from "../../../../hooks/useHttp";
+import useInput from "../../../../hooks/useInput";
+import useCurrentUser from "../../../../hooks/useCurrentUser";
+import { changePasswordAction } from "../../../../store/profile/actions";
+import { useSelector, useDispatch } from "react-redux";
+import { StateInterface } from "../../../../store";
+import { AnyAction } from "redux";
 
 const ChangePasswordModal = ({
   onClose,
@@ -8,49 +15,110 @@ const ChangePasswordModal = ({
   open: boolean;
   onClose: () => void;
 }) => {
-  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
-  const [showNewPassword, setShowNewPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const user = useCurrentUser();
+  const { sendRequest: changePassword } = useHttp();
+  const dispatch = useDispatch();
+  const {
+    value: curPassword,
+    onChange: setcurPassword,
+    error: curPasswordError,
+    errorMessage: curPasswordErrorMessage,
+  } = useInput(
+    "",
+    (value) =>
+      value.length > 5 &&
+      value.length < 50 &&
+      value !== "" &&
+      value !== null &&
+      value !== undefined
+  );
 
-  const handleShowCurrentPassword = () => {
-    setShowCurrentPassword((prev) => !prev);
-  };
-  const handleShowNewPassword = () => {
-    setShowNewPassword((prev) => !prev);
-  };
-  const handleShowConfirmPassword = () => {
-    setShowConfirmPassword((prev) => !prev);
+  const {
+    value: newPassword,
+    onChange: setNewPassword,
+    error: newPasswordError,
+    errorMessage: newPasswordErrorMessage,
+  } = useInput("", (value) => {
+    return (
+      value.length > 5 &&
+      value.length < 50 &&
+      value !== "" &&
+      value !== null &&
+      value !== undefined
+    );
+  });
+
+  const {
+    value: confirmPassword,
+    onChange: setConfirmPassword,
+    error: confirmPasswordError,
+    errorMessage: confirmPasswordErrorMessage,
+  } = useInput("", (value) => {
+    return (
+      value.length > 5 &&
+      value.length < 50 &&
+      value !== "" &&
+      value !== null &&
+      value !== undefined &&
+      value === newPassword
+    );
+  });
+
+  const saveChanges = async (event: any) => {
+    event.preventDefault();
+    const body = {
+      curPassword,
+      newPassword,
+    };
+
+    dispatch(
+      changePasswordAction(changePassword, body) as unknown as AnyAction
+    );
+    onClose();
   };
 
   return (
     <Modal open={open} onClose={onClose}>
       <div>
-        <h1 className=" text-3xl text-gray-800 dark:text-gray-50 font-semibold px-10 mb-10">
-          Change Password
-        </h1>
+        <SectionTitle title="Change Password" />
         <form
-          className=" w-full flex flex-col justify-between items-center bg-gray-50 dark:bg-gray-900 px-10 py-10 mb-10"
+          className=" w-full flex flex-col justify-between items-center  px-10 py-10 mb-10"
           action=""
         >
-          <input
-            className=" border-b-2 border-gray-300 focus:outline-none focus:border-primary-400 w-full mb-5 p "
+          <Input
+            value={curPassword}
+            onChange={setcurPassword}
             type="password"
             placeholder="Current Password"
+            error={curPasswordError}
+            errorMessage={curPasswordErrorMessage}
+            maxLength={20}
+            min={4}
           />
-          <input
-            className=" border-b-2 border-gray-300 focus:outline-none focus:border-primary-400 w-full mb-5 p "
-            type="password"
-            placeholder="New Password"
-          />
-          <input
-            className=" border-b-2 border-gray-300 focus:outline-none focus:border-primary-400 w-full mb-5 p "
+          <Input
+            value={confirmPassword}
+            onChange={setConfirmPassword}
             type="password"
             placeholder="Confirm Password"
+            error={confirmPasswordError}
+            errorMessage={confirmPasswordErrorMessage}
+            maxLength={20}
+            min={4}
+          />
+          <Input
+            value={newPassword}
+            onChange={setNewPassword}
+            type="password"
+            placeholder="New Password"
+            error={newPasswordError}
+            errorMessage={newPasswordErrorMessage}
+            maxLength={20}
+            min={4}
           />
 
-          <button className=" bg-primary-400 text-white px-5 py-2 rounded-md hover:bg-primary-500 transition duration-300 ease-in-out self-end">
+          <Button className="self-end" onClick={saveChanges}>
             Change Password
-          </button>
+          </Button>
         </form>
       </div>
     </Modal>

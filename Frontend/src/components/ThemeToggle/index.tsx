@@ -18,7 +18,7 @@ function ThemeToggle() {
   };
 
   return (
-    <button onClick={toggleTheme} className="mr-5 text-2xl">
+    <button onClick={toggleTheme} className="text-2xl">
       {!dark && <FaMoon />}
       {dark && <FaSun className="text-primary-400" />}
     </button>

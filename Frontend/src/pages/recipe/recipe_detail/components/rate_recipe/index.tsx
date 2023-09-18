@@ -1,15 +1,21 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { faStar as faStarRegular } from "@fortawesome/free-regular-svg-icons";
-import { Modal } from "../../../../../components";
-import { MouseEventHandler, useState } from "react";
+import { Button, Modal, SectionTitle } from "../../../../../components";
+import { useState } from "react";
 import useHttp from "../../../../../hooks/useHttp";
+import { useDispatch, useSelector } from "react-redux";
+import { StateInterface } from "../../../../../store";
+import { rateRecipe as rateRecipeAction } from "../../../../../store/actions";
+import { AnyAction } from "redux";
 
-const RateRecipe = ({ id }: { id: number }) => {
+const RateRecipe = () => {
+  const { recipe } = useSelector((state: StateInterface) => state.recipeDetail);
   const [showModal, setShowModal] = useState(false);
   const [rating, setRating] = useState(-1);
   const { sendRequest: rateRecipe } = useHttp();
   const [disabled, setDisabled] = useState(true);
+  const dispatch = useDispatch();
 
   const handleRateModal = () => {
     setShowModal((prev) => !prev);
@@ -17,11 +23,17 @@ const RateRecipe = ({ id }: { id: number }) => {
 
   const handleRating = async (event: any) => {
     event.preventDefault();
-    // if (disabled) return;
-    console.log(rating);
-    console.log(rating);
+
+    dispatch(
+      rateRecipeAction(rateRecipe, {
+        recipeId: recipe?.id!,
+        rating,
+      }) as unknown as AnyAction
+    );
+    setShowModal(false);
+
     const response = await rateRecipe({
-      url: `/recipe/${id}/rating`,
+      url: `/recipe/${recipe?.id}/rating`,
       method: "POST",
       body: {
         rating,
@@ -53,16 +65,12 @@ const RateRecipe = ({ id }: { id: number }) => {
       </div>
       {showModal && (
         <Modal open={showModal} onClose={handleRateModal}>
-          <div
-            className=" p-10 flex flex-col justify-center items-center gap-2
-          "
-          >
-            <h1 className=" text-4xl font-bold text-gray-800 dark:text-gray-50 mb-10 text-center">
-              Rate The Recipe!
-            </h1>
+          <div className=" p-10 flex flex-col justify-center items-center gap-2">
+            <SectionTitle title="Rate The Recipe!" />
             <div className=" flex justify-center items-center gap-2 text-5xl text-yellow-400 dark:text-yellow-300 mb-10">
               {Array.from({ length: 5 }, (_, i) => (
                 <span
+                  key={i}
                   className="cursor-pointer"
                   onMouseEnter={() => {
                     setRating(i + 1);
@@ -86,15 +94,14 @@ const RateRecipe = ({ id }: { id: number }) => {
                 </span>
               ))}
             </div>
-            <button
-              className={` w-52 h-16 ${
-                disabled ? "bg-gray-300" : "bg-primary-400 hover:bg-red-300"
-              }
-              } text-white font-bold rounded-lg shadow-md  transition duration-300 ease-in-out text-xl`}
-              onClick={handleRating}
+            <Button
+              className="w-52 h-16 font-bold text-xl"
+              onClick={(event) => {
+                handleRating(event);
+              }}
             >
               Submit
-            </button>
+            </Button>
           </div>
         </Modal>
       )}

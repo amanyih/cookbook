@@ -1,32 +1,44 @@
-import { SectionTitle, HorizontalScroll } from "../../../../components";
+import {
+  SectionTitle,
+  HorizontalScroll,
+  RecipeCardSkeleton,
+} from "../../../../components";
 import { RecipeCard } from "../../../../components";
 import { useEffect, useState } from "react";
 import useHttp from "../../../../hooks/useHttp";
 import { RecipeListDto } from "../../../../types";
+import { useDispatch, useSelector } from "react-redux";
+import { StateInterface } from "../../../../store";
+import getTopActions from "../../../../store/recipe/top/actions";
+import { AnyAction } from "redux";
 
 const TopRated = () => {
   const { sendRequest: getRecipes } = useHttp();
-  const [recipes, setRecipes] = useState<RecipeListDto[]>([]);
+  const dispatch = useDispatch();
+  const { recipes, loading, error } = useSelector(
+    (state: StateInterface) => state.top
+  );
 
   useEffect(() => {
-    const fetchRecipes = async () => {
-      const recipes = await getRecipes({
-        url: "/recipe",
-      });
-      setRecipes(recipes["data"]["recipe"]);
-    };
-    fetchRecipes();
-  }, []);
+    dispatch(getTopActions(getRecipes) as unknown as AnyAction);
+  }, [dispatch]);
 
   return (
     <div>
-      <SectionTitle title="Top Rated" />
-      {recipes && recipes.length > 0 && (
+      {(loading || recipes.length > 0) && <SectionTitle title="Top Rated" />}
+      {!loading && (
         <HorizontalScroll>
           {recipes.map((recipe) => (
             <div className="w-96">
-              <RecipeCard recipe={recipe} />
+              <RecipeCard key={recipe.id} recipe={recipe} />
             </div>
+          ))}
+        </HorizontalScroll>
+      )}
+      {loading && (
+        <HorizontalScroll>
+          {Array(4).map((item) => (
+            <RecipeCardSkeleton />
           ))}
         </HorizontalScroll>
       )}

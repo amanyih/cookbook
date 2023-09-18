@@ -12,14 +12,14 @@ interface FilterItemProps {
 const FilterItem: React.FC<FilterItemProps> = (props) => {
   const dispatch = useDispatch();
   return (
-    <span className="mb-3 text-xl">
+    <span className=" flex justify-between items-center w-full mb-2 ">
       <input
         type="checkbox"
         id={props.name}
         name={props.groupName ? props.groupName : props.name}
         value={props.name}
         checked={props.checked}
-        className="hidden peer"
+        className=" peer hidden"
         onChange={(value) => {
           if (value.target.checked) {
             dispatch(filterActions.addChip(props.name));
@@ -30,10 +30,7 @@ const FilterItem: React.FC<FilterItemProps> = (props) => {
       />
       <label
         htmlFor={props.name}
-        className=" inline-flex font-bold justify-between px-3 py-3 w-5/6 text-gray-500 bg-white dark:bg-slate-500 dark:text-whiteish border-2 border-gray-200 rounded-lg cursor-pointer peer-checked:bg-primary-400  peer-checked:text-gray-200 hover:text-gray-600 hover:bg-gray-200 
-        transition-all duration-500 ease-in-out
-        
-        "
+        className="   flex  justify-between  items-center  w-full  cursor-pointer  transition  duration-200  ease-in-out  hover:bg-gray-200  dark:hover:bg-gray-700  rounded-md  py-2  px-4  text-lg  font-semibold  text-gray-800  dark:text-gray-100  peer-checked:bg-primary-400  peer-checked:text-gray-100  peer-checked:font-bold"
       >
         {props.name}
 

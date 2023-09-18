@@ -1,5 +1,6 @@
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { Button } from "../../../components";
+import { GiFullPizza } from "react-icons/gi";
 
 const RecipeLayout = () => {
   const location = useLocation();
@@ -9,14 +10,9 @@ const RecipeLayout = () => {
     <div>
       {path === "recipe" && (
         <Link to="new">
-          <Button
-            className="mr-auto mb-5 dark:bg-slate-500"
-            isLarge={true}
-            isOutlined={true}
-            isRounded={true}
-            onClick={() => {}}
-          >
-            Create New
+          <Button className="flex items-center">
+            C R E A T E &nbsp; R E C I P E &nbsp;
+            <GiFullPizza className="text-2xl animate-bounce" />
           </Button>
         </Link>
       )}

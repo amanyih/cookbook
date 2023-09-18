@@ -2,37 +2,32 @@ import { RecipeCard, Grid, RecipeCardSkeleton } from "../../components";
 import useHttp from "../../hooks/useHttp";
 import { useEffect, useState } from "react";
 import { RecipeListDto } from "../../types";
+import { getRecipes } from "../../store/actions";
+import { StateInterface } from "../../store";
+import { useSelector, useDispatch } from "react-redux";
+import { AnyAction } from "redux";
 
 const RecipePage = () => {
-  const { sendRequest: getRecipes, data, loading, error } = useHttp();
-  const [recipes, setRecipes] = useState<RecipeListDto[]>([]);
+  const dispatch = useDispatch();
+  const { sendRequest: fetchRecipes } = useHttp();
+  const { recipes, loading } = useSelector(
+    (state: StateInterface) => state.recipe
+  );
 
   useEffect(() => {
-    const fetchRecipes = async () => {
-      const recipes = await getRecipes({
-        url: "/recipe",
-      });
-      //TODO:handle error
-      setRecipes(recipes["data"]["recipe"]);
-    };
-    fetchRecipes();
-  }, []);
+    dispatch(getRecipes(fetchRecipes) as unknown as AnyAction);
+  }, [dispatch]);
 
   return (
     <div className="">
-      {!loading && data && (
+      {!loading && (
         <Grid
-          items={
-            recipes &&
-            recipes.map((recipe: RecipeListDto) => {
-              return <RecipeCard recipe={recipe} />;
-            })
-          }
+          items={recipes.map((recipe: RecipeListDto) => {
+            return <RecipeCard recipe={recipe} />;
+          })}
         />
       )}
-      {(loading || !recipes) && (
-        <Grid items={Array(4).fill(<RecipeCardSkeleton />)} />
-      )}
+      {loading && <Grid items={Array(4).fill(<RecipeCardSkeleton />)} />}
     </div>
   );
 };

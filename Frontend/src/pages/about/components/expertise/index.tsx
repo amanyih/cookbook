@@ -47,33 +47,17 @@ const ExpertiseItem = ({
     <div
       className={`flex flex-col-reverse ${
         index % 2 === 0 ? "md:flex-row-reverse" : "md:flex-row"
-      }
-        justify-between
-        items-center
-        space-x-10
-        mb-10
-
-
-      `}
+      } justify-between items-center space-x-10 mb-10`}
     >
       <div className="w-1/2">
         <img
           src={image}
           alt=""
-          className="rounded-lg shadow-lg
-        hover:shadow-2xl
-        transition
-        duration-200
-        ease-in-out
-        "
+          className="rounded-lg shadow-lg hover:shadow-2xl transition duration-200 ease-in-out"
         />
       </div>
       <div className="w-1/2">
-        <h1
-          className=" text-4xl font-semibold text-gray-800 dark:text-gray-50 mb-5
-
-        "
-        >
+        <h1 className=" text-4xl font-semibold text-gray-800 dark:text-gray-50 mb-5">
           {title}
         </h1>
         <p className=" text-gray-600 dark:text-gray-300 text-xl">

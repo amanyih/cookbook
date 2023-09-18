@@ -5,6 +5,7 @@ import RecipeListDto from "./dtos/recipe/recipe.list.dto";
 import CreateRecipeDto from "./dtos/recipe/createrecipe.dto";
 import CategoryDetialDto from "./dtos/category/category.detail.dto";
 import CategoryListDto from "./dtos/category/category.list.dto";
+import ProfileDto from "./dtos/profile/profile.dto";
 
 export {
   AuthorDto,
@@ -14,4 +15,5 @@ export {
   CreateRecipeDto,
   CategoryDetialDto,
   CategoryListDto,
+  ProfileDto,
 };

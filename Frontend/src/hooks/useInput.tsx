@@ -9,8 +9,8 @@ const useInput = (
   const [valid, setValid] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
 
-  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
+  const onChange = (event: React.ChangeEvent<HTMLInputElement> | undefined) => {
+    setValue(event!.target.value);
   };
 
   const onBlur = () => {

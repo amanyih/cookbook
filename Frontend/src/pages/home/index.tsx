@@ -8,12 +8,9 @@ import {
   TopRated,
 } from "./components";
 
-import TempSkeletons from "./temp/sk";
-
 const HomePage = () => {
   return (
-    <div className="w-full">
-      {/* <TempSkeletons /> */}
+    <div className="w-full h-full">
       <Hero />
       <FeaturedSection />
       <TopRated />

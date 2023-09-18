@@ -16,7 +16,7 @@ const Ingredients = ({
   };
   return (
     <Fragment>
-      <div className=" flex flex-col w-full mb-5 dark:bg-gray-900 dark:text-gray-100">
+      <div className=" flex flex-col w-full mb-5  dark:text-gray-100">
         <VariableInputs
           title="Ingredient"
           placeholder="Eg: Chicken"

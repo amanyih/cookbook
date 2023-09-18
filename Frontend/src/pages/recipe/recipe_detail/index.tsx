@@ -8,80 +8,63 @@ import {
   RateRecipe,
 } from "./components";
 import { LoadingSpinner } from "../../../components";
+import { getRecipeDetailAction } from "../../../store/actions";
 
 import { useParams } from "react-router";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import useHttp from "../../../hooks/useHttp";
-import { RecipeDto } from "../../../types";
-import { DateFormat } from "../../../util";
+import { useDispatch, useSelector } from "react-redux";
+import { StateInterface } from "../../../store";
+import { AnyAction } from "redux";
 
 const RecipeDetail = () => {
+  const dispatch = useDispatch();
   const { id } = useParams<{ id: string }>();
+  const { loading, recipe } = useSelector(
+    (state: StateInterface) => state.recipeDetail
+  );
   const { sendRequest: getRecipe } = useHttp();
-  const [recipe, setRecipe] = useState<RecipeDto>();
 
   useEffect(() => {
-    const fetchRecipe = async () => {
-      const recipe = await getRecipe({
-        url: `/recipe/${id}`,
-      });
-      setRecipe(recipe["data"]["recipe"]);
-    };
-    fetchRecipe();
+    dispatch(getRecipeDetailAction(getRecipe, id!) as unknown as AnyAction);
   }, [id]);
 
   return (
     <div>
-      {recipe && (
-        <div className="flex flex-col justify-center items-center">
-          <RecipeDetailHeader
-            author={recipe.author}
-            comments={recipe.comments.length}
-            date={DateFormat(new Date(recipe.createdAt))}
-            description={recipe.description}
-            imgae={recipe.image}
-            tags={recipe.tags}
-            isLiked={recipe.isLiked}
-            rating={recipe.ratings.length}
-            title={recipe.title}
-          />
-          <RecipeDetailNumbers
-            cookTime={recipe.cookingTime}
-            serving={recipe.serving}
-          />
-          <div className="flex justify-between w-full">
-            <div>
-              <Ingredients ingredients={recipe.ingredients} />
-            </div>
-            <div>
-              <Nutritions
-                nutritions={[
-                  {
-                    title: "Calories",
-                    amount: 452,
-                  },
-                  {
-                    title: "Fat",
-                    amount: 12,
-                  },
-                  {
-                    title: "Protein",
-                    amount: 12,
-                  },
-                  {
-                    title: "Carbohydrates",
-                    amount: 12,
-                  },
-                ]}
-              />
-            </div>
+      {!loading && recipe && (
+        <div className=" flex flex-col w-full max-w-screen-lg mx-auto px-4 space-y-8 lg:px-0 items-center">
+          <RecipeDetailHeader />
+          <RecipeDetailNumbers />
+          <div className="flex flex-col-reverse justify-between w-full items-center space-x-4 md:flex-row md:space-x-4 lg:items-start lg:space-x-8">
+            <Ingredients />
+
+            <Nutritions
+              nutritions={[
+                {
+                  title: "Calories",
+                  amount: 452,
+                },
+                {
+                  title: "Fat",
+                  amount: 12,
+                },
+                {
+                  title: "Protein",
+                  amount: 12,
+                },
+                {
+                  title: "Carbohydrates",
+                  amount: 12,
+                },
+              ]}
+            />
           </div>
-          <Steps steps={recipe.steps} />
-          <RateRecipe id={recipe.id} />
-          <Comments comments={recipe.comments} recipeId={recipe.id} />
+          <Steps />
+          <RateRecipe />
+          <Comments />
         </div>
       )}
-      {!recipe && <LoadingSpinner />}
+      {loading && <LoadingSpinner />}
     </div>
   );
 };

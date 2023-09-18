@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { BsEyeSlash, BsEye } from "react-icons/bs";
-import { Logo, LoadingSpinner } from "../../../components";
+import { Logo, LoadingSpinner, Input, Button } from "../../../components";
 import useHttp from "../../../hooks/useHttp";
 import useInput from "../../../hooks/useInput";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -10,7 +10,6 @@ import img from "../../../assets/svg/breakfast.svg";
 
 const RegisterPage = () => {
   const { setAuth } = useContext(AuthContext);
-  const [isVisible, setIsVisible] = useState(false);
   const [isSignUp, setIsSignUp] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
@@ -53,6 +52,22 @@ const RegisterPage = () => {
     );
   });
 
+  const { value: username, onChange: usernameChange } = useInput(
+    "",
+    (value) => {
+      var letters = /^[A-Za-z]+$/;
+
+      return (
+        value.length > 5 &&
+        value.length < 50 &&
+        value !== "" &&
+        value !== null &&
+        value !== undefined &&
+        letters.test(value)
+      );
+    }
+  );
+
   const handleRegister = async () => {
     await registerUser({
       url: `/auth/${isSignUp ? "signup" : "login"}`,
@@ -60,7 +75,7 @@ const RegisterPage = () => {
       body: {
         email: email,
         password: password,
-        ...(isSignUp && { name: name }),
+        ...(isSignUp && { name: name, username: username }),
       },
     });
     if (!error && user) {
@@ -75,78 +90,96 @@ const RegisterPage = () => {
 
   return (
     <div
-      className=" flex items-center justify-center h-screen bg-cover bg-center backdrop-blur-sm"
+      className=" flex items-center justify-center h-screen bg-cover bg-center backdrop-blur-sm 
+      "
       style={{
         backgroundImage:
           "url(https://t4.ftcdn.net/jpg/03/07/35/21/360_F_307352129_dvr99c36HQ8fOUDwhn4awr710K0JqBSJ.jpg)",
       }}
     >
-      <div className="bg-white p-10 rounded-lg shadow-lg backdrop-blur-3xl xl:w-1/4">
+      <div className="bg-white p-10 rounded-lg shadow-lg backdrop-blur-3xl w-96">
         <div className="flex justify-between">
           <Logo navigate={false} />
-          <h1 className="text-3xl mb-5 text-center font-semibold">
+          <h1
+            className="
+          text-4xl font-bold text-green-400
+          dark:text-primary-400
+          
+          "
+          >
             {isSignUp ? "Sign Up" : "Login"}
           </h1>
         </div>
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col">
           {isSignUp && (
-            <span>
-              <input
-                type="text"
-                value={name}
-                onChange={nameChange}
-                placeholder="Full Name"
-                className="text-xl px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-primary-400 w-full"
-              />
-            </span>
+            <Input
+              value={name}
+              onChange={nameChange}
+              placeholder="Full Name"
+              required={true}
+              rounded={true}
+              outline={true}
+              label="Full Name"
+            />
           )}
-          <span>
-            <input
-              type="text"
-              value={email}
-              onChange={emailChange}
-              placeholder="Email"
-              className="text-xl px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-primary-400 w-full"
+          {isSignUp && (
+            <Input
+              value={username}
+              onChange={usernameChange}
+              placeholder="Username"
+              required={true}
+              rounded={true}
+              outline={true}
+              label="Username"
             />
-          </span>
-          <span className="relative">
-            <input
-              type={isVisible ? "text" : "password"}
-              value={password}
-              onChange={passwordChange}
-              placeholder="Password"
-              className="text-xl px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-primary-400 w-full"
-            />
-            <span
-              className="text-xl font-bold text-primary-400 absolute top-3 right-3 cursor-pointer"
-              onClick={() => setIsVisible(!isVisible)}
-            >
-              {isVisible ? <BsEyeSlash /> : <BsEye />}
-            </span>
-          </span>
+          )}
+
+          <Input
+            value={email}
+            onChange={emailChange}
+            placeholder="Username"
+            required={true}
+            rounded={true}
+            outline={true}
+            label="Email"
+          />
+
+          <Input
+            value={password}
+            onChange={passwordChange}
+            type="password"
+            placeholder="Password"
+            required={true}
+            rounded={true}
+            outline={true}
+            label="Password"
+            maxLength={20}
+            min={4}
+          />
+
           {!isSignUp && (
             <div className="ml-auto text-sm">
               <span>Forgot your password?</span>
               <span className="text-primary-400">Reset</span>
             </div>
           )}
-          <button
-            className="text-xl px-3 py-2 bg-primary-400 text-white rounded-md mb-5"
-            onClick={handleRegister}
-          >
+          <Button className="my-5 text-xl font-bold" onClick={handleRegister}>
             {loading ? <LoadingSpinner /> : isSignUp ? "Sign up" : "Login"}
-          </button>
+          </Button>
           <div className="mx-auto w-full text-center">
             <span className="border-b-2border-gray-100blockmx-automb-5pb-3">
               {isSignUp ? "or sign up with" : "or login with"}
             </span>
           </div>
-          <div>
-            <button className="text-xl px-3 py-2 w-full bg-blue-400 text-white rounded-md">
-              <FcGoogle className="inline-block mr-2" />
-              Google
-            </button>
-          </div>
+
+          <Button
+            className="my-5 text-xl font-bold"
+            background="bg-blue-500 hover:bg-blue-600"
+          >
+            <FcGoogle className="inline-block mr-2 text-3xl" />
+            Google
+          </Button>
+
           <div className="ml-auto">
             <span>
               {isSignUp ? "Already have an account?" : "Don't have an account?"}

@@ -1,5 +1,4 @@
 import { VariableInputs } from "../../../../../components";
-import SectionTitle from "../section_title";
 const Steps = ({
   steps,
   setSteps,
@@ -11,8 +10,6 @@ const Steps = ({
   setStepDescription: (value: string[]) => void;
   setSteps: (value: string[]) => void;
 }) => {
-  // const [stepDescription, setStepDescription] = useState<string[]>([]);
-
   const handleChangeSteps = (value: string[]) => {
     setSteps(value);
   };

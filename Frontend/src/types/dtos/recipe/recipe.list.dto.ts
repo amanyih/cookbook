@@ -13,6 +13,7 @@ class RecipeListDto {
   likes: number;
   rating: number;
   isLiked: boolean;
+  categories: string[];
   constructor({
     id,
     title,
@@ -26,6 +27,7 @@ class RecipeListDto {
     likes,
     rating,
     isLiked,
+    categories,
   }: {
     id: number;
     title: string;
@@ -39,6 +41,7 @@ class RecipeListDto {
     likes: number;
     rating: number;
     isLiked: boolean;
+    categories: string[];
   }) {
     this.id = id;
     this.title = title;
@@ -52,6 +55,7 @@ class RecipeListDto {
     this.likes = likes;
     this.rating = rating;
     this.isLiked = isLiked;
+    this.categories = categories;
   }
 }
 

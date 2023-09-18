@@ -6,18 +6,19 @@ import {
   BsFacebook,
   BsTelegram,
 } from "react-icons/bs";
+import { Button } from "../../../../components";
 const ContactUs = () => {
   return (
     <div
       id="contact-us"
       className="w-full  flex flex-col justify-between items-center"
     >
-      <h1 className=" text-center text-gray-600 dark:text-gray-300 text-3xl font-semibold px-10 py-10 mb-10 w-full ">
+      <h1 className=" text-center text-gray-600 dark:text-gray-300 text-3xl font-semibold md:px-10 py-10 mb-10 w-full ">
         Contact Us
       </h1>
       <div className=" w-1/2 relative ">
-        <div className="absolute h-[80%] bg-primary-400 -left-48 top-[8%] flex flex-col justify-between items-center px-10 py-10 mb-10 rounded-md shadow-xl transition duration-300 ease-in-out ">
-          <div className="flex flex-col gap-10 items-center justify-center w-full h-full text-gray-50 dark:text-gray ">
+        <div className="invisible  2xl:visible absolute h-[80%] bg-primary-400 -left-48 top-[8%] flex flex-col justify-between items-center md:px-10 py-10 mb-10 rounded-md shadow-xl transition duration-300 ease-in-out ">
+          <div className=" flex flex-col gap-10 items-center justify-center w-full h-full text-gray-50 dark:text-gray ">
             <h1 className="text-center text-white text-3xl font-semibold mb-5">
               Contact Info
             </h1>
@@ -44,27 +45,31 @@ const ContactUs = () => {
             <BsTelegram className=" hover:text-gray-400 transition duration-300 ease-in-out cursor-pointer" />
           </div>
         </div>
-        <div className="  w-full  flex items-center justify-between px-10 py-10 mb-10 bg-white  shadow-xl ">
-          <div className="w-1/3 h-96"></div>
+        <div
+          className="  w-full  flex items-center justify-between px-10 py-10 mb-10 bg-white
+          shadow-xl dark:bg-slate-600"
+        >
+          <div className="w-0  2xl:w-1/2 h-full bg-cover bg-center rounded-md shadow-xl transition"></div>
           <div>
-            <h1 className=" text-3xl font-semibold text-gray-600 dark:text-gray-300 mb-5">
+            <h1 className="text-xl md:text-3xl font-semibold text-gray-600 dark:text-gray-300 mb-5">
               Send a Message
             </h1>
             <form action="">
               <input
                 type="text"
                 placeholder="Name"
-                className=" border-b-2 border-gray-300 focus:outline-none focus:border-primary-400 w-full mb-5 p-2"
+                className=" border-b-2 border-gray-300 focus:outline-none
+                dark:bg-slate-700 focus:border-primary-400 w-full mb-5 p-2"
               />
               <input
                 type="text"
                 placeholder="Email"
-                className=" border-b-2 border-gray-300 focus:outline-none focus:border-primary-400 w-full mb-5 p-2"
+                className=" border-b-2 border-gray-300 focus:outline-none focus:border-primary-400 w-full mb-5 p-2 dark:bg-slate-700"
               />
               <input
                 type="text"
                 placeholder="Subject"
-                className=" border-b-2 border-gray-300 focus:outline-none focus:border-primary-400 w-full mb-5 p-2"
+                className=" border-b-2 border-gray-300 focus:outline-none focus:border-primary-400 w-full mb-5 p-2 dark:bg-slate-700"
               />
               <textarea
                 name=""
@@ -72,11 +77,9 @@ const ContactUs = () => {
                 cols={30}
                 rows={10}
                 placeholder="Message"
-                className=" border-b-2 border-gray-300 focus:outline-none focus:border-primary-400 w-full mb-5 p-2 resize-none "
+                className=" border-b-2 border-gray-300 focus:outline-none focus:border-primary-400 w-full mb-5 p-2 resize-none dark:bg-slate-700"
               ></textarea>
-              <button className=" bg-primary-400 text-white px-5 py-2 rounded-md hover:bg-primary-500 transition duration-300 ease-in-out">
-                Send
-              </button>
+              <Button className=" self-end w-32 h-12">Send</Button>
             </form>
           </div>
         </div>

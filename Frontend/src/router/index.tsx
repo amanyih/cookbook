@@ -1,11 +1,10 @@
 import {
   createBrowserRouter,
   createRoutesFromElements,
-  Navigate,
   Route,
 } from "react-router-dom";
 
-import RootLayout from "../layouts/RootLayout";
+import RootLayout from "../layouts";
 import {
   HomePage,
   ProfilePage,
@@ -34,16 +33,10 @@ const getRoutes = ({ auth }: { auth: boolean }) => {
         </Route>
         <Route path={Routes.HOME} element={<RootLayout />}>
           <Route index element={<HomePage />} />
-          <Route path={Routes.PROFILE} element={<ProfilePage />}>
-            {auth && <Route index element={<RecipesSection />} />}
-            {auth && (
-              <Route path={Routes.USER_COMMENT} element={<CommentsSection />} />
-            )}
-            {auth && (
-              <Route path={Routes.USER_LIKES} element={<LikesSection />} />
-            )}
-            <Route path={":id"} element={<RecipesSection />} />
-          </Route>
+          <Route
+            path={Routes.PROFILE + "/:username"}
+            element={<ProfilePage />}
+          />
           <Route path={Routes.RECIPEPAGE} element={<RecipeLayout />}>
             <Route index element={<RecipePage />} />
 

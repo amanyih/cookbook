@@ -1,7 +1,7 @@
 import Logo from "../logo";
 const CompanyDescription = () => {
   return (
-    <div className="w-1/3">
+    <div className=" flex flex-col space-y-5 text-gray-600 dark:text-whiteish w-full md:w-1/3">
       <Logo />
 
       <p className=" text-sm text-gray-600 dark:text-whiteish">

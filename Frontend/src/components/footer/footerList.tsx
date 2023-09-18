@@ -13,7 +13,7 @@ interface Props {
 
 const FooterList: React.FC<Props> = (props) => {
   return (
-    <div>
+    <div className=" flex flex-col space-y-2 text-gray-600 dark:text-whiteish w-full md:w-1/3 ">
       <h1 className="font-bold mb-1">{props.title}</h1>
       <ul className="text-gray-600 dark:text-whiteish ">
         {props.list.map((item) => (

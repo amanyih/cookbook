@@ -2,7 +2,7 @@ import FooterList from "./footerList";
 
 const FooterNav = () => {
   return (
-    <div className="flex justify-between w-1/3">
+    <div className=" flex flex-col md:flex-row justify-between items-center md:items-start md:justify-start md:space-x-10 md:space-y-0 space-y-10  ">
       <FooterList
         title="CookBook"
         list={[

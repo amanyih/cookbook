@@ -1,4 +1,6 @@
 import { NavLink } from "react-router-dom";
+import { uiActions } from "../../store/actions";
+import { useDispatch } from "react-redux";
 
 interface NavItemProps {
   name: string;
@@ -7,7 +9,7 @@ interface NavItemProps {
 }
 
 const NavItem: React.FC<NavItemProps> = (props) => {
-  console.log(props.to);
+  const dispatch = useDispatch();
 
   const navLinkStyle = ({
     isActive,
@@ -15,7 +17,7 @@ const NavItem: React.FC<NavItemProps> = (props) => {
     isActive: boolean;
     isPending: boolean;
   }): string | undefined => {
-    const style = "mx-4  hover:cursor-pointer relative text-xl";
+    const style = "mx-4  hover:cursor-pointer relative text-xl mb-5 nav:mb-0";
     if (isActive) {
       return `${style} after:content-[''] after:absolute after:h-1 after:bg-red-500 after:w-full group`;
     } else {
@@ -24,12 +26,20 @@ const NavItem: React.FC<NavItemProps> = (props) => {
   };
 
   return (
-    <NavLink className={navLinkStyle} to={props.to}>
-      <div className="flex">
-        <li className=""> {props.name} </li>
-        {props.icon}
-      </div>
-    </NavLink>
+    <span
+      className="flex flex-col justify-center items-center mb-5 nav:mb-0"
+      onClick={() => {
+        dispatch(uiActions.hideNav());
+      }}
+    >
+      <NavLink className={navLinkStyle} to={props.to}>
+        <li className="  flex items-center group">
+          {" "}
+          {props.name}
+          {""} {props.icon}
+        </li>
+      </NavLink>
+    </span>
   );
 };
 

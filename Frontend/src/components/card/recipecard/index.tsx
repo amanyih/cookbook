@@ -19,7 +19,8 @@ const RecipeCard: React.FC<props> = ({ recipe }) => {
         <Image src={recipe!.image ?? img} customClass="h-64" />
         <div className="p-4 w-full">
           <CardBody
-            id="1"
+            id={recipe.id}
+            username={recipe.author.username}
             title={recipe.title || "Recipe Title"}
             description={recipe.description || "Recipe Description"}
             author={recipe.author.profile.name || "Recipe Author"}

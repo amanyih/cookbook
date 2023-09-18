@@ -76,6 +76,24 @@ module.exports = {
         button: ["1rem", { lineHeight: "1rem" }],
         caption: ["0.875rem", { lineHeight: "0.75rem" }],
       },
+      animation: {
+        slideInRight: "slideInRight 0.5s ease-in-out",
+      },
+      keyframes: {
+        slideInRight: {
+          "0%": {
+            transform: "translateX(100%)",
+            opacity: 0,
+          },
+          "100%": {
+            transform: "translateX(0)",
+            opacity: 1,
+          },
+        },
+      },
+      screens: {
+        nav: "900px",
+      },
     },
   },
   plugins: [],

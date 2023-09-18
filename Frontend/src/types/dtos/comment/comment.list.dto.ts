@@ -9,6 +9,7 @@ class CommentListDto {
   public recipeId: number;
   user: AuthorDto;
   likes: any[];
+  isLiked: boolean;
 
   constructor({
     id,
@@ -19,6 +20,7 @@ class CommentListDto {
     recipeId,
     user,
     likes,
+    isLiked = false,
   }: {
     id: number;
     content: string;
@@ -28,6 +30,7 @@ class CommentListDto {
     recipeId: number;
     user: AuthorDto;
     likes: any[];
+    isLiked: boolean;
   }) {
     this.id = id;
     this.content = content;
@@ -37,6 +40,7 @@ class CommentListDto {
     this.recipeId = recipeId;
     this.user = user;
     this.likes = likes;
+    this.isLiked = isLiked;
   }
 }
 

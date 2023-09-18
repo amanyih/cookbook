@@ -33,7 +33,13 @@ const FAQs = () => {
       <SectionTitle title="FAQs" />
       <div>
         {questionandanswers.map((item) => {
-          return <Accordion title={item.question} description={item.answer} />;
+          return (
+            <Accordion
+              key={item.question}
+              title={item.question}
+              description={item.answer}
+            />
+          );
         })}
       </div>
     </div>

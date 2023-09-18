@@ -5,6 +5,8 @@ const constants = {
 
   imagePlaceholder:
     "https://png.pngtree.com/png-vector/20190223/ourmid/pngtree-vector-picture-icon-png-image_695350.jpg",
+  categoryImagePlaceholder:
+    "https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
 
   //RECIPE TAGS
   TAGS: [

@@ -1,5 +1,11 @@
-import { FormEvent, useState, useRef } from "react";
-import { Modal } from "../../../components";
+import { FormEvent, useState } from "react";
+import {
+  Button,
+  Input,
+  Modal,
+  Rquired,
+  SectionTitle as Title,
+} from "../../../components";
 import {
   ImagePicker,
   Steps,
@@ -9,11 +15,19 @@ import {
   Ingredients,
   Tags,
   SectionTitle,
+  Padding,
 } from "./components";
 
 import { CreateRecipeDto } from "../../../types";
 import useHttp from "../../../hooks/useHttp";
 import useInput from "../../../hooks/useInput";
+import { useDispatch, useSelector } from "react-redux";
+import { StateInterface } from "../../../store";
+import {
+  imageActions,
+  createRecipeAction,
+  uploadImageAction,
+} from "../../../store/actions";
 
 const NewRecipePage = () => {
   const {
@@ -39,8 +53,26 @@ const NewRecipePage = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [recipeUploaded, setRecipeUploaded] = useState<boolean>(false);
   const [showError, setShowError] = useState<boolean>(false);
+  const { loading: recipeLoading, error: recipeError } = useSelector(
+    (state: StateInterface) => state.createRecipe
+  );
+  const { image, loading, error } = useSelector(
+    (state: StateInterface) => state.image
+  );
+
+  const resetFileInput = () => {
+    const fileInput: HTMLInputElement | null = document.getElementById(
+      "recipeImage"
+    ) as HTMLInputElement;
+    if (fileInput) {
+      fileInput.value = "";
+    }
+  };
+
+  const dispatch = useDispatch();
 
   const imageChangeHandler = (event: any) => {
+    resetFileInput();
     event.preventDefault();
     const inputElement = document.getElementById("recipeImage");
     inputElement!.click();
@@ -63,22 +95,24 @@ const NewRecipePage = () => {
       return;
     }
 
-    setShowModal(true);
-
     const formData = new FormData();
     formData.append("image", imageFile);
-    const responseImage = await uploadImage({
-      url: "/image",
-      method: "POST",
-      body: formData,
-    });
+    dispatch(uploadImageAction(uploadImage, formData) as unknown as any);
 
-    let imageUrl = null;
-    console.log(responseImage);
+    setShowModal(true);
 
-    if (responseImage) {
-      imageUrl = responseImage["data"]["image"]["url"];
+    while (!image && loading && !error) {}
+
+    if (error || !image) {
+      setShowModal(false);
+      setShowError(true);
+      setTimeout(() => {
+        setShowError(false);
+      }, 3000);
+      return;
     }
+
+    const imageUrl = image;
 
     const step: { title: string; description: string }[] = [];
     for (let i = 0; i < steps.length; i++) {
@@ -109,36 +143,31 @@ const NewRecipePage = () => {
       },
     });
 
-    const response = await createRecipe({
-      url: "/recipe",
-      method: "POST",
-      body: recipe,
-    });
+    dispatch(createRecipeAction(createRecipe, recipe) as unknown as any);
 
-    if (response.status === "success") {
-      //navigate to recipe page
-      window.location.href = `/recipe`;
-
-      setRecipeUploaded(true);
-
-      setTimeout(() => {
-        setShowModal(false);
-      }, 3000);
-    } else {
+    while (recipeLoading && !recipeError) {}
+    if (recipeError) {
+      setShowModal(false);
       setShowError(true);
       setTimeout(() => {
-        setShowModal(false);
         setShowError(false);
       }, 3000);
+      return;
     }
+    resetFileInput();
+    dispatch(imageActions.resetImage());
+    window.location.href = `/recipe`;
+    setRecipeUploaded(true);
+    setTimeout(() => {
+      setShowModal(false);
+      setRecipeUploaded(false);
+    }, 3000);
   };
 
   return (
     <div className=" flex flex-col w-full">
-      <div className=" flex flex-col w-full mb-5 dark:bg-gray-900 dark:text-gray-100">
-        <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
-          Create Recipe
-        </h1>
+      <div className=" flex flex-col w-full mb-5  dark:text-gray-100">
+        <Title title="Create Recipe" />
         <p className="text-gray-600 dark:text-gray-400">
           Fill in the details to create a new recipe
         </p>
@@ -148,57 +177,38 @@ const NewRecipePage = () => {
       </div>
       <form action="" onSubmit={submitHandler}>
         <SectionTitle title="Image" />
-        <span className=" flex flex-col w-full h-full px-5 py-3 mb-10 dark:bg-gray-900 dark:text-gray-100">
+        <Padding>
           <ImagePicker
             imageChangeHandler={imageChangeHandler}
             imagePreview={imagePreview}
           />
-        </span>
+        </Padding>
 
         <SectionTitle title="Title" />
-        <span className=" flex flex-col w-full h-full px-5 py-3 mb-10 dark:bg-gray-900 dark:text-gray-100">
-          <p className="text-gray-600 dark:text-gray-400 text-sm">
-            Enter a title for your recipe{" "}
-            <span className=" text-red-500 dark:text-red-400">
-              <span className="text-red-500">*</span>
-            </span>
-          </p>
-          <input
-            required
-            className=" border-2 border-gray-300 rounded-lg w-full h-16 px-5 py-3 mb-3 dark:border-gray-600 focus:outline-none focus:border-primary-400 dark:bg-gray-900 dark:text-gray-100"
-            type="text"
+        <Padding>
+          <Input
             value={title}
             onChange={titleOnChange}
             placeholder="Enter a title for your recipe"
+            required={true}
+            label="Title"
+            outline={true}
+            rounded={true}
+            className="h-14"
           />
-          {errorMessage && (
-            <p className="text-red-500 text-sm">{errorMessage}</p>
-          )}
-        </span>
+        </Padding>
         <SectionTitle title="Description" />
-        <span className=" flex flex-col w-full h-full px-5 py-3 mb-10 dark:bg-gray-900 dark:text-gray-100">
-          <p className="text-gray-600 dark:text-gray-400 text-sm">
-            Enter a description for your recipe{" "}
-            <span className=" text-red-500 dark:text-red-400">
-              <span className="text-red-500">*</span>
-            </span>
-          </p>
-
+        <Padding>
           <Description
             value={description}
             onChange={(event: any) => setDescription(event.target.value)}
           />
-          {errorMessage && (
-            <p className="text-red-500 text-sm">{errorMessage}</p>
-          )}
-        </span>
+        </Padding>
+
         <SectionTitle title="Ingredients" />
-        <span className=" flex flex-col w-full h-full px-5 py-3 mb-10 dark:bg-gray-900 dark:text-gray-100">
+        <Padding>
           <p className="text-gray-600 dark:text-gray-400 text-sm">
-            Enter the ingredients for your recipe{" "}
-            <span className=" text-red-500 dark:text-red-400">
-              <span className="text-red-500">*</span>
-            </span>
+            Enter the ingredients for your recipe <Rquired />
           </p>
           <Ingredients
             ingredients={ingredients}
@@ -207,9 +217,11 @@ const NewRecipePage = () => {
           {errorMessage && (
             <p className="text-red-500 text-sm">{errorMessage}</p>
           )}
-        </span>
+        </Padding>
+
         <SectionTitle title="Categories" />
-        <span className=" flex flex-col w-full h-full px-5 py-3 mb-10 dark:bg-gray-900 dark:text-gray-100">
+
+        <Padding>
           <Categories
             diet={diet}
             dishType={dishtype}
@@ -220,28 +232,27 @@ const NewRecipePage = () => {
             setMealType={setMealType}
             setOrigin={setOrigin}
           />
-        </span>
+        </Padding>
         <SectionTitle title="Numbers" />
-        <span className=" flex flex-col w-full h-full px-5 py-3 mb-10 dark:bg-gray-900 dark:text-gray-100">
+        <Padding>
           <Numbers
             cookingTime={cookingTime}
             serving={serving}
             setCookingTime={setCookingTime}
             setServing={setServing}
           />
-        </span>
+        </Padding>
+
         <SectionTitle title="Tags" />
-        <span className=" flex flex-col w-full h-full px-5 py-3 mb-10 dark:bg-gray-900 dark:text-gray-100">
+        <Padding>
           <Tags tags={tags} setTags={setTags} />
-        </span>
+        </Padding>
+
         <SectionTitle title="Steps" />
 
-        <span className=" flex flex-col w-full h-full px-5 py-3 mb-10 dark:bg-gray-900 dark:text-gray-100">
+        <Padding>
           <p className=" text-gray-600 dark:text-gray-400 text-sm mb-3">
-            Enter the steps with description for your recipe{" "}
-            <span className=" text-red-500 dark:text-red-400">
-              <span className="text-red-500">*</span>
-            </span>
+            Enter the steps with description for your recipe <Rquired />
           </p>
           <Steps
             steps={steps}
@@ -249,14 +260,16 @@ const NewRecipePage = () => {
             stepDescription={stepDescription}
             setStepDescription={setStepDescription}
           />
-        </span>
+        </Padding>
 
-        <button
+        <Button
+          className="w-full h-14 rounded-full text-2xl font-bold border-2 border-gray-300 dark:border-gray-600"
           type="submit"
-          className="flex items-center justify-center w-full h-14 px-5 py-3 mb-3 border-2 border-gray-300 rounded-full dark:border-gray-600 focus:outline-none focus:border-primary-400 dark:bg-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 ml-3 transition duration-300 ease-in-out"
+          background="hover:bg-gray-100"
+          textcolor="text-gray-800 dark:text-gray-100"
         >
           C R E A T E
-        </button>
+        </Button>
       </form>
       {showModal && (
         <Modal open={showModal} onClose={() => {}}>

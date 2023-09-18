@@ -1,6 +1,7 @@
 class AuthorDto {
   id: number;
   email: string;
+  username: string;
   profile: {
     name: string;
     bio?: string;
@@ -11,9 +12,11 @@ class AuthorDto {
     id,
     email,
     profile,
+    username,
   }: {
     id: number;
     email: string;
+    username: string;
     profile: {
       name: string;
       bio?: string;
@@ -23,6 +26,7 @@ class AuthorDto {
     this.id = id;
     this.email = email;
     this.profile = profile;
+    this.username = username;
   }
 }
 
