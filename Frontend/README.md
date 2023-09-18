@@ -1,46 +1,108 @@
-# Getting Started with Create React App
+# Cookbook - Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Cookbook is a web application built with React that allows users to post and share their favorite recipes. This repository contains the frontend code for Cookbook. 
 
-## Available Scripts
+# Screenshots
+## Sign Up
+![Cookbook Screenshot](https://github.com/amanyih/cookbook/blob/main/Frontend/src/assets/screenshots/16.signup.png)
+## Home Page
+![Cookbook Screenshot](https://github.com/amanyih/cookbook/blob/main/Frontend/src/assets/screenshots/1.hero.png)
+![Cookbook Screenshot](https://github.com/amanyih/cookbook/blob/main/Frontend/src/assets/screenshots/2.top.png)
+![Cookbook Screenshot](https://github.com/amanyih/cookbook/blob/main/Frontend/src/assets/screenshots/3.new-letter.png)
+![Cookbook Screenshot](https://github.com/amanyih/cookbook/blob/main/Frontend/src/assets/screenshots/4.testimony.png)
+### Responsive
+![Cookbook Screenshot](https://github.com/amanyih/cookbook/blob/main/Frontend/src/assets/screenshots/17.hero-dark-responsive.png)
+## Recipe Page
+![Cookbook Screenshot](https://github.com/amanyih/cookbook/blob/main/Frontend/src/assets/screenshots/19.recipe-shimmer.png)
+![Cookbook Screenshot](https://github.com/amanyih/cookbook/blob/main/Frontend/src/assets/screenshots/5.recipe.png)
+## Recipe Detail
+![Cookbook Screenshot](https://github.com/amanyih/cookbook/blob/main/Frontend/src/assets/screenshots/6.recipe-detail.png)
+![Cookbook Screenshot](https://github.com/amanyih/cookbook/blob/main/Frontend/src/assets/screenshots/7.comment.png)
+## Create New Recipe
+![Cookbook Screenshot](https://github.com/amanyih/cookbook/blob/main/Frontend/src/assets/screenshots/18.recipe-create.png)
+### Dark 🌘
+![Cookbook Screenshot](https://github.com/amanyih/cookbook/blob/main/Frontend/src/assets/screenshots/12.recipe-dark.png)
+## Rating
+![Cookbook Screenshot](https://github.com/amanyih/cookbook/blob/main/Frontend/src/assets/screenshots/8.rate.png)
+## Search
+![Cookbook Screenshot](https://github.com/amanyih/cookbook/blob/main/Frontend/src/assets/screenshots/9.search.png)
+![Cookbook Screenshot](https://github.com/amanyih/cookbook/blob/main/Frontend/src/assets/screenshots/10.search-2.png)
+## Contact
+![Cookbook Screenshot](https://github.com/amanyih/cookbook/blob/main/Frontend/src/assets/screenshots/11.contact.png)
+## Profile
+## Dark
+![Cookbook Screenshot](https://github.com/amanyih/cookbook/blob/main/Frontend/src/assets/screenshots/13.profile-comment-dark.png)
+![Cookbook Screenshot](https://github.com/amanyih/cookbook/blob/main/Frontend/src/assets/screenshots/14.profile-likes-dark.png)
+![Cookbook Screenshot](https://github.com/amanyih/cookbook/blob/main/Frontend/src/assets/screenshots/15.profile-edit-dark.png)
 
-In the project directory, you can run:
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Features
 
-### `npm test`
+- **User Authentication**
+- **Recipe Management**
+- **Recipe Sharing**
+- **Recipe Search**
+- **Recipe Details**
+- **Rating**
+- **Get By Categoreis**
+- **User Profiles**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Getting Started
 
-### `npm run build`
+Follow these instructions to set up and run the Cookbook frontend locally on your machine.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Prerequisites
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Node.js and npm installed on your machine. You can download them from [https://nodejs.org/](https://nodejs.org/).
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Installation
 
-### `npm run eject`
+1. Clone this repository:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+   ```bash
+   git clone https://github.com/amanyih/cookbook.git
+   ```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+2. Navigate to the project directory:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+   ```bash
+   cd cookbook/Frontend
+   ```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+3. Install the required dependencies:
 
-## Learn More
+   ```bash
+   npm install
+   ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Configuration
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Before running the frontend, make sure to run the backend App as well.
+
+### Running the Application
+
+To start the development server and run the application locally, use the following command:
+
+```bash
+npm start
+```
+
+This will start the development server, and you can access the Cookbook frontend by opening your browser and navigating to `http://localhost:3000`.
+
+### Build for Production
+
+To build the application for production, use the following command:
+
+```bash
+npm run build
+```
+
+This will create an optimized production build in the `build` directory, ready for deployment.
+
+## Contact
+
+If you have any questions or feedback, please feel free to reach out to me at [your@email.com](mailto:amanuelyihunie27@gmail.com).
+
+Happy cooking! 🍳🍽️
