@@ -103,6 +103,6 @@ This will create an optimized production build in the `build` directory, ready f
 
 ## Contact
 
-If you have any questions or feedback, please feel free to reach out to me at [your@email.com](mailto:amanuelyihunie27@gmail.com).
+If you have any questions or feedback, please feel free to reach out to me at [Email](mailto:amanuelyihunie27@gmail.com).
 
 Happy cooking! 🍳🍽️
